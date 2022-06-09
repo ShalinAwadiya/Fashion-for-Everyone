@@ -1,0 +1,16 @@
+.search_panel{
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 1rem;
+}
+
+.search_icon{
+    margin-right: 2rem;
+}
+
+.search_panel input {
+    font-size: 1.5rem;
+    outline: none;
+    border: none;
+    width: 100%;
+  }
