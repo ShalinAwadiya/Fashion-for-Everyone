@@ -16,6 +16,9 @@ import SeachPage from './pages/search-page';
 import ComplainForm from './pages/compain/ComplainForm';
 import ComplainTable from './pages/compain/ComplainTable';
 import ReplyTable from './pages/compain/ReplyTable';
+import Info from './pages/checkout/Info';
+import CartInfo from './pages/checkout/Cart';
+import Cart from './pages/cart/Cart';
 
 function App() {
   return (
@@ -31,6 +34,13 @@ function App() {
           <Route path='/complains' element={<ComplainForm />} />
           <Route path='/view_complains' element={<ComplainTable />} />
           <Route path='/replied_complain' element={<ReplyTable />} />
+          <Route path='/checkout' element={
+            <div className="row globalstyle">
+              <Info></Info>
+              <CartInfo />
+            </div>
+          } />
+          <Route path='/cart' element={<Cart />}></Route>
         </Routes>
       </BrowserRouter>
       <Footer />

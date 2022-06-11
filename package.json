@@ -10,6 +10,8 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@mui/icons-material": "^5.8.3",
     "@mui/material": "^5.8.3",
+    "@stripe/react-stripe-js": "^1.8.1",
+    "@stripe/stripe-js": "^1.31.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
