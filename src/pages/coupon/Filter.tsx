@@ -15,7 +15,6 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
 
-import { couponsList } from '../data'
 
 export default function CheckboxesGroup() {
     const [state, setState] = React.useState({

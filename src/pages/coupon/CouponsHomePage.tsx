@@ -2,13 +2,13 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import CheckboxesGroup from "./Filter";
-import PaginationRounded from "../components/pagination/Pagination"
-import Images from "../assets";
-import Navbar from "../components/navbar/Navbar";
+import PaginationRounded from "../../components/pagination/Pagination"
+import Images from "../../assets";
 import CouponsList from "./CouponsList"
-import { couponsList } from '../data'
+import { couponsList } from '../../data'
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
+import { Image } from 'react-bootstrap';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -33,13 +33,12 @@ export default function CouponsHomePage() {
   }
 
   return (
-    <Grid container>
+    <Grid container xs={12} sx={{marginTop:'20px'}}>
 
-
-      {/* Display Image */}
-      <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-        <img src={Images.couponMain} className="center" width="100%" height="100%" />
-      </Grid>
+      {/* Display Image
+      <Grid xs={12}>
+        <Image src={Images.couponMain} className="center" width="100%" height="100%" />
+      </Grid> */}
 
       {/* Filters */}
       <Grid item xs={2} md={2.5} sx={{ display: { xs: 'none', md: 'flex' }, pl: 5 }}>

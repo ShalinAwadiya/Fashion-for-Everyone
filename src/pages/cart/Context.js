@@ -112,21 +112,15 @@ const Context = () => {
               <Grid item mt={2}>
                 <DeleteIcon onClick={() => removeItem(curItem.id)} fontSize="small" />
               </Grid>
-
-
               <Divider />
-
-
             </Grid>
           )
         })}
       </Grid>
       <Grid container sx={{ mr: 5 }} xs={10} sm={5} md={5} lg={5}
         direction="row">
-
         <Card className={classes.root} elevation={8} sx={{ mb: 3 }}>
           <Typography variant="div" component="h3" ml={1}>
-
             Apply Coupon
           </Typography>
           <TextField
@@ -141,10 +135,9 @@ const Context = () => {
             onChange={handleChange}
           />
           <Button variant="contained" sx={{ mb: 2, ml: 1 }} size="small" color="primary" disabled={!formValid} onClick={handleSubmit}>APPLY</Button>
-
         </Card>
-        <Card className={classes.root} elevation={8}>
 
+        <Card className={classes.root} elevation={8}>
           <CardContent>
             <Typography
               className={classes.title}

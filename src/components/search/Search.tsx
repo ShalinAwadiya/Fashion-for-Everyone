@@ -9,7 +9,7 @@ const Search = (props: any) => {
             component="form"
             sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}>
             <InputBase
-                sx={{ flexGrow: 10, display: { xs: 'none', md: 'flex' }, mr: 1 }}
+                sx={{ flexGrow: 10, display: { xs: 'none', md: 'flex' }, mr: 1, padding:'10px' }}
                 placeholder={props.placeholder}
                 inputProps={{ 'aria-label': 'search google maps' }}
             />

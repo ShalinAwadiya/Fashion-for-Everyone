@@ -3,8 +3,8 @@ import "./ComplainForm.css";
 
 const ComplainForm = () => {
   return (
-    <div className="form-center">
-      <label className="label1 heading">Post Complain</label>
+    <div className="form-center mt-5 mx-auto rounded w-75">
+      <h2 className="text-center">Post Complain</h2>
       <form action="/viewComplain">
         <table>
           <tr>
@@ -17,7 +17,7 @@ const ComplainForm = () => {
             </td>
             <td>
               <input
-                className="input1"
+                className="form-control mt-3"
                 type="text"
                 id="fname"
                 name="fname"
@@ -40,7 +40,7 @@ const ComplainForm = () => {
               <textarea
                 name="textarea"
                 id="textarea"
-                className="input2"
+                className="form-control"
                 style={{ "font-style": "italic" }}
                 required
                 placeholder="Enter Complain Description"
@@ -60,7 +60,7 @@ const ComplainForm = () => {
               <br />
             </td>
             <td>
-              <input type="file" id="file" name="file" />
+              <input type="file" className="form-control mt-3" id="file" name="file" />
               <br />
               <br />
               <br />
@@ -71,7 +71,7 @@ const ComplainForm = () => {
             <td>
               <button
                 type="submit"
-                className="fonts"
+                className="btn btn-primary"
                 style={{
                   "background-color": "rgb(95, 148, 241)",
                   color: "white",
@@ -81,7 +81,7 @@ const ComplainForm = () => {
                 Submit
               </button>
               &nbsp;
-              <button type="cancel" className="fonts" value="Cancel">
+              <button type="cancel" className="btn btn-secondary" value="Cancel">
                 Cancel
               </button>
             </td>
