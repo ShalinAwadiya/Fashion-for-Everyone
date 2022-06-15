@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable object-curly-newline */
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-one-expression-per-line */
@@ -5,22 +6,13 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Box, Link, Avatar } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import ToolBar from '@material-ui/core/Toolbar';
 
 import './styles.css';
 
 import SearchBar from '../../components/SearchBar';
 import ListView from '../../components/ListView';
 import FilterPanel from '../../components/FilterPanel';
-import { data } from '../../data/data'
-
-const links = [
-  { name: 'Cart', href: '/' },
-  { name: 'Profile', href: '/' },
-];
+import { data } from '../../data/data';
 
 export default function SeachPage() {
   const [brand, setBrand] = useState(null);
@@ -78,7 +70,6 @@ export default function SeachPage() {
 
   return (
     <div className="page">
-      {/* <Header /> */}
       <SearchBar value={inputText} changeValue={handleSearch} />
 
       <div className="main">
@@ -100,7 +91,6 @@ export default function SeachPage() {
           )}
         </div>
       </div>
-
     </div>
   );
 }
