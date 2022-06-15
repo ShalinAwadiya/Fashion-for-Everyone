@@ -140,7 +140,7 @@ export default function ComplainTable() {
                 <TableCell>
                   {complain.complainStatus !== "Pending" ? (
                     <a
-                      href="/viewComplainReply"
+                      href="/replied_complain"
                       style={{ textDecoration: "none" }}
                     >
                       View
