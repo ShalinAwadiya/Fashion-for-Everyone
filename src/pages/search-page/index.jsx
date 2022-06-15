@@ -66,7 +66,7 @@ export default function SeachPage() {
 
   useEffect(() => {
     findResults();
-  }, [review, brand, inputText, price, findResults]);
+  }, [review, brand, inputText, price]);
 
   return (
     <div className="page">
