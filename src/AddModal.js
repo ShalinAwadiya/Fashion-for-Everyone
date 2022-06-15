@@ -2,7 +2,7 @@
 import React from 'react';
 import { Modal, Button, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import TextField from '@mui/material/TextField';
-
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class AddModal extends React.Component{
@@ -56,7 +56,8 @@ class AddModal extends React.Component{
     render(){
         return(
             <span>
-                <Button size="sm" color="primary" onClick={this.toggle}>Add Product</Button>
+                {/*<Button size="sm" color="primary" onClick={this.toggle}>Add Product</Button>*/}
+                <AddCircleTwoToneIcon  onClick={this.toggle}></AddCircleTwoToneIcon >
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>Add Product</ModalHeader>  
                     <ModalBody>

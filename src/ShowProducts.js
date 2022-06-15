@@ -1,7 +1,11 @@
 import { Component } from 'react';
-import {CardColumns, Card, CardBody, CardTitle} from 'reactstrap';
+import {Card, CardBody, CardTitle, CardFooter} from 'reactstrap';
 import DeleteModal from './DeleteModal';
 import AddModal from './AddModal.js'
+import EditModal from './EditModal.js'
+
+import {Link} from 'react-router-dom'
+import Header from './Header';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -29,12 +33,11 @@ export default class ShowProducts extends Component{
     
     render = () =>{
         return(
-            <div>
+
+            <div className="App">
+                <Header></Header>
                 <span style={{textAlign: "center"}}>
-                    <h1>Products</h1>
-                    <div >
-                        <AddModal></AddModal>
-                    </div>
+                    <h1>Products <AddModal></AddModal></h1>
                     <br></br>
                 </span>
 
@@ -42,17 +45,20 @@ export default class ShowProducts extends Component{
                 {this.state.products && this.state.products.map((product) =>
                     <Col md="4">
                         <Card>
-                            <CardBody>
-                                <CardTitle><b>{product.name}</b></CardTitle>
-                                
-                                <img class="img-thumbnail" src={product.imagesrc} />
-                                <p>Some quick example text to build on the card title
-                                    and make up the bulk of the card's content.</p>
-                                    
-                                <p>Price: {product.price}$</p>
-                                
+                                <CardBody>
+                                    <Link to={{pathname:`/product/`, state: {product} }} >
+                                        <CardTitle><b>{product.name}</b></CardTitle>
+
+                                        <img class="img-thumbnail" src={product.imagesrc} />
+                                    </Link>
+                                        <p>Some quick example text to build on the card title
+                                            and make up the bulk of the card's content.</p>
+                                        <p>Price: {product.price}$</p>
+                                </CardBody>
+                            <CardFooter className="text-muted">
                                 <DeleteModal productName={product.name}></DeleteModal>
-                            </CardBody>
+                                <EditModal product_data={product}/>
+                            </CardFooter>
                         </Card>
                     </Col>
                 )
