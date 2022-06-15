@@ -64,14 +64,14 @@ const NavBar = () => {
 
           {/* Pages section (MEN, WOMEN) */}
           <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
-            <a href='/coupons'>
+            <Link to='/coupons'>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 Coupons
               </Button>
-            </a>
+            </Link>
           </Box>
 
           {/* Responsive NavBar */}
@@ -140,18 +140,22 @@ const NavBar = () => {
           </Box>
 
           {/* Profile */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button>
-              <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-            </Button>
-          </Box>
+          <Link to="/profile">
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Button>
+                <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+              </Button>
+            </Box>
+          </Link>
 
           {/* Cart */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button>
-              <ShoppingCartIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-            </Button>
-          </Box>
+          <Link to="/cart">
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Button>
+                <ShoppingCartIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+              </Button>
+            </Box>
+          </Link>
 
           {/* Responsive Profile, Wishlist, Cart */}
           <Box sx={{ display: { xs: 'flex', md: 'none', ml: 10 } }}>
@@ -187,16 +191,23 @@ const NavBar = () => {
                   <FavoriteIcon sx={{ color: "black" }} />
                 </Button>
               </MenuItem>
-              <MenuItem>
-                <Button>
-                  <PersonIcon sx={{ color: "black" }} />
-                </Button>
-              </MenuItem>
-              <MenuItem>
-                <Button>
-                  <ShoppingCartIcon sx={{ color: "black" }} />
-                </Button>
-              </MenuItem>
+
+              <Link to="/profile">
+                <MenuItem>
+                  <Button>
+                    <PersonIcon sx={{ color: "black" }} />
+                  </Button>
+                </MenuItem>
+              </Link>
+
+              <Link to="/cart">
+                <MenuItem>
+                  <Button>
+                    <ShoppingCartIcon sx={{ color: "black" }} />
+                  </Button>
+                </MenuItem>
+              </Link>
+
             </Menu>
           </Box>
         </Toolbar>

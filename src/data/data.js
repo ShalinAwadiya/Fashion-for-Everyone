@@ -1,3 +1,5 @@
+import nike1 from '../assets/images/nike1.png'
+
 /* eslint-disable import/prefer-default-export */
 export const data = [
   {
@@ -6,7 +8,7 @@ export const data = [
     brand: 'nike',
     price: 300,
     review: 4,
-    link: '../src/assets/images/nike1.png',
+    link: nike1,
   },
   {
     id: 2,
@@ -14,7 +16,7 @@ export const data = [
     brand: 'adidas',
     price: 30,
     review: 5,
-    link: '/pics/ad1.png',
+    link: nike1,
   },
   {
     id: 3,
@@ -22,7 +24,7 @@ export const data = [
     brand: 'under-armour',
     price: 55,
     review: 4,
-    link: '/pics/ua1.png',
+    link: nike1,
   },
   {
     id: 4,
@@ -30,7 +32,7 @@ export const data = [
     brand: 'nike',
     price: 200,
     review: 1,
-    link: '/pics/nike2.png',
+    link: nike1,
   },
   {
     id: 5,
@@ -38,7 +40,7 @@ export const data = [
     brand: 'adidas',
     price: 35,
     review: 5,
-    link: '/pics/adidas2.png',
+    link: nike1,
   },
   {
     id: 6,
@@ -46,7 +48,7 @@ export const data = [
     brand: 'under-armour',
     price: 35,
     review: 3,
-    link: '/pics/ua2.png',
+    link: nike1,
   },
   {
     id: 7,
@@ -54,6 +56,6 @@ export const data = [
     brand: 'fila',
     price: 300,
     review: 3,
-    link: '/pics/fl.png',
+    link: nike1,
   },
 ];

@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.css'
 
 export default function CartInfo(props) {
 	const itemsPrice1 = 10
@@ -11,38 +10,37 @@ export default function CartInfo(props) {
 	const totalPrice = itemsPrice + taxPrice + shippingPrice;
 
 	return (
-		<aside className="block col-1">
+		<aside className="col-md-4 mt-5">
 			<h2>Cart Total</h2>
-			<img className="center" src="./Fashion.png"></img>
+			{/* <img className="center" src="./Fashion.png"></img> */}
 			<h3>Order Summary</h3>
 			<hr></hr>
 			<div className="row">
-				<div className="col-2">Item 1</div>
-				<div className="col-1">${itemsPrice1.toFixed(2)}</div>
+				<div className="col-md-6">Item 1</div>
+				<div className="col-md-6">${itemsPrice1.toFixed(2)}</div>
 			</div>
 			<div className="row">
-				<div className="col-2">Item 2</div>
-				<div className="col-1">${itemsPrice2.toFixed(2)}</div>
+				<div className="col-md-6">Item 2</div>
+				<div className="col-md-6">${itemsPrice2.toFixed(2)}</div>
 			</div>
 			<div className="row">
-				<div className="col-2">Item 3</div>
-				<div className="col-1">${itemsPrice3.toFixed(2)}</div>
+				<div className="col-md-6">Item 3</div>
+				<div className="col-md-6">${itemsPrice3.toFixed(2)}</div>
 			</div>
 			<hr></hr>
 			<div className="row">
-				<div className="col-2">Tax Price</div>
-				<div className="col-1">${taxPrice.toFixed(2)}</div>
+				<div className="col-md-6">Tax Price</div>
+				<div className="col-md-6">${taxPrice.toFixed(2)}</div>
 			</div>
 			<div className="row">
-				<div className="col-2">Shipping Price</div>
-				<div className="col-1">${shippingPrice.toFixed(2)}</div>
+				<div className="col-md-6">Shipping Price</div>
+				<div className="col-md-6">${shippingPrice.toFixed(2)}</div>
 			</div>
 			<hr></hr>
 			<div className="row">
-				<div className="col-2"><strong>Total Price</strong></div>
-				<div className="col-1">${totalPrice.toFixed(2)}</div>
+				<div className="col-md-6"><strong>Total Price</strong></div>
+				<div className="col-md-6">${totalPrice.toFixed(2)}</div>
 			</div>
-
 		</aside>
 	)
 }

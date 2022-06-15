@@ -100,9 +100,7 @@ export default function SeachPage() {
           )}
         </div>
       </div>
-      {/* <div className="footer">
-        <Footer />
-      </div> */}
+
     </div>
   );
 }

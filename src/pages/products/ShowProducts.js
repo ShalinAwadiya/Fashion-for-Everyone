@@ -14,7 +14,7 @@ export default class ShowProducts extends Component{
     constructor(props) {
         super(props);
         console.log(props);
-    
+
         this.state={
             products : [{name:'shirt', description:'my product', price:'70', imagesrc:"/images/items/1.jpg"},
             {name:'jacket', description:'my product', price:'100', imagesrc:"/images/items/2.jpg"},
@@ -26,7 +26,7 @@ export default class ShowProducts extends Component{
             {name:'Headphone', description:'my product', price:'40', imagesrc:"/images/items/9.jpg"}]
         };
     }
-    
+
     render = () =>{
         return(
             <div>
@@ -44,13 +44,13 @@ export default class ShowProducts extends Component{
                         <Card>
                             <CardBody>
                                 <CardTitle><b>{product.name}</b></CardTitle>
-                                
+
                                 <img class="img-thumbnail" src={product.imagesrc} />
                                 <p>Some quick example text to build on the card title
                                     and make up the bulk of the card's content.</p>
-                                    
+
                                 <p>Price: {product.price}$</p>
-                                
+
                                 <DeleteModal productName={product.name}></DeleteModal>
                             </CardBody>
                         </Card>

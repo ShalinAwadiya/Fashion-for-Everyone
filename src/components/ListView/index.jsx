@@ -10,18 +10,18 @@ function ItemView({ item: { name, brand, price, review, link } }) {
   return (
     <div className="grid-item">
       <img src={link} alt="" />
-      <header>
+      <div>
         <h4>{name}</h4>
         <span>🌟{review}</span>
-      </header>
-      <footer>
+      </div>
+      {/* <footer>
         <p>
           <b>{brand}</b>
         </p>
         <p>
           <b>${price}</b>
         </p>
-      </footer>
+      </footer> */}
     </div>
   );
 }

@@ -1,10 +1,14 @@
+import DressOne from '../../assets/images/dress1.png'
+import DressTwo from '../../assets/images/dress2.png'
+import DressThree from '../../assets/images/dress3.png'
+
 export const products = [
   {
     id: 1,
     title: "Louis Vuitton Mini Dress",
     size: "M",
     price: "700",
-    img: "./dress1.png",
+    img: DressOne,
     quantity: 1,
   },
   {
@@ -12,7 +16,7 @@ export const products = [
     title: "Blue Party Dress",
     size: "M",
     price: "50",
-    img: "./dress2.png",
+    img: DressTwo,
     quantity: 1,
   },
   {
@@ -20,7 +24,7 @@ export const products = [
     title: "Polka Dot Frock",
     size: "M",
     price: "300",
-    img: "./dress3.png",
+    img: DressThree,
     quantity: 1,
   },
 
