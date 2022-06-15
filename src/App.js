@@ -12,6 +12,7 @@ import Footer from "./components/footer";
 import CouponsHomePage from "./pages/coupon/CouponsHomePage";
 import SeachPage from "./pages/search-page";
 import ComplainForm from "./pages/compain/ComplainForm";
+import EditComplainForm from "./pages/compain/EditComplainForm";
 import ComplainTable from "./pages/compain/ComplainTable";
 import ReplyTable from "./pages/compain/ReplyTable";
 import Cart from "./pages/cart/Cart";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/search" element={<SeachPage />} />
             <Route path="/post_complain" element={<ComplainForm />} />
             <Route path="/view_complain" element={<ComplainTable />} />
+            <Route path="/edit_complain" element={<EditComplainForm />} />
             <Route path="/replied_complain" element={<ReplyTable />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/cart" element={<Cart />}></Route>
