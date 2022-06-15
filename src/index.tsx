@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import ShowProducts from './ShowProducts';
-import ProductPage from './ProductPage'
-import ShowReviews from './ShowReviews';
+import ShowProducts from './pages/products/ShowProducts';
+import ProductPage from './pages/products/ProductPage'
+import ShowReviews from './pages/reviews/ShowReviews';
 
 import {
     BrowserRouter as Router,

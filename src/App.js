@@ -20,6 +20,8 @@ import ReplyTable from './pages/compain/ReplyTable';
 import Cart from './pages/cart/Cart';
 import Checkout from './pages/checkout/checkout';
 import Profile from './pages/profile';
+import ProductPage from "./pages/products/ProductPage";
+import ShowReviews from "./pages/reviews/ShowReviews";
 
 function App() {
   return (
@@ -38,7 +40,9 @@ function App() {
             <Route path='/replied_complain' element={<ReplyTable />} />
             <Route path='/checkout' element={<Checkout />} />
             <Route path='/cart' element={<Cart />}></Route>
-            <Route path='/products' element={<ShowProducts />}></Route>
+            <Route path='/show_products' element={<ShowProducts />}></Route>
+            <Route path="/product" element={<ProductPage />} />
+            <Route path="/product/review" element={<ShowReviews />} />
             <Route path="/profile" element={<Profile />}></Route>
           </Routes>
         </div>

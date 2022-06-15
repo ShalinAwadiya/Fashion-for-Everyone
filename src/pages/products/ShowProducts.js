@@ -35,7 +35,6 @@ export default class ShowProducts extends Component{
         return(
 
             <div className="App">
-                <Header></Header>
                 <span style={{textAlign: "center"}}>
                     <h1>Products <AddModal></AddModal></h1>
                     <br></br>

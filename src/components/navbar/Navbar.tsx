@@ -74,6 +74,17 @@ const NavBar = () => {
             </Link>
           </Box>
 
+          <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
+            <Link to='/show_products'>
+              <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                Products
+              </Button>
+            </Link>
+          </Box>
+
           {/* Responsive NavBar */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
             <IconButton
