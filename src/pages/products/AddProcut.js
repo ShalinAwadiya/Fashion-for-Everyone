@@ -82,7 +82,7 @@ export default function addProduct() {
 
               <Grid item xs={12}>
                 <label for="img">Select Product Image:</label>
-                <input type="file" id="img" name="img" accept="image/*"/> 
+                <input type="file" id="img" name="img" accept="image/*" />
               </Grid>
             </Grid>
             <Button

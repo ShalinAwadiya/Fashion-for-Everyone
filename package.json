@@ -1,5 +1,5 @@
 {
-  "name": "tutorial3",
+  "name": "assignment1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,9 +21,7 @@
     "dialog": "^0.3.1",
     "primeicons": "^5.0.0",
     "primereact": "^8.1.1",
-    "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
-    "react-dom": "^18.1.0",
     "react-final-form": "^6.5.9",
     "react-hook-form": "^7.31.3",
     "react-icons": "^4.4.0",

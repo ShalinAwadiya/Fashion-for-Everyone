@@ -1,0 +1,30 @@
+
+  .sidebar,
+  .main_list
+   {
+    overflow-y: auto;
+  }
+
+  @media only screen and (min-width: 600px) {
+    .main {
+      display: flex;
+      min-height: 600px;
+
+    }
+  }
+
+  .sidebar {
+    flex:0 0 310px;
+    overflow-x: hidden;
+    padding: 1rem;
+  }
+  .main_list {
+    flex: 1;
+    padding: 1rem;
+  }
+
+  .footer{
+    position:static;
+    bottom:0;
+    width:100%;
+  }

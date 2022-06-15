@@ -1,18 +1,52 @@
-import React from 'react';
-import AddProduct from './AddProcut'
-import './App.css'
-import './Header'
-import ShowProducts from './ShowProducts';
-import Commerce from './Commerce'; 
-import Header from './Header';
+import './App.scss';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import ShowProducts from './pages/products/ShowProducts';
+
+import SignUp from './pages/signup';
+import Header from './components/header';
+import Login from './pages/login';
+import ForgetPassword from './pages/forget-password';
+import Footer from './components/footer';
+import CouponsHomePage from './pages/coupon/CouponsHomePage';
+import SeachPage from './pages/search-page';
+import ComplainForm from './pages/compain/ComplainForm';
+import ComplainTable from './pages/compain/ComplainTable';
+import ReplyTable from './pages/compain/ReplyTable';
+import Cart from './pages/cart/Cart';
+import Checkout from './pages/checkout/checkout';
+import Profile from './pages/profile';
 
 function App() {
   return (
-    <div>
-      <Header></Header>
-      <ShowProducts></ShowProducts>
+    <div className="App">
+      <BrowserRouter>
+        <Header />
+        <div className='container'>
+          <Routes>
+            <Route path="/" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/coupons" element={<CouponsHomePage />} />
+            <Route path='/forget-password' element={<ForgetPassword />} />
+            <Route path='/search' element={<SeachPage />} />
+            <Route path='/complains' element={<ComplainForm />} />
+            <Route path='/view_complains' element={<ComplainTable />} />
+            <Route path='/replied_complain' element={<ReplyTable />} />
+            <Route path='/checkout' element={<Checkout />} />
+            <Route path='/cart' element={<Cart />}></Route>
+            <Route path='/products' element={<ShowProducts />}></Route>
+            <Route path="/profile" element={<Profile />}></Route>
+          </Routes>
+        </div>
+      </BrowserRouter>
+      <Footer />
     </div>
   );
 }
+
 
 export default App;
