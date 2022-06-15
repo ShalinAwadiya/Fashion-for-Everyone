@@ -41,7 +41,7 @@ export default function CouponsHomePage() {
 
       {/* Display Image */}
       <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-        <img src={Images.couponMain} className="center" width="100%" height="100%" />
+        <img src={Images.couponMain} className="center" width="100%" height="100%"/>
       </Grid>
 
       {/* Filters */}

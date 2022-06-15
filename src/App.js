@@ -1,9 +1,9 @@
-import CouponsHomePage from "./pages/CouponsHomePage";
+import AppRoutes from "./routes";
 
 function App() {
   return (
     <div>
-      <CouponsHomePage/>
+      <AppRoutes />
     </div>
   );
 }

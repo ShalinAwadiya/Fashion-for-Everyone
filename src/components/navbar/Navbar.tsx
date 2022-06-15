@@ -14,7 +14,23 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight } from '@mui/icons-material';
 
-const pages = ['Men', 'Women', 'Kids', 'Coupons', 'Fashion', 'Trends'];
+const pages = [
+  {
+    title: 'Home',
+    route: 'home'
+  },
+  {
+    title: 'Coupons',
+    route: 'coupons'
+  },
+  {
+    title: 'Fashion Blogs',
+    route: 'fashion-blogs'
+  },
+  {
+    title: 'Trends',
+    route: 'trends'
+  }];
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>();
@@ -65,17 +81,18 @@ const NavBar = () => {
           <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.title}
+                component="a"
+                href={'/' + page.route}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
-                {page}
+                {page.title}
               </Button>
             ))}
           </Box>
 
           {/* Responsive NavBar */}
-          <Box sx={{display: { xs: 'flex', md: 'none' }, flexGrow: 1}}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
             <IconButton
               size="large"
               aria-haspopup="true"
@@ -102,14 +119,21 @@ const NavBar = () => {
                 display: { xs: 'flex', md: 'none' },
               }}>
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <Typography
+                    textAlign="center"
+                    component='a'
+                    href={'/' + page.route}
+                    sx={{ textDecoration: 'none' }}
+                  >
+                    {page.title}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
-          <ShopIcon sx={{ display: { xs: 'flex', md: 'none', fontSize: 'large' }, mr:1, ml: 5 }} />
+          <ShopIcon sx={{ display: { xs: 'flex', md: 'none', fontSize: 'large' }, mr: 1, ml: 5 }} />
 
           <Typography
             variant="h6"
@@ -118,7 +142,7 @@ const NavBar = () => {
             sx={{
               mr: 2,
               flexGrow: 1,
-              display: { xs: 'flex', md: 'none'},
+              display: { xs: 'flex', md: 'none' },
               fontFamily: 'monospace',
               fontWeight: 600,
               letterSpacing: '.3rem',
@@ -128,7 +152,7 @@ const NavBar = () => {
           >SHOP</Typography>
 
           {/* Search Bar */}
-          <Box sx={{ display: { xs: 'flex', md: 'flex'} }}>
+          <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
             <Search placeholder="Search for Products" />
           </Box>
 
@@ -154,7 +178,7 @@ const NavBar = () => {
           </Box>
 
           {/* Responsive Profile, Wishlist, Cart */}
-          <Box sx={{display: { xs: 'flex', md: 'none', ml: 10 } }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none', ml: 10 } }}>
             <IconButton
               size="large"
               aria-haspopup="true"
@@ -184,17 +208,17 @@ const NavBar = () => {
 
               <MenuItem>
                 <Button>
-                  <FavoriteIcon sx = {{color: "black"}} />
+                  <FavoriteIcon sx={{ color: "black" }} />
                 </Button>
               </MenuItem>
               <MenuItem>
                 <Button>
-                  <PersonIcon sx = {{color: "black"}}/>
+                  <PersonIcon sx={{ color: "black" }} />
                 </Button>
               </MenuItem>
               <MenuItem>
                 <Button>
-                  <ShoppingCartIcon sx = {{color: "black"}}/>
+                  <ShoppingCartIcon sx={{ color: "black" }} />
                 </Button>
               </MenuItem>
             </Menu>

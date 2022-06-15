@@ -1,0 +1,26 @@
+.img-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  border: 1px solid grey;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 5px;
+}
+
+.img-container {
+  position: relative;
+  width: 200px;
+  margin: 10px;
+  border: 0.5px solid grey;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}

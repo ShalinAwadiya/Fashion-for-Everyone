@@ -28,4 +28,5 @@ export default {
 
     //Google Search
     couponMain: require('../assets/images/CouponMain.jpg'),
+
 }
