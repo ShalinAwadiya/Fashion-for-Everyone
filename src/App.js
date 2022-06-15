@@ -34,7 +34,7 @@ function App() {
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/search" element={<SeachPage />} />
             <Route path="/post_complain" element={<ComplainForm />} />
-            <Route path="/view_complains" element={<ComplainTable />} />
+            <Route path="/view_complain" element={<ComplainTable />} />
             <Route path="/replied_complain" element={<ReplyTable />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/cart" element={<Cart />}></Route>

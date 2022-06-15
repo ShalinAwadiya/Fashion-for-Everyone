@@ -54,7 +54,7 @@ export default function ComplainForm() {
   };
 
   const viewComplainHandler = (event) => {
-    navigate("/viewComplain");
+    navigate("/view_complain");
   };
 
   return (
