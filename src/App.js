@@ -1,12 +1,9 @@
 import './App.scss';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import ShowProducts from './pages/products/ShowProducts';
 
+import Home from './pages/home/Home';
 import SignUp from './pages/signup';
 import Header from './components/header';
 import Login from './pages/login';
@@ -26,19 +23,20 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-        <div className='container'>
+        <div className="container">
           <Routes>
-            <Route path="/" element={<SignUp />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/coupons" element={<CouponsHomePage />} />
-            <Route path='/forget-password' element={<ForgetPassword />} />
-            <Route path='/search' element={<SeachPage />} />
-            <Route path='/complains' element={<ComplainForm />} />
-            <Route path='/view_complains' element={<ComplainTable />} />
-            <Route path='/replied_complain' element={<ReplyTable />} />
-            <Route path='/checkout' element={<Checkout />} />
-            <Route path='/cart' element={<Cart />}></Route>
-            <Route path='/products' element={<ShowProducts />}></Route>
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/search" element={<SeachPage />} />
+            <Route path="/complains" element={<ComplainForm />} />
+            <Route path="/view_complains" element={<ComplainTable />} />
+            <Route path="/replied_complain" element={<ReplyTable />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/cart" element={<Cart />}></Route>
+            <Route path="/products" element={<ShowProducts />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
           </Routes>
         </div>
@@ -47,6 +45,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

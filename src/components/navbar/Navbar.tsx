@@ -62,7 +62,7 @@ const NavBar = () => {
             }}
           >SHOP</Typography>
 
-          {/* Pages section (MEN, WOMEN) */}
+          {/* Pages section Coupons */}
           <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
             <Link to='/coupons'>
               <Button
@@ -147,6 +147,18 @@ const NavBar = () => {
               </Button>
             </Box>
           </Link>
+
+          {/* Pages section Sign in */}
+          <Box sx={{ display: { xs: 'none', md: 'flex'} }}>
+            <Link to='/signup'>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                Sign Up
+              </Button>
+            </Link>
+          </Box>
 
           {/* Cart */}
           <Link to="/cart">

@@ -22,9 +22,3 @@
     flex: 1;
     padding: 1rem;
   }
-
-  .footer{
-    position:static;
-    bottom:0;
-    width:100%;
-  }
