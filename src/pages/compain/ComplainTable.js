@@ -122,7 +122,7 @@ export default function ComplainTable() {
                 </TableCell>
                 <TableCell>
                   <Typography
-                    className={classes.status}
+                    className={classes.status + " rounded"}
                     style={{
                       backgroundColor:
                         (complain.complainStatus === "Pending" && "green") ||
@@ -147,14 +147,14 @@ export default function ComplainTable() {
                 <TableCell>
                   <Grid container>
                     <Grid item sm={5}>
-                      <button style={{ width: "60px" }} type="button">
+                      <button type="button" className="btn btn-primary">
                         Edit
                       </button>
                     </Grid>
                     &nbsp;&nbsp;
                     <Grid item sm={2}>
                       <button
-                        style={{ width: "60px" }}
+                        className="btn btn-secondary"
                         type="button"
                         onClick={() => handleDeleteClick(complain.complainId)}
                       >

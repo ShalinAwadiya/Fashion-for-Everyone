@@ -132,7 +132,7 @@ const NavBar = () => {
                 Subscribe Us
               </Button>
           </Box>
-          
+
 
           {/* Responsive NavBar */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
@@ -200,11 +200,13 @@ const NavBar = () => {
           </Box>
 
           {/* Wishlist */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button>
-              <FavoriteIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-            </Button>
-          </Box>
+          <Link to='/wishlist'>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Button>
+                <FavoriteIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+              </Button>
+            </Box>
+          </Link>
 
            {/* Subscribe Us */}
            <Modal
@@ -226,7 +228,7 @@ const NavBar = () => {
                         <img src="Subscription.png" height ="280" width="250" />
                         <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
                         <TextField variant="outlined" size="small" fullWidth onChange={onTextChange} value={textValue} label={"Enter your Email ID"} />
-                        <br /> <br /> 
+                        <br /> <br />
                         <Button variant="contained" size="large" fullWidth onClick={handleSubmit}>Subscribe</Button>
                         </p>
                     </div>

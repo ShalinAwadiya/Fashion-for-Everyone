@@ -8,13 +8,17 @@ function Profile(props) {
 
         <div className="form-group">
           <label className="mt-2">Name</label>
-          <input className="form-control" type={"text"} placeholder="name"></input>
+          <input value={"Andrew Shah"} className="form-control" type={"text"} placeholder="name"></input>
+
           <label className="mt-2">Email</label>
-          <input className="form-control" type={"email"} placeholder="email"></input>
+          <input v className="form-control" type={"email"} placeholder="email"></input>
+
           <label className="mt-2">Phone</label>
-          <input className="form-control" type={"text"} placeholder="phone"></input>
+          <input value={"9029845400"} className="form-control" type={"text"} placeholder="phone"></input>
+
           <label className="mt-2">Password</label>
-          <input className="form-control" type={"password"} placeholder="password"></input>
+          <input value="password" className="form-control" type={"password"} placeholder="password"></input>
+
           <div className="mx-auto col-md-6 mt-3">
           <button className="btn btn-primary w-100 mx-auto"> Update</button>
           </div>

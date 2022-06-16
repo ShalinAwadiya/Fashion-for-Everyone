@@ -18,7 +18,7 @@ import ReplyTable from "./pages/compain/ReplyTable";
 import ReplyComplain from "./pages/compain/ReplyComplain";
 import AllComplainTable from "./pages/compain/AllComplainTable";
 import Cart from "./pages/cart/Cart";
-import Checkout from "./pages/checkout/checkout";
+import Checkout from "./pages/checkout/Checkout";
 import Profile from "./pages/profile";
 import ProductPage from "./pages/products/ProductPage";
 import ShowReviews from "./pages/reviews/ShowReviews";
