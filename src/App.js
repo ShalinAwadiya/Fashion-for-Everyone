@@ -19,6 +19,9 @@ import Checkout from './pages/checkout/checkout';
 import Profile from './pages/profile';
 import ProductPage from "./pages/products/ProductPage";
 import ShowReviews from "./pages/reviews/ShowReviews";
+import Fashion from "./components/blogging/fashion-blogging"
+import CreateBlog from "./components/blogging/create-blog/createBlog";
+import PostBlog from "./components/blogging/post-blog/postBlog"
 
 function App() {
   return (
@@ -42,6 +45,9 @@ function App() {
             <Route path="/product" element={<ProductPage />} />
             <Route path="/product/review" element={<ShowReviews />} />
             <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/fashion-blogs" element={<Fashion />} />
+            <Route path="/fashion/createPost" element={<CreateBlog />} />
+            <Route path="/fashion-blogs/post" element={<PostBlog />} />
           </Routes>
         </div>
       </BrowserRouter>

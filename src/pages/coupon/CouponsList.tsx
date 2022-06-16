@@ -4,6 +4,7 @@ import React from 'react';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Cancel } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const CouponsList = (props: any) => {
     const [open, setOpen] = React.useState(false);
@@ -12,6 +13,7 @@ const CouponsList = (props: any) => {
 
     const item = props.data;
 
+    const navigate = useNavigate();
     console.log(props.data)
 
     const style = {
@@ -49,7 +51,7 @@ const CouponsList = (props: any) => {
                         <Button >
                             <BookmarkAddIcon />
                         </Button>
-                        <Button>
+                        <Button onClick={handleClose}>
                             <Cancel/>
                         </Button>
                         <Button>

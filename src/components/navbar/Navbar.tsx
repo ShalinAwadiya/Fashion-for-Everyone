@@ -15,7 +15,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
-const pages = ['Coupons', 'Blog', 'Trends'];
+// const pages = ['Coupons', 'Blog', 'Trends'];
+
+const pages = [
+  {
+    title: 'Coupons',
+    route: 'coupons'
+  },
+  {
+    title: 'Fashion Blogs',
+    route: 'fashion-blogs'
+  },
+  {
+    title: 'Products',
+    route: 'show_products'
+  }];
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>();
@@ -64,25 +78,16 @@ const NavBar = () => {
 
           {/* Pages section Coupons */}
           <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
-            <Link to='/coupons'>
+            {pages.map((page) => (
               <Button
-                onClick={handleCloseNavMenu}
+                key={page.title}
+                component="a"
+                href={'/' + page.route}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
-                Coupons
+                {page.title}
               </Button>
-            </Link>
-          </Box>
-
-          <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
-            <Link to='/show_products'>
-              <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                Products
-              </Button>
-            </Link>
+            ))}
           </Box>
 
           {/* Responsive NavBar */}
@@ -113,8 +118,15 @@ const NavBar = () => {
                 display: { xs: 'flex', md: 'none' },
               }}>
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <Typography
+                    textAlign="center"
+                    component='a'
+                    href={'/' + page.route}
+                    sx={{ textDecoration: 'none' }}
+                  >
+                    {page.title}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

@@ -69,13 +69,13 @@ function Slides(props) {
       image: KidImage,
     },
     {
-      name: 'MAN',
-      description: 'MAN CLOTHS COLLECTION',
+      name: 'MEN',
+      description: 'MEN CLOTHS COLLECTION',
       image: ManImage,
     },
     {
-      name: 'WOMAN',
-      description: 'WOMAN CLOTHS COLLECTION',
+      name: 'WOMEN',
+      description: 'WOMEN CLOTHS COLLECTION',
       image: WomanImage,
     },
   ];
