@@ -25,6 +25,7 @@ import ShowReviews from "./pages/reviews/ShowReviews";
 import Fashion from "./components/blogging/fashion-blogging"
 import CreateBlog from "./components/blogging/create-blog/createBlog";
 import PostBlog from "./components/blogging/post-blog/postBlog"
+import Orders from "./pages/orders/Orders";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
             <Route path="/admin/reply_complain" element={<ReplyComplain />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/cart" element={<Cart />}></Route>
+            <Route path="/orders" element={<Orders />}></Route>
             <Route path="/show_products" element={<ShowProducts />}></Route>
             <Route path="/product" element={<ProductPage />} />
             <Route path="/product/review" element={<ShowReviews />} />

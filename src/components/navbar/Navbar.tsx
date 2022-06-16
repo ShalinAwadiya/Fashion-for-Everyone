@@ -14,6 +14,7 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 // const pages = ['Coupons', 'Blog', 'Trends'];
 
@@ -192,6 +193,14 @@ const NavBar = () => {
             </Box>
           </Link>
 
+          <Link to="/orders">
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Button>
+                <ListAltIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+              </Button>
+            </Box>
+          </Link>
+
           {/* Responsive Profile, Wishlist, Cart */}
           <Box sx={{ display: { xs: 'flex', md: 'none', ml: 10 } }}>
             <IconButton
@@ -239,6 +248,14 @@ const NavBar = () => {
                 <MenuItem>
                   <Button>
                     <ShoppingCartIcon sx={{ color: "black" }} />
+                  </Button>
+                </MenuItem>
+              </Link>
+
+              <Link to="/orders">
+                <MenuItem>
+                  <Button>
+                    <ListAltIcon sx={{ color: "black" }} />
                   </Button>
                 </MenuItem>
               </Link>
