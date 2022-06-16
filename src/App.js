@@ -1,32 +1,33 @@
-import './App.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
-import ShowProducts from './pages/products/ShowProducts';
+import "./App.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import ShowProducts from "./pages/products/ShowProducts";
 
-import Home from './pages/home/Home';
-import SignUp from './pages/signup';
-import Header from './components/header';
-import Login from './pages/login';
-import ForgetPassword from './pages/forget-password';
-import Footer from './components/footer';
-import CouponsHomePage from './pages/coupon/CouponsHomePage';
-import SeachPage from './pages/search-page';
-import ComplainForm from './pages/compain/ComplainForm';
-import EditComplainForm from './pages/compain/EditComplainForm';
-import ComplainTable from './pages/compain/ComplainTable';
-import ReplyTable from './pages/compain/ReplyTable';
-import ReplyComplain from './pages/compain/ReplyComplain';
-import AllComplainTable from './pages/compain/AllComplainTable';
-import Cart from './pages/cart/Cart';
-import Checkout from './pages/checkout/Checkout';
-import Profile from './pages/profile';
-import ProductPage from './pages/products/ProductPage';
-import ShowReviews from './pages/reviews/ShowReviews';
-import Fashion from './components/blogging/fashion-blogging';
-import CreateBlog from './components/blogging/create-blog/createBlog';
-import PostBlog from './components/blogging/post-blog/postBlog';
-import Orders from './pages/orders/Orders';
-import Collection from './pages/collection/Collection';
+import Home from "./pages/home/Home";
+import SignUp from "./pages/signup";
+import Header from "./components/header";
+import Login from "./pages/login";
+import ForgetPassword from "./pages/forget-password";
+import Footer from "./components/footer";
+import CouponsHomePage from "./pages/coupon/CouponsHomePage";
+import SeachPage from "./pages/search-page";
+import ComplainForm from "./pages/compain/ComplainForm";
+import EditComplainForm from "./pages/compain/EditComplainForm";
+import ComplainTable from "./pages/compain/ComplainTable";
+import ReplyTable from "./pages/compain/ReplyTable";
+import ReplyComplain from "./pages/compain/ReplyComplain";
+import AllComplainTable from "./pages/compain/AllComplainTable";
+import Cart from "./pages/cart/Cart";
+import Checkout from "./pages/checkout/checkout";
+import Profile from "./pages/profile";
+import ProductPage from "./pages/products/ProductPage";
+import ShowReviews from "./pages/reviews/ShowReviews";
+import Fashion from "./components/blogging/fashion-blogging";
+import CreateBlog from "./components/blogging/create-blog/createBlog";
+import PostBlog from "./components/blogging/post-blog/postBlog";
+import Orders from "./pages/orders/Orders";
+import Collection from "./pages/collection/Collection";
+import Wishlist from "./pages/Wishlist/Wishlist";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
             <Route path="/replied_complain" element={<ReplyTable />} />
             <Route path="/admin/view_complain" element={<AllComplainTable />} />
             <Route path="/admin/reply_complain" element={<ReplyComplain />} />
+            <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="/orders" element={<Orders />}></Route>
