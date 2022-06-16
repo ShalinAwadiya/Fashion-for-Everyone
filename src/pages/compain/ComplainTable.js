@@ -23,11 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
   tableContainer: {
     borderRadius: 15,
-
     margin: "5px 5px",
-
     maxWidth: 1000,
-
     alignContent: "center",
   },
 
@@ -36,9 +33,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14.4px",
     fontFamily: "sans-serif",
     align: "center",
-
     backgroundColor: "rgb(26,125,230)",
-
     color: "white",
   },
   tableBody: {
@@ -78,7 +73,7 @@ export default function ComplainTable() {
   };
 
   return (
-    <Box margin="auto" marginTop="100px" marginLeft="150px" display="flex">
+    <Box margin="auto" marginTop="50px" marginLeft="150px" display="flex">
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>

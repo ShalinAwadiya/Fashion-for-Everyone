@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   TableContainer,
   Table,
@@ -67,7 +66,7 @@ export default function AllComplainTable() {
     navigate("/admin/reply_complain");
   };
   return (
-    <Box margin="auto" marginTop="125px" marginLeft="175px" display="flex">
+    <Box margin="auto" marginTop="50px" marginLeft="175px" display="flex">
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -117,7 +116,7 @@ export default function AllComplainTable() {
                 <TableCell>{complain.complainUsername}</TableCell>
                 <TableCell>
                   <Typography
-                    className={classes.status}
+                    className={classes.status + " " + "rounded"}
                     style={{
                       backgroundColor:
                         (complain.complainStatus === "Pending" && "green") ||
@@ -132,8 +131,8 @@ export default function AllComplainTable() {
                     <Grid item sm={5}>
                       <button
                         disabled={complain.complainStatus === "Replied"}
-                        style={{ width: "60px" }}
                         type="button"
+                        className="btn btn-primary"
                         onClick={replyButtonHandler}
                       >
                         Reply

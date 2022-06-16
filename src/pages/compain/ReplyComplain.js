@@ -51,13 +51,12 @@ export default function ReplyComplain() {
 
   return (
     <Box
-      border={2}
-      borderColor="rgb(26,125,230)"
+      className="border rounded"
       height={400}
       width={500}
       padding="20px"
       margin="auto"
-      marginTop="100px"
+      marginTop="50px"
       display="flex"
     >
       <form>

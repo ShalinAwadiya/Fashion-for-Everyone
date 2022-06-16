@@ -56,8 +56,8 @@ function App() {
             <Route path="/fashion-blogs/post" element={<PostBlog />} />
           </Routes>
         </div>
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { Container, Grid, Box, Link, Avatar } from '@material-ui/core';
 
 function Footer() {
   return (
-    <Box px={{ xs: 3, sm: 8 }} py={{ xs: 3, sm: 8 }} className="mt-5">
+    <Box px={{ xs: 3, sm: 8 }} py={{ xs: 3, sm: 8 }} className="mt-5 bg-light">
       <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={4}>
