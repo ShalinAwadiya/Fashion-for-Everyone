@@ -15,6 +15,7 @@ import ComplainForm from "./pages/compain/ComplainForm";
 import EditComplainForm from "./pages/compain/EditComplainForm";
 import ComplainTable from "./pages/compain/ComplainTable";
 import ReplyTable from "./pages/compain/ReplyTable";
+import ReplyComplain from "./pages/compain/ReplyComplain";
 import AllComplainTable from "./pages/compain/AllComplainTable";
 import Cart from "./pages/cart/Cart";
 import Checkout from "./pages/checkout/checkout";
@@ -40,6 +41,7 @@ function App() {
             <Route path="/edit_complain" element={<EditComplainForm />} />
             <Route path="/replied_complain" element={<ReplyTable />} />
             <Route path="/admin/view_complain" element={<AllComplainTable />} />
+            <Route path="/admin/reply_complain" element={<ReplyComplain />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="/show_products" element={<ShowProducts />}></Route>

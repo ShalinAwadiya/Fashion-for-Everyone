@@ -64,7 +64,7 @@ export default function AllComplainTable() {
   const navigate = useNavigate();
   let complains = admindata;
   const replyButtonHandler = () => {
-    navigate("/admin/replyComplain");
+    navigate("/admin/reply_complain");
   };
   return (
     <Box margin="auto" marginTop="125px" marginLeft="175px" display="flex">
