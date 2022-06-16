@@ -11,6 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 
 const useStyles = makeStyles({
@@ -32,12 +33,15 @@ const useStyles = makeStyles({
 
 const Context = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
+
+
 
   const { item, totalItem, totalAmount, removeItem, increment, decrement } = useContext(CartContext)
   let price = totalAmount + 30;
 
   const [coupon, setCoupon] = useState('');
-  const [formValid, setFormValid] = useState(false)
+  const [formValid, setFormValid] = useState(false);
 
   const handleChange = (event) => {
     if (event.target.value === "") {
@@ -53,6 +57,10 @@ const Context = () => {
     // event.preventDefault();
     toast("Coupon Applied!");
   }
+
+  const navigateCheckout = () => {
+    navigate('/checkout');
+  };
 
   return (<>
 
@@ -184,7 +192,7 @@ const Context = () => {
             </Grid>
           </CardContent>
           <CardActions>
-            <Button size="normal" color="primary" variant="outlined">
+            <Button onClick={navigateCheckout} size="normal" color="primary" variant="outlined">
               CHECKOUT ({totalItem})
             </Button>
           </CardActions>

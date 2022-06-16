@@ -10,7 +10,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Typography from '@mui/material/Typography';
 import Search from "../search/Search"
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
@@ -41,19 +41,19 @@ const pages = [
     route: 'show_products'
   }];
 
-  const useStyles = makeStyles(theme => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-  }));
+const useStyles = makeStyles(theme => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>();
@@ -87,12 +87,12 @@ const NavBar = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-        setOpen(true);
-    };
+    setOpen(true);
+  };
 
   const handleClose = () => {
-        setOpen(false);
-    };
+    setOpen(false);
+  };
 
   const handleNotificationToggle = ()=>{
     setNotificanDropDownValue(!notificanDropDownValue)
@@ -141,16 +141,16 @@ const NavBar = () => {
               </Button>
             ))}
             <Button
-                key="SubscribeUs"
-                component="a"
-                sx={{ my: 2, color: 'black', display: 'block' }}
-                onClick={handleOpen}
+              key="SubscribeUs"
+              component="a"
+              sx={{ my: 2, color: 'black', display: 'block' }}
+              onClick={handleOpen}
 
-              >
-                Subscribe Us
-              </Button>
+            >
+              Subscribe Us
+            </Button>
           </Box>
-          
+
 
           {/* Responsive NavBar */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
@@ -218,65 +218,76 @@ const NavBar = () => {
           </Box>
 
           {/* Wishlist */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button>
-              <FavoriteIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-            </Button>
-          </Box>
+          <Link to='/wishlist'>
+            <Tooltip title="favourites">
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Button>
+                  <FavoriteIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                </Button>
+              </Box>
+            </Tooltip>
+          </Link>
 
-           {/* Subscribe Us */}
-           <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={open}>
-                    <div className={classes.paper}>
-                        <h2>Subscribe to our NewsLetter!</h2>
-                        <p>
-                        <img src="Subscription.png" height ="280" width="250" />
-                        <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
-                        <TextField variant="outlined" size="small" fullWidth onChange={onTextChange} value={textValue} label={"Enter your Email ID"} />
-                        <br /> <br /> 
-                        <Button variant="contained" size="large" fullWidth onClick={handleSubmit}>Subscribe</Button>
-                        </p>
-                    </div>
-                </Fade>
-            </Modal>
+          {/* Subscribe Us */}
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.paper}>
+                <h2>Subscribe to our NewsLetter!</h2>
+                <p>
+                  <img src="Subscription.png" height="280" width="250" />
+                  <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
+                  <TextField variant="outlined" size="small" fullWidth onChange={onTextChange} value={textValue} label={"Enter your Email ID"} />
+                  <br /> <br />
+                  <Button variant="contained" size="large" fullWidth onClick={handleSubmit}>Subscribe</Button>
+                </p>
+              </div>
+            </Fade>
+          </Modal>
 
           {/* Profile */}
           <Link to="/profile">
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button>
-                <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-              </Button>
-            </Box>
+            <Tooltip title="My profile">
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Button>
+                  <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                </Button>
+              </Box>
+            </Tooltip>
           </Link>
 
          
+ 
 
           {/* Cart */}
           <Link to="/cart">
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button>
-                <ShoppingCartIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-              </Button>
-            </Box>
+            <Tooltip title="Cart">
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Button>
+                  <ShoppingCartIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                </Button>
+              </Box>
+            </Tooltip>
           </Link>
 
           <Link to="/orders">
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button>
-                <ListAltIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-              </Button>
-            </Box>
+            <Tooltip title="My orders">
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Button>
+                  <ListAltIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                </Button>
+              </Box>
+            </Tooltip>
           </Link>
 
            {/* Pages section Sign in */}
@@ -333,11 +344,13 @@ const NavBar = () => {
                 display: { xs: 'flex', md: 'none' },
               }}>
 
-              <MenuItem>
-                <Button>
-                  <FavoriteIcon sx={{ color: "black" }} />
-                </Button>
-              </MenuItem>
+              <Link to="/wishlist">
+                <MenuItem>
+                  <Button>
+                    <FavoriteIcon sx={{ color: "black" }} />
+                  </Button>
+                </MenuItem>
+              </Link>
 
               <Link to="/profile">
                 <MenuItem>
@@ -375,6 +388,13 @@ const NavBar = () => {
         </IconButton>
       </MenuItem>
 
+              <Link to="/signup">
+                <MenuItem>
+                  <Button>
+                    Sign up
+                  </Button>
+                </MenuItem>
+              </Link>
             </Menu>
           </Box>
         </Toolbar>
