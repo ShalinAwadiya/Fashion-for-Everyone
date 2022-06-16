@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function ComplainForm() {
+const EditComplainForm = () => {
   const navigate = useNavigate();
 
   const [complainSubject, setComplainSubject] = useState("");
@@ -53,15 +53,11 @@ export default function ComplainForm() {
     }
   };
 
-  const viewComplainHandler = (event) => {
-    navigate("/view_complain");
-  };
-
   return (
     <Box
       border={2}
       borderColor="rgb(26,125,230)"
-      height={650}
+      height={500}
       width={500}
       padding="20px"
       margin="auto"
@@ -69,7 +65,7 @@ export default function ComplainForm() {
       display="flex"
     >
       <form>
-        <h2>Post Complain</h2>
+        <h2>Edit Complain</h2>
         <TextField
           required
           multiline
@@ -77,6 +73,7 @@ export default function ComplainForm() {
           name="name"
           label="Complain Subject"
           type="text"
+          width="300"
           style={{ width: "350px" }}
           onChange={complainSubjectHandler}
         />
@@ -92,9 +89,9 @@ export default function ComplainForm() {
           rows={4}
           id="name-input"
           name="name"
+          style={{ width: "350px" }}
           label="Complain Description"
           type="text"
-          style={{ width: "350px" }}
           onChange={complainDescriptionHandler}
         />
         <br />
@@ -118,21 +115,12 @@ export default function ComplainForm() {
         <br />
         <br />
         <Button onClick={submitButtonHandler} variant="contained">
-          Submit
+          Update
         </Button>
         &nbsp;
         <Button variant="contained">Cancel</Button>
-        <br />
-        <br />
-        <br />
-        <Button
-          style={{ width: "200px" }}
-          onClick={viewComplainHandler}
-          variant="outlined"
-        >
-          View Complains
-        </Button>
       </form>
     </Box>
   );
-}
+};
+export default EditComplainForm;
