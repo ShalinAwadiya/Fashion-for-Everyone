@@ -15,7 +15,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from "@material-ui/core/TextField";
 // const pages = ['Coupons', 'Blog', 'Trends'];
 
 const pages = [
@@ -31,6 +36,20 @@ const pages = [
     title: 'Products',
     route: 'show_products'
   }];
+
+  const useStyles = makeStyles(theme => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+  }));
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>();
@@ -51,6 +70,20 @@ const NavBar = () => {
   const handleCloseUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(null);
   };
+
+  const [textValue, setTextValue] = useState();
+  const onTextChange = (e : any) => setTextValue(e.target.value);
+  const handleSubmit = () => console.log(textValue);
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+        setOpen(true);
+    };
+
+  const handleClose = () => {
+        setOpen(false);
+    };
 
   return (
     <AppBar position="relative"
@@ -89,7 +122,17 @@ const NavBar = () => {
                 {page.title}
               </Button>
             ))}
+            <Button
+                key="SubscribeUs"
+                component="a"
+                sx={{ my: 2, color: 'black', display: 'block' }}
+                onClick={handleOpen}
+
+              >
+                Subscribe Us
+              </Button>
           </Box>
+          
 
           {/* Responsive NavBar */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
@@ -162,6 +205,33 @@ const NavBar = () => {
               <FavoriteIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
             </Button>
           </Box>
+
+           {/* Subscribe Us */}
+           <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open}>
+                    <div className={classes.paper}>
+                        <h2>Subscribe to our NewsLetter!</h2>
+                        <p>
+                        <img src="Subscription.png" height ="280" width="250" />
+                        <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
+                        <TextField variant="outlined" size="small" fullWidth onChange={onTextChange} value={textValue} label={"Enter your Email ID"} />
+                        <br /> <br /> 
+                        <Button variant="contained" size="large" fullWidth onClick={handleSubmit}>Subscribe</Button>
+                        </p>
+                    </div>
+                </Fade>
+            </Modal>
 
           {/* Profile */}
           <Link to="/profile">
