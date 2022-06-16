@@ -21,7 +21,11 @@ import Fade from '@material-ui/core/Fade';
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
-// const pages = ['Coupons', 'Blog', 'Trends'];
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
+import NotificationMenu from './NotificationMenu';
+
 
 const pages = [
   {
@@ -72,6 +76,11 @@ const NavBar = () => {
   };
 
   const [textValue, setTextValue] = useState();
+
+  const [notificanCountValue, setNotificationCountValue] = useState(3);
+  const [notificanDropDownValue, setNotificanDropDownValue] = useState(false);
+
+
   const onTextChange = (e : any) => setTextValue(e.target.value);
   const handleSubmit = () => console.log(textValue);
   const classes = useStyles();
@@ -84,6 +93,15 @@ const NavBar = () => {
   const handleClose = () => {
         setOpen(false);
     };
+
+  const handleNotificationToggle = ()=>{
+    setNotificanDropDownValue(!notificanDropDownValue)
+  }
+
+  const handleNotClick =()=>{
+    setNotificanDropDownValue(!notificanDropDownValue)
+
+  }
 
   return (
     <AppBar position="relative"
@@ -242,17 +260,7 @@ const NavBar = () => {
             </Box>
           </Link>
 
-          {/* Pages section Sign in */}
-          <Box sx={{ display: { xs: 'none', md: 'flex'} }}>
-            <Link to='/signup'>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                Sign Up
-              </Button>
-            </Link>
-          </Box>
+         
 
           {/* Cart */}
           <Link to="/cart">
@@ -270,6 +278,31 @@ const NavBar = () => {
               </Button>
             </Box>
           </Link>
+
+           {/* Pages section Sign in */}
+           <Box sx={{ display: { xs: 'none', md: 'flex'} }}>
+            <Link to='/signup'>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                Sign Up
+              </Button>
+            </Link>
+          </Box>
+
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <IconButton
+              sx={{  color: 'black', display: 'block' }}
+              onClick={handleNotificationToggle}
+            >
+              <Badge badgeContent={notificanCountValue} color="error">
+                <NotificationsIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+              </Badge>
+            </IconButton>              
+            </Box>
+
+          
 
           {/* Responsive Profile, Wishlist, Cart */}
           <Box sx={{ display: { xs: 'flex', md: 'none', ml: 10 } }}>
@@ -330,10 +363,24 @@ const NavBar = () => {
                 </MenuItem>
               </Link>
 
+              <MenuItem>
+        <IconButton
+          size="large"
+          aria-label="show 3 new notifications"
+          color="inherit"
+        >
+          <Badge badgeContent={3} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+      </MenuItem>
+
             </Menu>
           </Box>
         </Toolbar>
       </Container>
+      {notificanDropDownValue?<NotificationMenu handleNotClick={handleNotClick} />:null}
+
     </AppBar>
   );
 };
