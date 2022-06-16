@@ -3,6 +3,7 @@ import './HomeStyles.css';
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
 import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';
 
 import KidImage from '../../assets/images/home-kid.jpg';
 import ManImage from '../../assets/images/home-man.jpg';
@@ -28,7 +29,7 @@ function Item(props) {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'row', md: 'column' },
+          flexDirection: { xs: 'column', md: 'column' },
           alignItems: 'center',
           bgcolor: 'background.paper',
           overflow: 'hidden',
@@ -37,22 +38,23 @@ function Item(props) {
           fontWeight: 'bold',
         }}
       >
-        <Box
-          component="img"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: 700,
-            width: 1080,
-            minWidth: { md: 350 },
+        <Link to={{ pathname: 'collection' + props.item.route }}>
+          <Box
+            component="img"
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              height: 700,
+              width: 1080,
+              minWidth: { md: 350 },
 
-            maxHeight: { xs: 700, md: 700 },
-            maxWidth: { xs: 1080, md: 1080 },
-          }}
-          alt={props.item.description}
-          src={props.item.image}
-        />
-
+              maxHeight: { xs: 300, md: 700 },
+              maxWidth: { xs: 400, md: 1080 },
+            }}
+            alt={props.item.description}
+            src={props.item.image}
+          />
+        </Link>
         <ThemeProvider theme={themeTypography}>
           <Typography variant="h3">{props.item.name}</Typography>
         </ThemeProvider>
@@ -67,16 +69,19 @@ function Slides(props) {
       name: 'KID',
       description: 'KID CLOTHS COLLECTION',
       image: KidImage,
+      route: '/kid/',
     },
     {
-      name: 'MEN',
-      description: 'MEN CLOTHS COLLECTION',
+      name: 'MAN',
+      description: 'MAN CLOTHS COLLECTION',
       image: ManImage,
+      route: '/man/',
     },
     {
-      name: 'WOMEN',
-      description: 'WOMEN CLOTHS COLLECTION',
+      name: 'WOMAN',
+      description: 'WOMAN CLOTHS COLLECTION',
       image: WomanImage,
+      route: '/woman/',
     },
   ];
 
