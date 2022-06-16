@@ -29,7 +29,7 @@ function Item(props) {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'row', md: 'column' },
+          flexDirection: { xs: 'column', md: 'column' },
           alignItems: 'center',
           bgcolor: 'background.paper',
           overflow: 'hidden',
@@ -43,13 +43,13 @@ function Item(props) {
             component="img"
             sx={{
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: 'row',
               height: 700,
               width: 1080,
               minWidth: { md: 350 },
 
-              maxHeight: { xs: 700, md: 700 },
-              maxWidth: { xs: 1080, md: 1080 },
+              maxHeight: { xs: 300, md: 700 },
+              maxWidth: { xs: 400, md: 1080 },
             }}
             alt={props.item.description}
             src={props.item.image}
