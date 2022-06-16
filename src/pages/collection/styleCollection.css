@@ -1,0 +1,9 @@
+.col1{
+    margin-top:10 ;
+    margin-bottom: 12;
+}
+
+.collection{
+    display: flex;
+    flex-direction: column;
+}
