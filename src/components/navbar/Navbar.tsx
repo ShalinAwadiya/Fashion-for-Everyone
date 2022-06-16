@@ -113,14 +113,15 @@ const NavBar = () => {
           {/* Pages section Coupons */}
           <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
             {pages.map((page) => (
-              <Button
-                key={page.title}
-                component="a"
-                href={'/' + page.route}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                {page.title}
-              </Button>
+              <Link to={"/" + page.route}>
+                <Button
+                  key={page.title}
+                  component="a"
+                  sx={{ my: 2, color: 'black', display: 'block' }}
+                >
+                  {page.title}
+                </Button>
+              </Link>
             ))}
             <Button
               key="SubscribeUs"
