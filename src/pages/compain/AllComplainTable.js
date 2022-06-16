@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import {
   TableContainer,
   Table,
@@ -12,9 +11,9 @@ import {
   Grid,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import admindata from "../../data/admindata.json";
+import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
-
-import data from "../../data/data.json";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -60,25 +59,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ComplainTable() {
+export default function AllComplainTable() {
   const classes = useStyles();
-
-  const [complains, setComplains] = useState(data);
-
-  const handleDeleteClick = (complainId) => {
-    console.log("hello");
-    const newComplains = [...complains];
-
-    const index = complains.findIndex(
-      (complain) => complain.complainId === complainId
-    );
-
-    newComplains.splice(index, 1);
-    setComplains(newComplains);
+  const navigate = useNavigate();
+  let complains = admindata;
+  const replyButtonHandler = () => {
+    navigate("/admin/reply_complain");
   };
-
   return (
-    <Box margin="auto" marginTop="100px" marginLeft="150px" display="flex">
+    <Box margin="auto" marginTop="125px" marginLeft="175px" display="flex">
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -100,17 +89,17 @@ export default function ComplainTable() {
               </TableCell>
               <TableCell className={classes.tableHeaderCell}>
                 <Typography color="white" variant="h6">
+                  Username
+                </Typography>
+              </TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                <Typography color="white" variant="h6">
                   Status
                 </Typography>
               </TableCell>
               <TableCell className={classes.tableHeaderCell}>
                 <Typography color="white" variant="h6">
                   Reply
-                </Typography>
-              </TableCell>
-              <TableCell align="center" className={classes.tableHeaderCell}>
-                <Typography color="white" variant="h6">
-                  Action
                 </Typography>
               </TableCell>
             </TableRow>
@@ -125,6 +114,7 @@ export default function ComplainTable() {
                     View
                   </a>
                 </TableCell>
+                <TableCell>{complain.complainUsername}</TableCell>
                 <TableCell>
                   <Typography
                     className={classes.status}
@@ -138,32 +128,15 @@ export default function ComplainTable() {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  {complain.complainStatus !== "Pending" ? (
-                    <a
-                      href="/replied_complain"
-                      style={{ textDecoration: "none" }}
-                    >
-                      View
-                    </a>
-                  ) : (
-                    <span>View</span>
-                  )}
-                </TableCell>
-                <TableCell>
                   <Grid container>
                     <Grid item sm={5}>
-                      <button style={{ width: "60px" }} type="button">
-                        Edit
-                      </button>
-                    </Grid>
-                    &nbsp;&nbsp;
-                    <Grid item sm={2}>
                       <button
+                        disabled={complain.complainStatus === "Replied"}
                         style={{ width: "60px" }}
                         type="button"
-                        onClick={() => handleDeleteClick(complain.complainId)}
+                        onClick={replyButtonHandler}
                       >
-                        Delete
+                        Reply
                       </button>
                     </Grid>
                   </Grid>
