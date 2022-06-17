@@ -114,7 +114,25 @@ End with an example of getting some data out of the system or using it for a lit
 
 - [Nodejs](https://nodejs.org/en/docs/) - The backend web frameword used
 
+- [Visual Studio Code](https://code.visualstudio.com/) - IDE used for development
+
+- [W3C Validator](https://validator.w3.org/) - Used to validate application with W3C standards.
+
 - [Surge](https://surge.sh/) - The deployment platform
+
+
+## Design Choices
+
+- Website logo & App Name - The logo is made of Avatar API of Material UI.
+- Design - Designed Simple in terms of color and aesthetic.
+- Typography - Ralway and some similar fonts used for better look and feel.
+- Font color - Black titles with white background for aesthetic look.
+
+### Images Reference
+
+1. Products Images: https://www.amazon.ca/ref=nav_logo
+2. Nike Shoes Image: https://www.nike.com/joyride
+3. Home Page Images: https://www.pexels.com/
 
 ## Acknowledgments and References
 
