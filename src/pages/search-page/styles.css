@@ -1,0 +1,23 @@
+
+  .sidebar,
+  .main_list
+   {
+    overflow-y: hidden;
+  }
+
+  @media only screen and (min-width: 750px) {
+    .main {
+      display: flex;
+      min-height: 600px;
+    }
+  }
+
+  .sidebar {
+    flex:0 0 310px;
+    overflow-x: hidden;
+    padding: 1rem;
+  }
+  .main_list {
+    flex: 1;
+    padding: 1rem;
+  }

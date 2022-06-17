@@ -1,0 +1,10 @@
+let replyData = [
+  {
+    "replySubject": "Return Accepted",
+    "replyMessage": "We have accepted your request to return the T-shirt.",
+    "replyDate": "2022-06-02",
+    "replyTime": "19:46:00"
+  }
+]
+
+export default replyData;

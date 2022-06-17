@@ -1,0 +1,85 @@
+/* Grays */
+$gray-lightest: #f1f1f1;
+$gray-lighter: #ededed;
+$gray-light: #dddddd;
+$gray-medium: #d1d1d1;
+$gray-medium-dark: #a5a9ad;
+$gray-dark: #8a8a8a;
+$gray-darker: #697077;
+$gray-darkest: #444444;
+$red: #e74c3c;
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.App-header {
+  padding: 0.5px;
+  margin: 1 auto;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.error {
+  color: $red;
+}
+
+#Signup,
+#ForgetPassword,
+#Login {
+  .signup-form,
+  .login-form {
+    margin: auto;
+    max-width: 500px;
+    padding: 30px;
+    background: white;
+    border: 2px solid $gray-medium;
+    border-radius: 25px;
+  }
+
+  .google-button {
+    max-width: 203px;
+    margin: 0 auto;
+    border: 1px solid $gray-dark;
+    border-radius: 5px;
+
+    .google-icon {
+      margin-bottom: 3px;
+      margin-right: 10px;
+    }
+  }
+
+  .signup-btn {
+    width: 100%;
+  }
+}
+
+#Login {
+  .google-button {
+    max-width: 190px;
+  }
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+  width: 100%;
+}
+
+// a {
+//   text-decoration: none;
+// }

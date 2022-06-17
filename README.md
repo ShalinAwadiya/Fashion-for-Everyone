@@ -1,92 +1,129 @@
-# CSCI-5709-Group5
+# Project Group 5
+
+It is a web-based e-commerce application which helps men, women and kids satisfy their fashion needs and
+provides them a single stop destination to purchase clothes and apparel.
+
+- _Date Created_: 04 June, 2022
+
+- _Last Modification Date_: 16 June, 2022
+
+- _Git URL_: https://git.cs.dal.ca/anandani/csci-5709-group5
+
+- _Deployment URL_: https://group-5-web.surge.sh/
+
+## Professor
+
+[Shehzeen Huda] (sh655624@dal.ca)
+
+## TA
+
+[Aadesh shah] (ad735938@dal.ca)
 
 
+## Authors
 
-## Getting started
+- [Deep Adeshra](dp974154@dal.ca)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- [Manan Amin](manan.amin@dal.ca)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- [Minal Khona](mn977442@dal.ca)
 
-## Add your files
+- [Pooja Anandani](pooja.anandani@dal.ca)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- [Rishika Bajaj](rs348937@dal.ca)
 
-```
-cd existing_repo
-git remote add origin https://git.cs.dal.ca/anandani/csci-5709-group5.git
-git branch -M main
-git push -uf origin main
-```
+- [Shalin Awadiya](shalin.awadiya@dal.ca)
 
-## Integrate with your tools
+- [Shathish Annamalai](sh495601@dal.ca)
 
-- [ ] [Set up project integrations](https://git.cs.dal.ca/anandani/csci-5709-group5/-/settings/integrations)
+## Getting Started
 
-## Collaborate with your team
+See deployment for notes on how to deploy the project on a live system.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### Prerequisites
 
-## Test and Deploy
+To develop a project in React, first we have to download and install node js on our local machine. Furthermore, we have install npx plugins in our node folder.
 
-Use the built-in continuous integration in GitLab.
+List of Required Softwares and Plugins:
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+1.  Node JS (environment)
 
-***
+2.  NPX plugins
 
-# Editing this README
+3.  JavaScript (Programming language)
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+4.  React JS: Package
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+List of Dependencies:
 
-## Name
-Choose a self-explaining name for your project.
+1. React-router-dom
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+2. React-icons
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+3. emotion
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+4. material-ui (mui)
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+5. bootstrap
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+6. react-icons
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+8. typescript
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Installing
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+First install all the required softwares.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+1.  Download the Node js on our local machine.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+2.  Install it and open any editor.(I have used Visual Studio Code)
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+3.  Then check whether the node is install or not by using node --v command'.
 
-## License
-For open source projects, say how it is licensed.
+4.  After that choose specific folder where we have to create a application.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+5.  Then create a react application withcommand: npx create-react-app PROJECT-GROUP5
+
+### Clone and run
+
+1. Get the code base from gitlab, the link provided at the begining of the file.
+2. Copy the https link of the repo and use `git clone <COPIED_LINK>`. This will index the code base that is stored on the gitlab repo.
+3. Install the required dependencies with `npm install`.
+4. In the same directory, use `npm run dev` to start the local deamon for the site.
+5. If all the step are followed correctly the browser will automatically launch a new tab with an address of `localhost:3000`.
+
+End with an example of getting some data out of the system or using it for a little demo. You may also include a quick example of what the marker should see if the installation of all required software / libraries / plug-ins was successful.
+
+## Deployment
+
+- For deployment we have used Surge which will help to host our application.
+
+- At first we have pushed individual features to the gitlab repo at our individual branch.
+
+- We added merge request to all the features. Merged them with review by team members.
+
+- After getting the codebase on the the main branch we tested it in our local environment.
+
+- Then we moved to Surge for deployment.
+
+## Built With
+
+- [Reactjs](https://reactjs.org/docs/getting-started.html) - The frontend web framework used
+
+- [Material UI](https://mui.com/) - For more enhanced User Interface
+
+- [Nodejs](https://nodejs.org/en/docs/) - The backend web frameword used
+
+- [Surge](https://surge.sh/) - The deployment platform
+
+## Acknowledgments and References
+
+React (https://create-react-app.dev/))
+Description: For setting up a basic react application.
+
+StackOverflow (https://stackoverflow.com/)
+Description: We used stack overflow for some difficulties we faced in the development of UI.
+
+Please feel free to reach out to us in case of any issues.
+
+Thank you.
