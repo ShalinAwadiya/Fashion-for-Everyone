@@ -1,4 +1,4 @@
-# Step to learn
+# Project Group 5
 
 It is a web-based e-commerce application which helps men, women and kids satisfy their fashion needs and
 provides them a single stop destination to purchase clothes and apparel.
