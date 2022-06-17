@@ -13,11 +13,11 @@ provides them a single stop destination to purchase clothes and apparel.
 
 ## Professor
 
-[Shehzeen Huda] (sh655624@dal.ca)
+[Shehzeen Huda](sh655624@dal.ca)
 
 ## TA
 
-[Aadesh shah] (ad735938@dal.ca)
+[Aadesh shah](ad735938@dal.ca)
 
 
 ## Authors
