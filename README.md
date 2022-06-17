@@ -96,7 +96,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Deployment
 
-- For deployment we have used Netlify which will help to host our application.
+- For deployment we have used Surge which will help to host our application.
 
 - At first we have pushed individual features to the gitlab repo at our individual branch.
 
@@ -104,19 +104,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 - After getting the codebase on the the main branch we tested it in our local environment.
 
-- Then we moved to netlify for deployment.
-
-- Create a new site with option as import project then select gitlab.
-
-- After getting authenticated with the gitlab we will select the repo/branch where our project code is present.
-
-- we made sure that all the warnings are removed in the project that we had in the local project execution.
-
-- As warnings are treated as errors during the production,if we are having zero warnings we are good to go with the deployment.
-
-- Deployment started and it took 3-5 minutes to get live.
-
-- Once the site preview is working properly then we could change the site-name at our convenience.
+- Then we moved to Surge for deployment.
 
 ## Built With
 
