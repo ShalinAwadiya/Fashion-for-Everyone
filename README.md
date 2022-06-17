@@ -96,7 +96,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Deployment
 
-- For deployment we have used Surge which will help to host our application.
+- For deployment we have used [Surge](https://surge.sh/) which will help to host our application.
 
 - At first we have pushed individual features to the gitlab repo at our individual branch.
 
@@ -104,7 +104,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 - After getting the codebase on the the main branch we tested it in our local environment.
 
-- Then we moved to Surge for deployment.
+- Then we moved to [Surge](https://surge.sh/) for deployment.
 
 ## Built With
 
