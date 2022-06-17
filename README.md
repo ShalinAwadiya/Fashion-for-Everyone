@@ -1,178 +1,141 @@
-<!--- The following README.md sample file was adapted from https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#file-readme-template-md by Gabriella Mosquera for academic use ---> 
-# Assignment 1
+# Step to learn
 
-* *Date Created*: 04  06 2022
-* *Last Modification Date*: 04  06 2022
-* *Git URL*: https://git.cs.dal.ca/anandani/csci-5709-b00911392-pooja-anandani/-/tree/assignment1
-* *Heroku URL*:https://assignment1-cart.herokuapp.com/
+It is a web-based e-commerce application which helps men, women and kids satisfy their fashion needs and
+provides them a single stop destination to purchase clothes and apparel.
+
+- _Date Created_: 04 June, 2022
+
+- _Last Modification Date_: 16 June, 2022
+
+- _Git URL_: https://git.cs.dal.ca/anandani/csci-5709-group5
+
+- _Deployment URL_: https://group-5-web.surge.sh/
+
+## Professor
+
+[Shehzeen Huda] (sh655624@dal.ca)
+
+## TA
+
+[Aadesh shah] (ad735938@dal.ca)
+
 
 ## Authors
-* [Pooja Anandani](pooja.anandani@dal.ca) - *(Owner)*
+
+- [Deep Adeshra](dp974154@dal.ca)
+
+- [Manan Amin](manan.amin@dal.ca)
+
+- [Minal Khona](mn977442@dal.ca)
+
+- [Pooja Anandani](pooja.anandani@dal.ca)
+
+- [Rishika Bajaj](rs348937@dal.ca)
+
+- [Shalin Awadiya](shalin.awadiya@dal.ca)
+
+- [Shathish Annamalai](sh495601@dal.ca)
+
+## Getting Started
+
+See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-* node: v16+
-* react js: v17+
+To develop a project in React, first we have to download and install node js on our local machine. Furthermore, we have install npx plugins in our node folder.
 
+List of Required Softwares and Plugins:
+
+1.  Node JS (environment)
+
+2.  NPX plugins
+
+3.  JavaScript (Programming language)
+
+4.  React JS: Package
+
+List of Dependencies:
+
+1. React-router-dom
+
+2. React-icons
+
+3. emotion
+
+4. material-ui (mui)
+
+5. bootstrap
+
+6. react-icons
+
+8. typescript
 
 ### Installing
 
-* npm install *(this will install the required npm packages)*
-* npm run dev *(this will start the server)*
+First install all the required softwares.
 
+1.  Download the Node js on our local machine.
 
-### Coding style tests
+2.  Install it and open any editor.(I have used Visual Studio Code)
 
-- W3 Complience check - Passed *(Tested on this [site](https://validator.w3.org/))*
+3.  Then check whether the node is install or not by using node --v command'.
+
+4.  After that choose specific folder where we have to create a application.
+
+5.  Then create a react application withcommand: npx create-react-app PROJECT-GROUP5
+
+### Clone and run
+
+1. Get the code base from gitlab, the link provided at the begining of the file.
+2. Copy the https link of the repo and use `git clone <COPIED_LINK>`. This will index the code base that is stored on the gitlab repo.
+3. Install the required dependencies with `npm install`.
+4. In the same directory, use `npm run dev` to start the local deamon for the site.
+5. If all the step are followed correctly the browser will automatically launch a new tab with an address of `localhost:3000`.
+
+End with an example of getting some data out of the system or using it for a little demo. You may also include a quick example of what the marker should see if the installation of all required software / libraries / plug-ins was successful.
+
+## Deployment
+
+- For deployment we have used Netlify which will help to host our application.
+
+- At first we have pushed individual features to the gitlab repo at our individual branch.
+
+- We added merge request to all the features. Merged them with review by team members.
+
+- After getting the codebase on the the main branch we tested it in our local environment.
+
+- Then we moved to netlify for deployment.
+
+- Create a new site with option as import project then select gitlab.
+
+- After getting authenticated with the gitlab we will select the repo/branch where our project code is present.
+
+- we made sure that all the warnings are removed in the project that we had in the local project execution.
+
+- As warnings are treated as errors during the production,if we are having zero warnings we are good to go with the deployment.
+
+- Deployment started and it took 3-5 minutes to get live.
+
+- Once the site preview is working properly then we could change the site-name at our convenience.
+
 ## Built With
 
-<!--- Provide a list of the frameworks used to build this application, your list should include the name of the framework used, the url where the framework is available for download and what the framework was used for, see the example below --->
+- [Reactjs](https://reactjs.org/docs/getting-started.html) - The frontend web framework used
 
-* [React Js](https://reactjs.org/) - Java script library for ui
-* [Heroku](https://www.heroku.com/) - Deployment
-* [MaterialUI](https://mui.com/) - Comphresive ui tool
+- [Material UI](https://mui.com/) - For more enhanced User Interface
 
-## Sources Used
-1. https://mui.com/ : The library components of material ui was used to design an interactive ui
-2. https://www.npmjs.com/package/react-toastify : The toast was used to display success message on applying coupon.
-3. https://react-redux.js.org/api/hooks: To maintain the global state in the project
-4. https://medium.com/swlh/how-do-i-deploy-my-code-to-heroku-using-gitlab-ci-cd-6a232b6be2e4 - To set up CI/CD pipeline for deployment
-5. https://codesandbox.io/examples/package/react-shopping-cart - Referring on how to build cart management system in react. 
-6. https://www.youtube.com/watch?v=FKd5qHCkCPg&t=364s&ab_channel=ThapaTechnical - Understanding cart management and how to build it in react. 
+- [Nodejs](https://nodejs.org/en/docs/) - The backend web frameword used
 
-### .gitlab-ci.yml
+- [Surge](https://surge.sh/) - The deployment platform
 
-The code  was created by adapting the code in [gitlab-ci.yml](https://medium.com/swlh/how-do-i-deploy-my-code-to-heroku-using-gitlab-ci-cd-6a232b6be2e4) as shown below: 
+## Acknowledgments and References
 
-```
-image: node:latest
+React (https://create-react-app.dev/))
+Description: For setting up a basic react application.
 
-stages:
-    - deployment
+StackOverflow (https://stackoverflow.com/)
+Description: We used stack overflow for some difficulties we faced in the development of UI.
 
-deployment:
-    type: deploy
-    stage: deployment
-    image: ruby:latest
-    script:
-        - apt-get update -qy
-        - apt-get install -y ruby-dev
-        - gem install dpl
+Please feel free to reach out to us in case of any issues.
 
-```
-
-
-
-```
-image: node:latest
-
-before_script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-
-stages:
-    - staging
-    - production
-
-staging:
-    type: deploy
-    stage: staging
-    image: ruby:latest
-    script:
-        - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
-    only:
-        - staging
-
-production:
-    type: deploy
-    stage: production
-    image: ruby:latest
-    script:
-        - dpl --provider=heroku --app=$HEROKU_APP_PRODUCTION --api-key=$HEROKU_API_KEY
-    only:
-        - master
-
-```
-
-- The code in [.gitlab-ci.yml] was implemented by https://medium.com/swlh/how-do-i-deploy-my-code-to-heroku-using-gitlab-ci-cd-6a232b6be2e4
-- [.gitlab-ci.yml](The code above was created by adapting the code in [.gitlab-ci.yml](https://medium.com/swlh/how-do-i-deploy-my-code-to-heroku-using-gitlab-ci-cd-6a232b6be2e4)'s Code was used because I want to implement CI/CD pipeline for my frontend.
-- [.gitlab-ci.yml](The code above was created by adapting the code in [.gitlab-ci.yml](https://medium.com/swlh/how-do-i-deploy-my-code-to-heroku-using-gitlab-ci-cd-6a232b6be2e4's Code was modified by me because according to my branch
-
-
-
-### Reducer.js
-
-
-```
-export const reducer = (state, action) => {
-    if (action.type === "REMOVE") {
-        return {
-            ...state,
-            item: state.item.filter((currentElemenet) => {
-                return currentElemenet.id !== action.payload;
-            }
-
-            ),
-        }
-    }
-    if (action.type === "INCREMENT") {
-        let inccart = state.item.map((currentElemenet) => {
-            if (currentElemenet.id === action.payload) {
-                return { ...currentElemenet, quantity: currentElemenet.quantity + 1 };
-            }
-            return currentElemenet
-        });
-        return { ...state, item: inccart }
-
-    }
-
-    if (action.type === "DECREMENT") {
-        const inccart = state.item.map((currentElemenet) => {
-            if (currentElemenet.id === action.payload) {
-                return { ...currentElemenet, quantity: currentElemenet.quantity - 1 };
-            }
-            return currentElemenet
-        })
-        .filter((currentElemenet)=>currentElemenet.quantity !==0);
-        return {...state, item: inccart}
-    }
-
-    if (action.type === "TOTAL") {
-        let { totalItem, totalAmount } = state.item.reduce(
-          (accum, curVal) => {
-            let { price, quantity } = curVal;
-    
-            let updatedTotalAmount = price * quantity;
-            accum.totalAmount += updatedTotalAmount;
-    
-            accum.totalItem += quantity;
-            return accum;
-          },
-          {
-            totalItem: 0,
-            totalAmount: 0,
-          }
-        );
-        return { ...state, totalItem, totalAmount };
-      }
-      return state;
-
-    };
-
-```
-
-The code above was created by adapting the code in [video on youtube](https://www.youtube.com/watch?v=FKd5qHCkCPg&t=364s&ab_channel=ThapaTechnical ) 
-
-- The code in [Reducer.js](https://www.youtube.com/watch?v=FKd5qHCkCPg&t=364s&ab_channel=ThapaTechnical ) was implemented by thapa technical
-- [Reducer.js](https://www.youtube.com/watch?v=FKd5qHCkCPg&t=364s&ab_channel=ThapaTechnical )'s Code was used because I want to perform basic cart operations and I was new to reactjs
-- [Reducer.js](https://www.youtube.com/watch?v=FKd5qHCkCPg&t=364s&ab_channel=ThapaTechnical )'s Code was modified by me where I want to change logic of calculating total amount.
-
-## Acknowledgments
-
-* https://reactjs.org/
-* https://reactjs.org/
-* https://mui.com/material-ui/material-icons/
-* https://www.zara.com/ca/en/fitted-dress-p04174315.html?v1=177649067
-* https://www.collinsdictionary.com/us/dictionary/english/dress
-* https://www.cosmopolitan.com/uk/fashion/style/a38568686/tiktok-fashion-trends/
+Thank you.
