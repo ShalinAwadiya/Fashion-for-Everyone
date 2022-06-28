@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 const checkAuth = require('./middlewares/authorization');
+const addUserRole = require('./middlewares/user_role_middleware');
 
 
 // ---------------------------------DATABASE CONFIG-----------------------------
@@ -20,6 +21,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(addUserRole);
 // -----------------------------------------------------------------------------
 
 // --------------------------------ROUTE CONFIG---------------------------------

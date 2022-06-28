@@ -69,7 +69,6 @@ function App() {
               <Route path="/fashion-blogs/post" element={<PostBlog />} />
               <Route path="/collection/:collection" element={<Collection />} />
             </Route>
-
           </Routes>
         </div>
         <Footer />
