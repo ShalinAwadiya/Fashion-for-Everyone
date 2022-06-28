@@ -1,16 +1,17 @@
-import useForm from "../hooks/useForm";
+import useForm from "../../hooks/useForm";
 import { ToastContainer, toast } from 'react-toastify';
 import { useCallback } from "react";
-import forgetPasswordValidator from "../validators/forget-password-validator";
+import forgetPasswordValidator from "../../validators/forget-password-validator";
+import { sendPasswordReset } from "../../utils/firebase";
 
 function ForgetPassword(props) {
   const initialValues = {
     email: "",
   };
 
-  const onSubmit = useCallback(() => {
-    toast.success("Sent you a link done!");
-  }, []);
+  const onSubmit = () => {
+    sendPasswordReset(values.email);
+  };
 
   const {
     values,

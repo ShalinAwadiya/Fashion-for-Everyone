@@ -1,7 +1,8 @@
-import useForm from "../hooks/useForm";
+import useForm from "../../hooks/useForm";
 import { ToastContainer, toast } from 'react-toastify';
 import { useCallback } from "react";
-import loginValidator from "../validators/login-validators";
+import loginValidator from "../../validators/login-validators";
+import { logInWithEmailAndPassword, signInWithGoogle } from "../../utils/firebase";
 
 function Login() {
   const initialValues = {
@@ -9,9 +10,9 @@ function Login() {
     password: ""
   };
 
-  const onSubmit = useCallback(() => {
-    toast.success("User logged-in successfully!");
-  }, []);
+  const onSubmit = () => {
+    logInWithEmailAndPassword(values.email, values.password);
+  };
 
   const {
     values,
@@ -29,7 +30,7 @@ function Login() {
         <h3 className="text-center">Login</h3>
         <hr />
 
-        <div className="google-button">
+        <div className="google-button" onClick={signInWithGoogle}>
           <a href="#" className="btn">
             <img width="15px" className="google-icon" alt="Google login"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
