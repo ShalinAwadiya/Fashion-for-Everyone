@@ -18,7 +18,7 @@ var app = express();
 
 // ---------------------------------MIDDLEWARES---------------------------------
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({ limit: '200mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(addUserRole);
@@ -26,9 +26,10 @@ app.use(addUserRole);
 
 // --------------------------------ROUTE CONFIG---------------------------------
 var usersRouter = require('./routes/users');
+var couponsRouter = require('./routes/coupons');
 
 app.use('/users', checkAuth, usersRouter);
+app.use('/coupons', checkAuth, couponsRouter);
 // -----------------------------------------------------------------------------
-
 
 module.exports = app;
