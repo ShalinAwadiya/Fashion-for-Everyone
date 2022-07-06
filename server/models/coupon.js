@@ -8,11 +8,11 @@ var CouponSchema = new Schema({
         required: [true, 'Missing required value - code']
     },
     discount: {
-        type: String,
+        type: Number,
         required: [true, 'Missing required value - discount']
     },
     minCartPrice: {
-        type: String,
+        type: Number,
         required: [true, 'Missing required value - minCartPrice']
     },
     expiryDate: {
