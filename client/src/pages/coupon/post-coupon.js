@@ -109,20 +109,20 @@ const PostCoupon = () => {
                             <TextField
                                 fullWidth
                                 required
+                                type="number"
                                 label="Discount"
-                                name={"discount"}
+                                name="discount"
                                 id="discount"
-                                multiline
                                 sx={{ marginTop: 1, marginBottom: 2 }}
                             />
                             <TextField
                                 fullWidth
                                 required
+                                type="number"
                                 label="Price"
                                 placeholder="Minimum purchase value"
-                                name={"minCartPrice"}
+                                name="minCartPrice"
                                 id="price"
-                                multiline
                                 sx={{ marginTop: 1, marginBottom: 2 }}
                             />
 
@@ -131,7 +131,7 @@ const PostCoupon = () => {
                                 required
                                 label="Message"
                                 placeholder="Ex: Valid for orders above 50$"
-                                name={"message"}
+                                name="message"
                                 id="message"
                                 multiline
                                 sx={{ marginTop: 1, marginBottom: 2 }}
@@ -144,7 +144,8 @@ const PostCoupon = () => {
                                 </Typography>
                                 <input
                                     type="date"
-                                    name={"expiryDate"}
+                                    required
+                                    name="expiryDate"
                                     id="expiryDate" />
                             </Stack>
 
@@ -173,6 +174,7 @@ const PostCoupon = () => {
                                 <input
                                     type="file"
                                     accept="image/*"
+                                    required
                                     style={{ display: 'none' }}
                                     ref={fileInput}
                                     onChange={imageUpload}

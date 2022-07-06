@@ -6,79 +6,51 @@ import Stack from '@mui/material/Stack';
 
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { Button } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 
-export default function CheckboxesGroup() {
-    const [state, setState] = React.useState({
-        zara: false,
-        and: false,
-        mango: false,
-        puma: false
-    });
-
-    const handleChange = (event) => {
-        setState({
-            ...state,
-            [event.target.name]: event.target.checked,
-        });
-    };
-
-    const { zara, and, mango, puma } = state;
-
+export default function CheckboxesGroup(props) {
     const Item = styled(Paper)(({ theme }) => ({
         padding: theme.spacing(1),
         textAlign: 'center',
         width: '100%'
     }));
 
-    const [value, setValue] = React.useState('1020');
+    const [value, setValue] = React.useState();
     const handleRadioChange = (event) => {
         setValue((event.target).value);
     };
 
+    const [min, setMin] = React.useState('');
+    const [max, setMax] = React.useState('');
+    const [error, setError] = React.useState('');
+
+    const handleMinChange = (event) => {
+        setMin(event.target.value)
+    };
+
+    const handleMaxChange = (event) => {
+        setMax(event.target.value)
+    };
+
+    const handleClick = (value, min, max) => {
+        setError('');
+        console.log(value, min, max)
+        if (min && max) {
+            if (min < max) {
+                setError('Minimum cart price should be less than maximum')
+            }
+        }
+    }
+
     return (
         <Box sx={{ display: 'flex', width: '100%' }}>
             <Stack spacing={2} sx={{ display: 'flex' }}>
-                <Item>
-                    <FormControl sx={{ display: 'flex' }}>
-                        <FormLabel component="legend">BRANDS</FormLabel>
-                        <FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox checked={zara} onChange={handleChange} name="a" />
-                                }
-                                label="ZARA"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox checked={and} onChange={handleChange} name="and" />
-                                }
-                                label="AND"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox checked={mango} onChange={handleChange} name="mango" />
-                                }
-                                label="Mango"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox checked={puma} onChange={handleChange} name="puma" />
-                                }
-                                label="Puma"
-                            />
-                        </FormGroup>
-                    </FormControl>
-                </Item>
-
                 <Item>
                     <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">DISCOUNT RANGE</FormLabel>
@@ -97,7 +69,39 @@ export default function CheckboxesGroup() {
                         </RadioGroup>
                     </FormControl>
                 </Item>
-                <Button variant="contained">Apply Filter</Button>
+
+                <Item>
+                    <FormLabel>CART PRICE</FormLabel>
+                    <TextField
+                        type="number"
+                        id="minCartPrice"
+                        label="Minimum"
+                        min="10"
+                        value={min}
+                        onChange={handleMinChange}
+                        sx={{ marginTop: 1, marginBottom: 2 }}
+                    />
+                    <Typography
+                        variant="body2"
+                        sx={{ color: 'red', fontStyle: 'italic' }}>
+                        {error}
+                    </Typography>
+
+                    <TextField
+                        type="number"
+                        id="maxCartPrice"
+                        label="Maximum"
+                        value={max}
+                        onChange={handleMaxChange}
+                        sx={{ marginTop: 1, marginBottom: 2 }}
+                    />
+                </Item>
+
+                <Button
+                    variant="contained"
+                    onClick={(event) => props.handleRadioChange(event, value, min, max)}>
+                    Apply Filter
+                </Button>
             </Stack>
         </Box>
     );

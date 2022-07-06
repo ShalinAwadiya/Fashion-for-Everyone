@@ -27,5 +27,7 @@ export default {
     nine: require('../assets/images/9.jpg'),
 
     //Google Search: https://www.elegantthemes.com/blog/wp-content/uploads/2019/02/featured-woocomerce-coupons.png
-    couponMain: require('../assets/images/coupons_home.png'),
+    //couponMain: require('../assets/images/coupons_home.png'),
+
+    couponMain: require('../assets/images/CouponMain.jpg'),
 }

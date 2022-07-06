@@ -2,13 +2,6 @@
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-interface iCoupons {
-  img: any,
-  brand: string,
-  discount: string,
-  expiry: string
-}
-
 const PaginationRounded = (props: any) => {
   return (
     <Stack spacing={10}>

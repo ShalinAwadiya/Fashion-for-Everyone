@@ -6,12 +6,13 @@ import CheckboxesGroup from "./coupons-filter";
 import PaginationRounded from "../../components/pagination/Pagination"
 import Images from "../../assets";
 import CouponDetails from "./coupons-details"
-import { Box, Button } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Image } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import { isUserLoggedIn } from '../../utils/firebase';
 import AXIOS_CLIENT from "../../utils/apiClient";
+import { useNavigate } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,23 +25,12 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function CouponsHomePage() {
   const [page, setPage] = useState(1);
   const [couponsList, setCouponsList] = useState([]);
+  const [allCoupons, setAllCoupons] = useState([]);
   const [list, setList] = useState([]);
-
   const [admin, setAdmin] = useState(true);
-
-  const itemsPerPage = 6;
-  const totalPages = Math.ceil(couponsList.length / itemsPerPage);
-
-  const handleChange = (event, value) => {
-    const start = (value - 1) * itemsPerPage;
-    const end = (value) * itemsPerPage;
-    setList(couponsList.slice(start, end));
-    setPage(value);
-  }
 
   useEffect(() => {
     AXIOS_CLIENT.get('/users').then((res) => {
-      console.log('User', res);
       if (res.data.user_role === 1) {
         setAdmin(true)
       } else {
@@ -53,6 +43,7 @@ export default function CouponsHomePage() {
 
     AXIOS_CLIENT.get('/coupons').then((res) => {
       const couponsList = res.data.coupons;
+      setAllCoupons(couponsList);
       setCouponsList(couponsList);
       setList(couponsList.slice(0, itemsPerPage));
     }).catch(err => {
@@ -60,6 +51,60 @@ export default function CouponsHomePage() {
       toast.error("Something went wrong!");
     });
   }, []);
+
+
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(couponsList.length / itemsPerPage);
+
+  const handlePagination = (event, value) => {
+    const start = (value - 1) * itemsPerPage;
+    const end = (value) * itemsPerPage;
+    setList(couponsList.slice(start, end));
+    setPage(value);
+  }
+
+  const filterCoupons = (event, value, min, max) => {
+    if (event) {
+      let url = '/coupons/filter?'
+      let condition = [];
+      if (value) {
+        condition.push('discount=' + value)
+      }
+      if (min) {
+        condition.push('minCartPrice=' + min)
+      }
+      if (max) {
+        condition.push('maxCartPrice=' + max)
+      }
+
+      for (let i = 0; i < condition.length; i++) {
+        url = url.concat(condition[i]);
+        if (i != condition.length - 1) {
+          url = url.concat('&')
+        }
+      }
+      console.log({ url })
+
+      AXIOS_CLIENT.get(url).then((res) => {
+        const couponsList = res.data.coupons;
+        setCouponsList(couponsList);
+        setList(couponsList.slice(0, itemsPerPage));
+      }).catch(err => {
+        console.error(err);
+        toast.error("Something went wrong!");
+      });
+    }
+  }
+
+  const navigate = useNavigate();
+  const handleImageClick = () => {
+    navigate('/show_products')
+  }
+
+  const handleClearFilterClick = () => {
+    setCouponsList(allCoupons);
+    setList(allCoupons.slice(0, itemsPerPage));
+  }
 
   return (
     <Grid container sx={{ marginTop: '20px' }}>
@@ -100,12 +145,24 @@ export default function CouponsHomePage() {
       </Grid >
 
       <Grid item xs={12}>
-        <Image src={Images.couponMain} className="center" width="100%" height="100%" />
+        <img
+          src={Images.couponMain}
+          className="center"
+          width="100%"
+          height="100%"
+          onClick={handleImageClick} />
       </Grid>
 
       {/* Filters Option*/}
-      <Grid item xs={2} md={2} sx={{ display: { xs: 'none', md: 'flex' }, pt: 2 }}>
-        <CheckboxesGroup />
+      <Grid item xs={2} md={2} sx={{ display: { xs: 'none', md: 'flex' }, pt: 2, pr: 2 }}>
+        <Stack flex-direction={'column'} spacing={2}>
+          <CheckboxesGroup handleRadioChange={filterCoupons} />
+          <Button
+            variant="contained"
+            onClick={handleClearFilterClick}>
+            Clear Filter
+          </Button>
+        </Stack>
       </Grid>
 
       {/* Coupons List*/}
@@ -131,7 +188,7 @@ export default function CouponsHomePage() {
             data={couponsList}
             page={page}
             totalPages={totalPages}
-            handleChange={handleChange} />
+            handleChange={handlePagination} />
         </Grid>
       </Grid>
     </Grid >

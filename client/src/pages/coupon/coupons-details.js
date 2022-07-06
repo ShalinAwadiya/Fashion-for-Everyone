@@ -16,8 +16,6 @@ const CouponDetails = (props) => {
     const item = props.data;
     const isAdmin = props.admin;
 
-    console.log(props.data)
-
     const style = {
         position: 'absolute',
         top: '50%',
@@ -30,14 +28,11 @@ const CouponDetails = (props) => {
     };
 
     const handleDelete = (item) => {
-        AXIOS_CLIENT.delete('/coupons/delete/' + item._id).then((res) => {
-            if (res.status === 200) {
-                
-            }
-        }).catch(err => {
-            console.error(err);
-            toast.error("Something went wrong!");
-        });
+        AXIOS_CLIENT.delete('/coupons/delete/' + item._id)
+            .catch(err => {
+                console.error(err);
+                toast.error("Something went wrong!");
+            });
     }
 
     return (
@@ -68,12 +63,14 @@ const CouponDetails = (props) => {
                         sx={{ p: 2 }}>
                         <table cellPadding={10}>
                             <th>
-                                <tr>Coupon Code</tr>
+                                <tr>Code</tr>
+                                <tr>Discount</tr>
                                 <tr>Validity</tr>
                                 <tr>Message</tr>
                             </th>
                             <td>
                                 <tr>{item.code}</tr>
+                                <tr>{item.discount}%</tr>
                                 <tr>{item.message}</tr>
                                 <tr>{item.expiryDate}</tr>
                             </td>
