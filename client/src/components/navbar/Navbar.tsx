@@ -132,22 +132,20 @@ const NavBar = () => {
           {/* Pages section Coupons */}
           <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
             {pages.map((page) => (
-              <Link to={"/" + page.route}>
-                <Button
-                  key={page.title}
-                  component="a"
-                  sx={{ my: 2, color: 'black', display: 'block' }}
-                >
-                  {page.title}
-                </Button>
-              </Link>
+              <Button
+                key={page.title}
+                component="a"
+                href={"/" + page.route}
+                sx={{ my: 2, color: 'black', display: 'block', textDecoration: 'none' }}
+              >
+                {page.title}
+              </Button>
             ))}
             <Button
               key="SubscribeUs"
               component="a"
               sx={{ my: 2, color: 'black', display: 'block' }}
               onClick={handleOpen}
-
             >
               Subscribe Us
             </Button>
@@ -268,9 +266,6 @@ const NavBar = () => {
             </Tooltip>
           </Link>
 
-
-
-
           {/* Cart */}
           <Link to="/cart">
             <Tooltip title="Cart">
@@ -294,14 +289,14 @@ const NavBar = () => {
 
           {/* Pages section Sign in */}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Link to='/signup'>
-              <Button
-                onClick={() => isUserLoggedIn() ? logout() : null}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                {isUserLoggedIn() ? "Log out" : "Sign up"}
-              </Button>
-            </Link>
+            <Button
+              component="a"
+              href="/signup"
+              onClick={() => isUserLoggedIn() ? logout() : null}
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
+              {isUserLoggedIn() ? "Log out" : "Sign up"}
+            </Button>
           </Box>
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -314,8 +309,6 @@ const NavBar = () => {
               </Badge>
             </IconButton>
           </Box>
-
-
 
           {/* Responsive Profile, Wishlist, Cart */}
           <Box sx={{ display: { xs: 'flex', md: 'none', ml: 10 } }}>
@@ -403,7 +396,7 @@ const NavBar = () => {
       </Container>
       {notificanDropDownValue ? <NotificationMenu handleNotClick={handleNotClick} /> : null}
 
-    </AppBar>
+    </AppBar >
   );
 };
 export default NavBar;

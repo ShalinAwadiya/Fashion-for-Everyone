@@ -1,3 +1,4 @@
+//Author: Minal Rameshchandra Khona (B00873733)
 import { bloggersList } from '../../../data';
 import Blog from '../blog/blog';
 

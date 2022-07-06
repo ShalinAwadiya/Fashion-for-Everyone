@@ -63,7 +63,7 @@ function SignUp(props) {
 
           <div className="form-group">
             <input value={values.password} onChange={changeHandler} name="password" type="password" className="form-control" placeholder="Password" />
-            {errors.password ? <small className="error">{errors.password}</small> : <small>Passowd with atleast 8 characters</small>}
+            {errors.password ? <small className="error">{errors.password}</small> : <small>Password with atleast 8 characters</small>}
           </div>
 
           <button type="submit" className="btn btn-primary signup-btn" onClick={submitHandler}>Sign up</button>

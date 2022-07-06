@@ -26,6 +26,7 @@
     "button": "^1.1.1",
     "dialog": "^0.3.1",
     "firebase": "^9.8.4",
+    "fs": "^0.0.1-security",
     "primeicons": "^5.0.0",
     "primereact": "^8.1.1",
     "react": "^18.1.0",

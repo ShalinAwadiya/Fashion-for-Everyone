@@ -26,6 +26,6 @@ export default {
     // Artist: ikopylov | Taken From: Vector Stock (https://www.vectorstock.com/royalty-free-vectors/vectors-by_ikopylov)
     nine: require('../assets/images/9.jpg'),
 
-    //Google Search
-    couponMain: require('../assets/images/CouponMain.jpg'),
+    //Google Search: https://www.elegantthemes.com/blog/wp-content/uploads/2019/02/featured-woocomerce-coupons.png
+    couponMain: require('../assets/images/coupons_home.png'),
 }

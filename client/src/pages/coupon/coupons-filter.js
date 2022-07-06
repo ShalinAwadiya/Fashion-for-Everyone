@@ -1,3 +1,4 @@
+//Author: Minal Rameshchandra Khona (B00873733)
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
@@ -15,7 +16,6 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
 
-
 export default function CheckboxesGroup() {
     const [state, setState] = React.useState({
         zara: false,
@@ -24,7 +24,7 @@ export default function CheckboxesGroup() {
         puma: false
     });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event) => {
         setState({
             ...state,
             [event.target.name]: event.target.checked,
@@ -40,8 +40,8 @@ export default function CheckboxesGroup() {
     }));
 
     const [value, setValue] = React.useState('1020');
-    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue((event.target as HTMLInputElement).value);
+    const handleRadioChange = (event) => {
+        setValue((event.target).value);
     };
 
     return (
