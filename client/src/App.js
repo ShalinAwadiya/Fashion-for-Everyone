@@ -30,7 +30,7 @@ import Collection from "./pages/collection/Collection";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import { PrivateRoute, PublicRoute } from "./utils/routeProtector";
 import PostCoupon from "./pages/coupon/post-coupon";
-import SavedCoupon from "./pages/coupon/saved-coupons";
+import SavedCoupon from "./pages/coupon/saved-coupon";
 
 function App() {
   return (
