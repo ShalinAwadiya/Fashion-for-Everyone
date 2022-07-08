@@ -7,7 +7,11 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
-  updatePassword
+  updatePassword,
+  reload,
+  getIdToken,
+  updateProfile,
+  updateEmail
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import AXIOS_CLIENT from "./apiClient";
@@ -31,6 +35,10 @@ const googleProvider = new GoogleAuthProvider();
 
 const setLocalToken = (token) => {
   localStorage.setItem(AUTH_TOKEN_KEY, token);
+}
+
+const getLocalToken = () => {
+  return localStorage.getItem(AUTH_TOKEN_KEY)
 }
 
 const deleteLocalToken = () => {
@@ -117,6 +125,26 @@ const isUserLoggedIn = () => {
   return Boolean(localStorage.getItem(AUTH_TOKEN_KEY));
 }
 
+const reloadUser = async () => {
+  await reload(auth.currentUser);
+}
+
+const updateFirebaseUserProfile = async ({ email, password, name }) => {
+  await updateProfile(auth.currentUser, { displayName: name, password });
+  if(email) {
+    await updateEmail(auth.currentUser, email)
+  }
+  await reloadUser();
+}
+
+const getUserProfile = async () => {
+  return {
+    name: await auth.currentUser.displayName,
+    email: await auth.currentUser.email,
+    password: ""
+  }
+}
+
 export {
   logInWithEmailAndPassword,
   signInWithGoogle,
@@ -126,6 +154,9 @@ export {
   deleteLocalToken,
   isUserLoggedIn,
   updateUserPassword,
+  reloadUser,
+  getUserProfile,
+  updateFirebaseUserProfile,
   auth,
   AUTH_TOKEN_KEY
 };

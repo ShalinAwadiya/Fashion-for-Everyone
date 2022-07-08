@@ -1,6 +1,6 @@
 var express = require('express');
 const { body } = require('express-validator');
-const { registerUser, getUser } = require('../controllers/userController');
+const { registerUser, getUser, updateUser } = require('../controllers/userController');
 var router = express.Router();
 
 const validate = (method) => {
@@ -13,19 +13,17 @@ const validate = (method) => {
       ]
     }
     case 'updateUser': {
-      return []
+      return [
+        body('email').isEmail(),
+        body('name').isString()
+      ]
     }
   }
 }
 
 /* http methods */
-router.post('/',
-  validate('registerUser'), registerUser
-);
-
+router.post('/', validate('registerUser'), registerUser);
 router.get('/', getUser);
-
-router.put('/', validate('updateUser'), async function (req, res, next) { });
-
+router.put('/', validate('updateUser'), updateUser);
 
 module.exports = router;
