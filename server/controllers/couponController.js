@@ -1,6 +1,7 @@
 //Minal Rameshchandra Khona - B00873733
 const { validationResult } = require("express-validator");
 const CouponModel = require("../models/coupon");
+const SaveCouponModel = require("../models/saveCoupon")
 
 async function postCoupon(req, res, next) {
     try {
@@ -31,23 +32,6 @@ async function getCoupons(req, res, next) {
     try {
         let coupons = await CouponModel.find();
         return res.status(201).send({ coupons })
-    } catch (err) {
-        return next(err);
-    }
-}
-
-async function deleteCoupon(req, res, next) {
-    try {
-        const _id = req.params.id;
-        const coupon = await CouponModel.find({ _id });
-
-        //Check whether the coupon with code req.params.id exists in the database
-        if (!coupon) {
-            return res.status(204).send({ message: 'Coupon does not exist' });
-        } else {
-            await CouponModel.deleteOne({ _id })
-        }
-        return res.status(200).send({ message: 'Coupon delete successfully' })
     } catch (err) {
         return next(err);
     }
@@ -107,4 +91,74 @@ async function filterCoupons(req, res, next) {
     }
 }
 
-module.exports = { postCoupon, getCoupons, deleteCoupon, filterCoupons }
+async function saveCoupon(req, res, next) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const { userId } = req.body;
+        const { coupon } = req.body;
+
+        const savedCoupons = await SaveCouponModel.findOne({ userId });
+        if (savedCoupons) {
+            //Check if the coupon is already saved
+            for (const item of savedCoupons.coupons) {
+                if (item.code === coupon.code) {
+                    return res.status(409).send({ message: 'Coupon already saved' })
+                }
+            }
+            savedCoupons.coupons.push(coupon);
+            await SaveCouponModel.updateOne({ userId: userId }, { coupons: savedCoupons.coupons });
+            return res.status(200).send({ message: 'Coupon Saved successfully' });
+        } else {
+            let couponArr = [];
+            couponArr.push(coupon);
+
+            const newRecord = {
+                userId: userId,
+                coupons: couponArr
+            }
+            await SaveCouponModel.create(newRecord);
+            return res.status(201).send({ message: 'Coupon Saved Successfully' })
+        }
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({
+            error: err.name,
+            message: err.message.split(':')[2]
+        });
+    }
+}
+
+async function getSavedCouponsForUser(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const userId = req.params.userId;
+    const savedCoupons = await SaveCouponModel.findOne({ userId });
+    if (savedCoupons) {
+        return res.status(200).send(savedCoupons);
+    } else {
+        return res.status(404).send({ message: 'No Coupons found' });
+    }
+}
+
+async function getSavedCouponsForUser(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const userId = req.params.userId;
+    const savedCoupons = await SaveCouponModel.findOne({ userId });
+    if (savedCoupons) {
+        return res.status(200).send(savedCoupons);
+    } else {
+        return res.status(404).send({ message: 'No Coupons found' });
+    }
+}
+
+module.exports = { postCoupon, getCoupons, deleteCoupon, filterCoupons, saveCoupon, getSavedCouponsForUser }
