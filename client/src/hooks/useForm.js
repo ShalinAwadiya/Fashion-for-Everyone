@@ -2,7 +2,7 @@
  * Reference: https://dimitr.im/form-validation-react-hooks
 **/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function validate(validations, values, fieldName) {
   const validation = validations[fieldName];

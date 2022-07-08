@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const UserModel = require("../models/user");
+const admin = require('../config/firebase-admin');
 
 async function registerUser(req, res, next) {
   try {
@@ -37,4 +38,17 @@ async function getUser(req, res, next) {
   }
 }
 
-module.exports = { getUser, registerUser }
+async function updateUser(req, res, next) {
+  try {
+    const user = req.user;
+    const { email, name } = req.body;
+
+    await UserModel.findOneAndUpdate({ firebaseId: user.user_id }, { $set: { email: email, name: name } });
+
+    return res.status(200).send({ success: "true" });
+  } catch (err) {
+    return next(err)
+  }
+}
+
+module.exports = { getUser, registerUser, updateUser }

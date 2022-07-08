@@ -1,18 +1,47 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import AXIOS_CLIENT from "../../utils/apiClient";
+import ProfileDefaultPic from "../../assets/images/profile-default.jpg"
+import updateProfileValidator from "../../validators/updateProfile-validator";
+import useForm from "../../hooks/useForm";
+import { auth, getUserProfile, updateFirebaseUserProfile } from "../../utils/firebase";
+
 
 function Profile(props) {
-  const [userDetails, setUserDetails] = useState({});
+  const [userDetails, setUserDetails] = useState({
+    email: "",
+    name: "",
+    password: ""
+  });
 
   const getUserDetails = async () => {
     try {
-      const res = await AXIOS_CLIENT.get('/users');
-      setUserDetails(res.data.user);
+      setValues(await getUserProfile());
     } catch (err) {
+      console.log(err)
       toast.error("Something went wrong!");
     }
   }
+
+  const updateUserProfile = async () => {
+    try {
+      await updateFirebaseUserProfile(values);
+      await(getUserDetails())
+      const res = await AXIOS_CLIENT.put('/users', values);
+      toast.success("Done!!");
+    } catch (err) {
+      console.log(err)
+      toast.error("Something went wrong!");
+    }
+  }
+
+  const {
+    values,
+    changeHandler,
+    errors,
+    submitHandler,
+    setValues
+  } = useForm({ initialValues: userDetails, validations: updateProfileValidator, onSubmit: updateUserProfile });
 
   useEffect(() => {
     getUserDetails();
@@ -20,25 +49,25 @@ function Profile(props) {
 
   return (
     <div className="col-md-6 card mx-auto rounded shadow mt-5">
+      <ToastContainer />
       <h3 className="text-center mt-3 text-muted">Profile settings</h3>
-      <div class="col-md-6 mx-auto d-flex flex-column">
-        <img class="rounded-circle z-depth-2 m-4" alt="50x50" src={userDetails.picture}
+      <div className="col-md-6 mx-auto d-flex flex-column">
+        <img className="rounded-circle z-depth-2 m-4" alt="50x50" src={userDetails.picture || ProfileDefaultPic}
           data-holder-rendered="true" />
 
         <div className="form-group">
-          <label className="mt-2">Name</label>
-          <input value={userDetails.name} className="form-control" type={"text"} placeholder="name"></input>
+          <input value={values.name} name="name" onChange={changeHandler} className="form-control" type={"text"} placeholder="name"></input>
+          {errors.name ? <small className="error">{errors.name}</small> : <small>Your name</small>}
 
-          <label className="mt-2">Email</label>
-          <input value={userDetails.email} className="form-control" type={"email"} placeholder="email"></input>
+          <input value={values.email} name="email" onChange={changeHandler} className="form-control mt-3" type={"email"} placeholder="email"></input>
+          {errors.email ? <small className="error">{errors.email}</small> : <small>Your email</small>}
 
-          <label className="mt-2">Password</label>
-          <input value="" className="form-control" type={"password"} placeholder="password"></input>
+          <input value={values.password} name="password" onChange={changeHandler} className="form-control mt-3" type={"password"} placeholder="password"></input>
+          {errors.password ? <small className="error">{errors.password}</small> : <small>Your password</small>}
 
           <div className="mx-auto col-md-6 mt-3">
-            <button className="btn btn-primary w-100 mx-auto"> Update</button>
+            <button onClick={submitHandler} className="btn btn-primary w-100 mx-auto"> Update</button>
           </div>
-
         </div>
       </div>
     </div >
