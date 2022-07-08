@@ -30,6 +30,7 @@ import Collection from "./pages/collection/Collection";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import { PrivateRoute, PublicRoute } from "./utils/routeProtector";
 import PostCoupon from "./pages/coupon/post-coupon";
+import SavedCoupon from "./pages/coupon/saved-coupons";
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
               <Route path="/fashion-blogs/post" element={<PostBlog />} />
               <Route path="/collection/:collection" element={<Collection />} />
               <Route path="/post-coupons" element={<PostCoupon />} />
+              <Route path="/saved-coupons" element={<SavedCoupon />} />
             </Route>
           </Routes>
         </div>

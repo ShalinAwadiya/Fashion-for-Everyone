@@ -8,7 +8,6 @@ import Images from "../../assets";
 import CouponDetails from "./coupons-details"
 import { Box, Button, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Image } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import { isUserLoggedIn } from '../../utils/firebase';
 import AXIOS_CLIENT from "../../utils/apiClient";
@@ -27,21 +26,25 @@ export default function CouponsHomePage() {
   const [couponsList, setCouponsList] = useState([]);
   const [allCoupons, setAllCoupons] = useState([]);
   const [list, setList] = useState([]);
-  const [admin, setAdmin] = useState(true);
+  const [user, setUser] = useState();
+  const [role, setRole] = useState(0);
 
   useEffect(() => {
     AXIOS_CLIENT.get('/users').then((res) => {
-      if (res.data.user_role === 1) {
-        setAdmin(true)
-      } else {
-        setAdmin(false)
+      if (res) {
+        console.log({ res })
+        setUser(res.data)
+        setRole(res.data.user_role)
+        if (!localStorage.getItem('userId')) {
+          localStorage.setItem('userId', res.data.user.user_id);
+        }
       }
     }).catch(err => {
       console.error(err);
       toast.error("Something went wrong!");
     });
 
-    AXIOS_CLIENT.get('/coupons').then((res) => {
+    AXIOS_CLIENT.get('/coupons/').then((res) => {
       const couponsList = res.data.coupons;
       setAllCoupons(couponsList);
       setCouponsList(couponsList);
@@ -51,7 +54,6 @@ export default function CouponsHomePage() {
       toast.error("Something went wrong!");
     });
   }, []);
-
 
   const itemsPerPage = 6;
   const totalPages = Math.ceil(couponsList.length / itemsPerPage);
@@ -118,7 +120,7 @@ export default function CouponsHomePage() {
         {
           isUserLoggedIn()
             ?
-            admin
+            role === 1
               ?
               <Button
                 className="mx-auto bg-primary text-light w-100 mb-1"
@@ -171,7 +173,11 @@ export default function CouponsHomePage() {
           <Box sx={{ display: 'flex', width: '100%' }}>
             <Grid container spacing={3}>
               {list.map((item) => (
-                <CouponDetails data={item} key={item._id} admin={admin}
+                <CouponDetails
+                  data={item}
+                  key={item._id}
+                  role={role}
+                  userId={user.user.user_id}
                 />
               ))}
             </Grid>

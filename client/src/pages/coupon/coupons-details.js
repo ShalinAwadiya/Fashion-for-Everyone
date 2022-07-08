@@ -7,6 +7,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Cancel } from '@mui/icons-material';
 import AXIOS_CLIENT from "../../utils/apiClient";
 import { toast } from 'react-toastify';
+import { Toast } from 'reactstrap';
 
 const CouponDetails = (props) => {
     const [open, setOpen] = React.useState(false);
@@ -14,7 +15,8 @@ const CouponDetails = (props) => {
     const handleClose = () => setOpen(false);
 
     const item = props.data;
-    const isAdmin = props.admin;
+    const role = props.role;
+    const userId = props.userId;
 
     const style = {
         position: 'absolute',
@@ -32,6 +34,35 @@ const CouponDetails = (props) => {
             .catch(err => {
                 console.error(err);
                 toast.error("Something went wrong!");
+            });
+    }
+
+    const saveCoupon = (item) => {
+        const req = {
+            userId: userId,
+            coupon: {
+                code: item.code,
+                discount: item.discount,
+                minCartPrice: item.minCartPrice,
+                expiryDate: item.expiryDate,
+                message: item.message,
+                image: item.image
+            }
+        }
+
+        console.log(req)
+
+        AXIOS_CLIENT.post('/coupons/save-coupon', req)
+            .then((res) => {
+                if (res.status === 200) {
+                    setOpen(true);
+                    console.log('Coupon saved successfully!!!')
+                } else if (res.status === 409) {
+                    console.log('Coupon already saved!!!')
+                }
+            }).catch(err => {
+                console.error(err);
+                Toast.error("Something went wrong!");
             });
     }
 
@@ -58,6 +89,7 @@ const CouponDetails = (props) => {
                         variant={'h6'}>
                         COUPON DETAILS
                     </Typography>
+
                     <Typography
                         component={'div'}
                         sx={{ p: 2 }}>
@@ -76,9 +108,10 @@ const CouponDetails = (props) => {
                             </td>
                         </table>
                     </Typography>
+
                     <div className="container" style={{ margin: 'auto', textAlign: 'center' }}>
                         <Button >
-                            <BookmarkAddIcon />
+                            <BookmarkAddIcon onClick={() => saveCoupon(item)} />
                         </Button>
                         <Button onClick={handleClose}>
                             <Cancel />
@@ -111,7 +144,7 @@ const CouponDetails = (props) => {
             </Typography>
 
             {
-                isAdmin &&
+                role === 1 &&
                 <Button
                     variant='contained'
                     component="a"
