@@ -35,7 +35,6 @@ export default function CouponsHomePage() {
   const [exists, setExists] = useState(false);
 
   const { state } = useLocation();
-  console.log('State is: ', state)
 
   useEffect(() => {
     AXIOS_CLIENT.get('/users').then((res) => {
