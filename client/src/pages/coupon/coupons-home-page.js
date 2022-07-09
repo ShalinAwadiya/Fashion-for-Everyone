@@ -1,6 +1,6 @@
 //Author: Minal Rameshchandra Khona (B00873733)
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Grid, Paper, Snackbar, Box, Button, Stack, styled, CircularProgress } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { toast } from "react-toastify";
@@ -33,6 +33,9 @@ export default function CouponsHomePage() {
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
   const [exists, setExists] = useState(false);
+
+  const { state } = useLocation();
+  console.log('State is: ', state)
 
   useEffect(() => {
     AXIOS_CLIENT.get('/users').then((res) => {
@@ -197,7 +200,7 @@ export default function CouponsHomePage() {
       </Grid>
 
       {/* Filters Option*/}
-      <Grid item xs={2} md={2} sx={{ display: { xs: 'none', md: 'flex' }, pt: 2, pr: 2 }}>
+      <Grid item xs={2} md={2} sx={{ display: { xs: 'none', sm: 'none', md: 'flex' }, pt: 2, pr: 2 }}>
         <Stack flex-direction={'column'} spacing={2}>
           <CouponsFilter handleRadioChange={filterCoupons} />
           <Button
@@ -254,6 +257,12 @@ export default function CouponsHomePage() {
             <Snackbar open={exists} autoHideDuration={3000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="info" sx={{ width: '300px' }}>
                 Coupon is already saved!!!
+              </Alert>
+            </Snackbar>
+
+            <Snackbar open={Boolean(state?.remove)} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="info" sx={{ width: '300px' }}>
+                Coupon deleted successfully!!!
               </Alert>
             </Snackbar>
           </>

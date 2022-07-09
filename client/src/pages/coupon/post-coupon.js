@@ -1,24 +1,28 @@
 //Author: Minal Rameshchandra Khona (B00873733)
-import { Box, Button, IconButton, Paper, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Button, IconButton, Paper, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import { DeleteRounded, ImageRounded } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 import './styles.css'
+import MuiAlert from '@mui/material/Alert';
 import { Container } from "@mui/system";
 import AXIOS_CLIENT from "../../utils/apiClient";
 import { Toast } from "reactstrap";
-import MuiAlert from '@mui/material/Alert';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 const PostCoupon = () => {
+    const { state } = useLocation();
     const navigate = useNavigate();
 
     //Image Upload
     const [image, setImage] = useState(null);
     const [base64, setBase64] = useState(null);
+
+    //Error snackbar
+    const [error, setError] = useState(false);
 
     const imageUpload = (e) => {
         if (e.target.files) {
@@ -52,6 +56,7 @@ const PostCoupon = () => {
             return;
         }
         setOpen(false);
+        setError(false);
     };
 
     //Form Submit
@@ -75,13 +80,13 @@ const PostCoupon = () => {
                 if (res.status === 200) {
                     setOpen(true);
                     console.log('Coupon posted successfully!!!')
+                    navigate("/post-coupons", { state: { success: true } });
                 }
             }).catch(err => {
+                setError(true);
                 console.error(err);
                 Toast.error("Something went wrong!");
             });
-
-        navigate("/post-coupons");
     }
 
     return (
@@ -193,9 +198,15 @@ const PostCoupon = () => {
                                 </Box>
                             </Stack>
 
-                            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                            <Snackbar open={state?.success} autoHideDuration={3000} onClose={handleClose}>
                                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                                    Coupon posted successfully!
+                                    Coupon posted successfully!!!
+                                </Alert>
+                            </Snackbar>
+
+                            <Snackbar open={error} autoHideDuration={3000} onClose={handleClose}>
+                                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                                    Error while posting coupon
                                 </Alert>
                             </Snackbar>
                         </form>

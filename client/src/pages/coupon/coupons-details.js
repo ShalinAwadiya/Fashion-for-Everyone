@@ -1,21 +1,21 @@
 //Author: Minal Rameshchandra Khona (B00873733)
-import { Button, Grid, Modal, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import React from 'react';
+import { Button, Grid, Modal, Typography, Box, Stack } from '@mui/material';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Cancel } from '@mui/icons-material';
 import AXIOS_CLIENT from "../../utils/apiClient";
 import { toast } from 'react-toastify';
+import React, { useState } from 'react';
+import { maxHeight } from '@mui/system';
 
 const CouponDetails = (props) => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const item = props.data;
     const role = props.role;
-    const userId = props.userId;
     const action = props.action;
 
     const style = {
@@ -48,55 +48,82 @@ const CouponDetails = (props) => {
 
     return (
         <Grid item xs={12} sm={6} md={4} sx={{ border: '1px' }}>
-            <img
-                width="100%"
-                src={item.image}
-                srcSet={item.image}
-                loading="lazy"
-                onClick={handleOpen}
-            />
+            <Grid item sx={{ display: { xs: 'none', md: 'flex', maxHeight: '200px' } }}>
+                <img
+                    width="100%"
+                    src={item.image}
+                    srcSet={item.image}
+                    loading="lazy"
+                    onClick={handleOpen}
+                />
+            </Grid>
 
-            <Typography
-                component={'div'}
-                variant="body1"
-                width="100%"
-                color='black'
-                bottom="0px"
-                textAlign="left"
-                fontWeight="bold">
-                {item.code}
-            </Typography>
+            <Grid item sx={{ display: { xs: 'none', sm: 'flex', md: 'none', maxHeight: '200px' } }}>
+                <img
+                    width="100%"
+                    src={item.image}
+                    srcSet={item.image}
+                    loading="lazy"
+                    onClick={handleOpen}
+                />
+            </Grid>
 
-            <Typography
-                variant="body1"
-                textAlign="left"
-                color='black'>
-                {item.expiryDate}
-                <br />
-                {item.message}
-            </Typography>
+            <Grid item sx={{ display: { xs: 'flex', sm: 'none', md: 'none' } }}>
+                <img
+                    width="100%"
+                    src={item.image}
+                    srcSet={item.image}
+                    loading="lazy"
+                    onClick={handleOpen}
+                />
+            </Grid>
 
-            {/* Admin action - Delete Coupon */}
-            {
-                role === 1 &&
-                <Button
-                    variant='contained'
-                    component="a"
-                    href="/coupons"
-                    onClick={() => handleDelete(item)}
-                    sx={{ display: 'flex', marginTop: '10px' }}>
-                    DELETE COUPON
-                </Button>
-            }
+            <Stack direction={'column'}>
+                <Typography
+                    component={'div'}
+                    variant="body1"
+                    width="100%"
+                    color='black'
+                    bottom="0px"
+                    textAlign="left"
+                    fontWeight="bold">
+                    {item.code}
+                </Typography>
 
-            <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button >
-                    <BookmarkAddIcon onClick={() => saveOrUnsaveCoupon(item)} />
-                </Button>
-                <Button>
-                    <AddShoppingCartIcon />
-                </Button>
-            </div>
+                <Typography
+                    variant="body1"
+                    textAlign="left"
+                    color='black'>
+                    {item.expiryDate}
+                    <br />
+                    {item.message}
+                </Typography>
+
+                {/* Admin action - Delete Coupon */}
+                {
+                    role === 1 &&
+                    <Button
+                        className="mx-auto bg-primary text-light w-100 mb-1"
+                        color="secondary"
+                        aria-label="add"
+                        component="a"
+                        href="/coupons"
+                        onClick={() => handleDelete(item)}
+                        sx={{ display: 'flex', marginTop: '10px' }}
+                    >
+                        DELETE COUPON
+                    </Button>
+                }
+
+                <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button >
+                        <BookmarkAddIcon onClick={() => saveOrUnsaveCoupon(item)} />
+                    </Button>
+                    <Button>
+                        <AddShoppingCartIcon />
+                    </Button>
+                </div>
+            </Stack>
 
             {/* Coupon Image OnClick Modal */}
             <Modal
@@ -141,4 +168,3 @@ const CouponDetails = (props) => {
         </Grid >);
 };
 export default CouponDetails;
-
