@@ -1,13 +1,6 @@
+//Author: Minal Rameshchandra Khona (B00873733)
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import React, { useState } from 'react';
-
-interface iCoupons {
-  img: any,
-  brand: string,
-  discount: string,
-  expiry: string
-}
 
 const PaginationRounded = (props: any) => {
   return (

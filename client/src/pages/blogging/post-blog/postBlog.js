@@ -1,5 +1,5 @@
-import { Alert, Avatar, Box, Button, CircularProgress, Grid, IconButton, InputBase, Paper, Snackbar, Stack, Typography } from "@mui/material";
-import NavBar from "../../navbar/Navbar";
+//Author: Minal Rameshchandra Khona (B00873733)
+import { Alert, Avatar, Box, Button, CircularProgress, Paper, Snackbar, Stack, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

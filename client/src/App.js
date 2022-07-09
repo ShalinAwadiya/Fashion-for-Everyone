@@ -9,7 +9,7 @@ import Header from "./components/header";
 import Login from "./pages/user-auth/login";
 import ForgetPassword from "./pages/user-auth/forget-password";
 import Footer from "./components/footer";
-import CouponsHomePage from "./pages/coupon/CouponsHomePage";
+import CouponsHomePage from "./pages/coupon/coupons-home-page";
 import SeachPage from "./pages/search-page";
 import ComplainForm from "./pages/compain/ComplainForm";
 import EditComplainForm from "./pages/compain/EditComplainForm";
@@ -22,13 +22,15 @@ import Checkout from "./pages/checkout/Checkout";
 import Profile from "./pages/user-auth/profile";
 import ProductPage from "./pages/products/ProductPage";
 import ShowReviews from "./pages/reviews/ShowReviews";
-import Fashion from "./components/blogging/fashion-blogging";
-import CreateBlog from "./components/blogging/create-blog/createBlog";
-import PostBlog from "./components/blogging/post-blog/postBlog";
+import Fashion from "./pages/blogging/fashion-blogging";
+import CreateBlog from "./pages/blogging/create-blog/createBlog";
+import PostBlog from "./pages/blogging/post-blog/postBlog";
 import Orders from "./pages/orders/Orders";
 import Collection from "./pages/collection/Collection";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import { PrivateRoute, PublicRoute } from "./utils/routeProtector";
+import PostCoupon from "./pages/coupon/post-coupon";
+import SavedCoupon from "./pages/coupon/saved-coupons";
 
 function App() {
   return (
@@ -68,6 +70,8 @@ function App() {
               <Route path="/fashion/createPost" element={<CreateBlog />} />
               <Route path="/fashion-blogs/post" element={<PostBlog />} />
               <Route path="/collection/:collection" element={<Collection />} />
+              <Route path="/post-coupons" element={<PostCoupon />} />
+              <Route path="/saved-coupons" element={<SavedCoupon />} />
             </Route>
           </Routes>
         </div>

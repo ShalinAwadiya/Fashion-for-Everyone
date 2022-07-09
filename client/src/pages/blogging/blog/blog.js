@@ -1,3 +1,4 @@
+//Author: Minal Rameshchandra Khona (B00873733)
 import { Avatar, Box, Button, Divider, ImageList, ImageListItem, Paper, Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 

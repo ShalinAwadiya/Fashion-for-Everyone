@@ -1,5 +1,5 @@
-import { Alert, Avatar, Box, Button, Grid, IconButton, InputBase, Paper, Snackbar, Stack, Typography } from "@mui/material";
-import NavBar from "../../navbar/Navbar";
+//Author: Minal Rameshchandra Khona (B00873733)
+import { Avatar, Box, Button, Grid, IconButton, InputBase, Paper, Snackbar, Stack, Typography } from "@mui/material";
 import { user } from '../../../data';
 import { useRef, useState } from "react";
 import { DeleteRounded, ImageRounded } from "@mui/icons-material";

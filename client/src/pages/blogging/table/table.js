@@ -1,3 +1,4 @@
+//Author: Minal Rameshchandra Khona (B00873733)
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
@@ -80,8 +81,8 @@ const Table = () => {
 
                 <TableHead>
                     <TableRow>
-                        <TableCell sx={{minWidth:100}}>Product Type</TableCell>
-                        <TableCell sx={{minWidth:100}}>Product Link</TableCell>
+                        <TableCell sx={{ minWidth: 100 }}>Product Type</TableCell>
+                        <TableCell sx={{ minWidth: 100 }}>Product Link</TableCell>
                         <TableCell>Action</TableCell>
                     </TableRow>
 
@@ -91,7 +92,7 @@ const Table = () => {
                                 {
                                     isEdit ? (
                                         <>
-                                            <TableCell sx={{minWidth:100}} component="th" scope="row" align="left">
+                                            <TableCell sx={{ minWidth: 100 }} component="th" scope="row" align="left">
                                                 <TextField
                                                     value={row.ProductType}
                                                     name="ProductType"
