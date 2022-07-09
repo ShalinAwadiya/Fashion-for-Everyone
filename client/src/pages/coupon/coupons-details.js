@@ -7,7 +7,6 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Cancel } from '@mui/icons-material';
 import AXIOS_CLIENT from "../../utils/apiClient";
 import { toast } from 'react-toastify';
-import { Toast } from 'reactstrap';
 
 const CouponDetails = (props) => {
     const [open, setOpen] = React.useState(false);
@@ -17,6 +16,7 @@ const CouponDetails = (props) => {
     const item = props.data;
     const role = props.role;
     const userId = props.userId;
+    const action = props.action;
 
     const style = {
         position: 'absolute',
@@ -37,37 +37,17 @@ const CouponDetails = (props) => {
             });
     }
 
-    const saveCoupon = (item) => {
-        const req = {
-            userId: userId,
-            coupon: {
-                code: item.code,
-                discount: item.discount,
-                minCartPrice: item.minCartPrice,
-                expiryDate: item.expiryDate,
-                message: item.message,
-                image: item.image
-            }
+    const saveOrUnsaveCoupon = (item) => {
+        console.log(item.code)
+        if (action === 'save') {
+            props.save(item);
+        } else if (action === 'unsave') {
+            props.unsave(item);
         }
-
-        console.log(req)
-
-        AXIOS_CLIENT.post('/coupons/save-coupon', req)
-            .then((res) => {
-                if (res.status === 200) {
-                    setOpen(true);
-                    console.log('Coupon saved successfully!!!')
-                } else if (res.status === 409) {
-                    console.log('Coupon already saved!!!')
-                }
-            }).catch(err => {
-                console.error(err);
-                Toast.error("Something went wrong!");
-            });
     }
 
     return (
-        <Grid item xs={12} sm={6} md={4} >
+        <Grid item xs={12} sm={6} md={4} sx={{ border: '1px' }}>
             <img
                 width="100%"
                 src={item.image}
@@ -75,6 +55,48 @@ const CouponDetails = (props) => {
                 loading="lazy"
                 onClick={handleOpen}
             />
+
+            <Typography
+                component={'div'}
+                variant="body1"
+                width="100%"
+                color='black'
+                bottom="0px"
+                textAlign="left"
+                fontWeight="bold">
+                {item.code}
+            </Typography>
+
+            <Typography
+                variant="body1"
+                textAlign="left"
+                color='black'>
+                {item.expiryDate}
+                <br />
+                {item.message}
+            </Typography>
+
+            {/* Admin action - Delete Coupon */}
+            {
+                role === 1 &&
+                <Button
+                    variant='contained'
+                    component="a"
+                    href="/coupons"
+                    onClick={() => handleDelete(item)}
+                    sx={{ display: 'flex', marginTop: '10px' }}>
+                    DELETE COUPON
+                </Button>
+            }
+
+            <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button >
+                    <BookmarkAddIcon onClick={() => saveOrUnsaveCoupon(item)} />
+                </Button>
+                <Button>
+                    <AddShoppingCartIcon />
+                </Button>
+            </div>
 
             {/* Coupon Image OnClick Modal */}
             <Modal
@@ -110,50 +132,12 @@ const CouponDetails = (props) => {
                     </Typography>
 
                     <div className="container" style={{ margin: 'auto', textAlign: 'center' }}>
-                        <Button >
-                            <BookmarkAddIcon onClick={() => saveCoupon(item)} />
-                        </Button>
                         <Button onClick={handleClose}>
                             <Cancel />
-                        </Button>
-                        <Button>
-                            <AddShoppingCartIcon />
                         </Button>
                     </div>
                 </Box>
             </Modal>
-
-            <Typography
-                component={'div'}
-                variant="body1"
-                width="100%"
-                color='black'
-                bottom="0px"
-                textAlign="left"
-                fontWeight="bold">
-                {item.code}
-            </Typography>
-
-            <Typography
-                variant="body1"
-                textAlign="left"
-                color='black'>
-                {item.expiryDate}
-                <br />
-                {item.message}
-            </Typography>
-
-            {
-                role === 1 &&
-                <Button
-                    variant='contained'
-                    component="a"
-                    href="/coupons"
-                    onClick={() => handleDelete(item)}
-                    sx={{ display: 'flex', marginTop: '10px' }}>
-                    DELETE COUPON
-                </Button>
-            }
         </Grid >);
 };
 export default CouponDetails;

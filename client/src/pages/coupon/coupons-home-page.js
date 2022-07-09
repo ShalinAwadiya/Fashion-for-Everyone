@@ -32,7 +32,6 @@ export default function CouponsHomePage() {
   useEffect(() => {
     AXIOS_CLIENT.get('/users').then((res) => {
       if (res) {
-        console.log({ res })
         setUser(res.data)
         setRole(res.data.user_role)
         if (!localStorage.getItem('userId')) {
@@ -55,14 +54,9 @@ export default function CouponsHomePage() {
     });
   }, []);
 
-  const itemsPerPage = 6;
-  const totalPages = Math.ceil(couponsList.length / itemsPerPage);
-
-  const handlePagination = (event, value) => {
-    const start = (value - 1) * itemsPerPage;
-    const end = (value) * itemsPerPage;
-    setList(couponsList.slice(start, end));
-    setPage(value);
+  const navigate = useNavigate();
+  const handleImageClick = () => {
+    navigate('/show_products')
   }
 
   const filterCoupons = (event, value, min, max) => {
@@ -98,14 +92,47 @@ export default function CouponsHomePage() {
     }
   }
 
-  const navigate = useNavigate();
-  const handleImageClick = () => {
-    navigate('/show_products')
-  }
-
   const handleClearFilterClick = () => {
     setCouponsList(allCoupons);
     setList(allCoupons.slice(0, itemsPerPage));
+  }
+
+  const saveCoupons = (item) => {
+    const req = {
+      userId: localStorage.getItem('userId'),
+      coupon: {
+        code: item.code,
+        discount: item.discount,
+        minCartPrice: item.minCartPrice,
+        expiryDate: item.expiryDate,
+        message: item.message,
+        image: item.image
+      }
+    }
+
+    console.log(req)
+
+    AXIOS_CLIENT.post('/coupons/save-coupon', req)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log('Coupon saved successfully!!!')
+        } else if (res.status === 409) {
+          console.log('Coupon already saved!!!')
+        }
+      }).catch(err => {
+        console.error(err);
+        toast.error("Something went wrong!");
+      });
+  }
+
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(couponsList.length / itemsPerPage);
+
+  const handlePagination = (event, value) => {
+    const start = (value - 1) * itemsPerPage;
+    const end = (value) * itemsPerPage;
+    setList(couponsList.slice(start, end));
+    setPage(value);
   }
 
   return (
@@ -178,6 +205,8 @@ export default function CouponsHomePage() {
                   key={item._id}
                   role={role}
                   userId={user.user.user_id}
+                  action="save"
+                  save={saveCoupons}
                 />
               ))}
             </Grid>

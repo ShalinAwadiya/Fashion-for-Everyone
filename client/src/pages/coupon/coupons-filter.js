@@ -26,18 +26,18 @@ export default function CheckboxesGroup(props) {
         setValue((event.target).value);
     };
 
-    const [min, setMin] = React.useState('');
-    const [max, setMax] = React.useState('');
-    const [error, setError] = React.useState('');
+    const [min, setMin] = React.useState();
+    const [max, setMax] = React.useState();
 
     const handleMinChange = (event) => {
-        setMin(event.target.value)
+        setMin((event.target).value)
     };
 
     const handleMaxChange = (event) => {
-        setMax(event.target.value)
+        setMax((event.target).value)
     };
 
+    const [error, setError] = React.useState();
     const handleClick = (value, min, max) => {
         setError('');
         console.log(value, min, max)
@@ -71,30 +71,32 @@ export default function CheckboxesGroup(props) {
                 </Item>
 
                 <Item>
-                    <FormLabel>CART PRICE</FormLabel>
-                    <TextField
-                        type="number"
-                        id="minCartPrice"
-                        label="Minimum"
-                        min="10"
-                        value={min}
-                        onChange={handleMinChange}
-                        sx={{ marginTop: 1, marginBottom: 2 }}
-                    />
-                    <Typography
-                        variant="body2"
-                        sx={{ color: 'red', fontStyle: 'italic' }}>
-                        {error}
-                    </Typography>
+                    <FormControl>
+                        <FormLabel>CART PRICE</FormLabel>
+                        <TextField
+                            type="number"
+                            id="minCartPrice"
+                            label="Minimum"
+                            min="10"
+                            value={min}
+                            onChange={handleMinChange}
+                            sx={{ marginTop: 1, marginBottom: 2 }}
+                        />
+                        <Typography
+                            variant="body2"
+                            sx={{ color: 'red', fontStyle: 'italic' }}>
+                            {error}
+                        </Typography>
 
-                    <TextField
-                        type="number"
-                        id="maxCartPrice"
-                        label="Maximum"
-                        value={max}
-                        onChange={handleMaxChange}
-                        sx={{ marginTop: 1, marginBottom: 2 }}
-                    />
+                        <TextField
+                            type="number"
+                            id="maxCartPrice"
+                            label="Maximum"
+                            value={max}
+                            onChange={handleMaxChange}
+                            sx={{ marginTop: 1, marginBottom: 2 }}
+                        />
+                    </FormControl>
                 </Item>
 
                 <Button
@@ -103,6 +105,6 @@ export default function CheckboxesGroup(props) {
                     Apply Filter
                 </Button>
             </Stack>
-        </Box>
+        </Box >
     );
 }
