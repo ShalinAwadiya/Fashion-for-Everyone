@@ -1,17 +1,15 @@
 //Author: Minal Rameshchandra Khona (B00873733)
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import CheckboxesGroup from "./coupons-filter";
-import PaginationRounded from "../../components/pagination/Pagination"
-import Images from "../../assets";
-import CouponDetails from "./coupons-details"
-import { Box, Button, Stack } from '@mui/material';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Grid, Paper, Snackbar, Box, Button, Stack, styled, CircularProgress } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import { toast } from "react-toastify";
+import Images from "../../assets";
+import PaginationRounded from "../../components/pagination/Pagination"
+import CouponsFilter from "./coupons-filter";
+import CouponDetails from "./coupons-details"
 import { isUserLoggedIn } from '../../utils/firebase';
 import AXIOS_CLIENT from "../../utils/apiClient";
-import { useNavigate } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,6 +19,10 @@ const Item = styled(Paper)(({ theme }) => ({
   color: 'blue',
 }));
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function CouponsHomePage() {
   const [page, setPage] = useState(1);
   const [couponsList, setCouponsList] = useState([]);
@@ -28,6 +30,9 @@ export default function CouponsHomePage() {
   const [list, setList] = useState([]);
   const [user, setUser] = useState();
   const [role, setRole] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [saved, setSaved] = useState(false);
+  const [exists, setExists] = useState(false);
 
   useEffect(() => {
     AXIOS_CLIENT.get('/users').then((res) => {
@@ -48,6 +53,7 @@ export default function CouponsHomePage() {
       setAllCoupons(couponsList);
       setCouponsList(couponsList);
       setList(couponsList.slice(0, itemsPerPage));
+      setLoading(false);
     }).catch(err => {
       console.error(err);
       toast.error("Something went wrong!");
@@ -110,18 +116,22 @@ export default function CouponsHomePage() {
       }
     }
 
-    console.log(req)
+    console.log(req);
 
     AXIOS_CLIENT.post('/coupons/save-coupon', req)
       .then((res) => {
         if (res.status === 200) {
+          setSaved(true);
           console.log('Coupon saved successfully!!!')
-        } else if (res.status === 409) {
-          console.log('Coupon already saved!!!')
         }
       }).catch(err => {
-        console.error(err);
-        toast.error("Something went wrong!");
+        if (err.response.status === 409) {
+          setExists(true);
+          console.log('Coupon already saved!!!')
+        } else {
+          console.error(err);
+          toast.error("Something went wrong!");
+        }
       });
   }
 
@@ -135,6 +145,14 @@ export default function CouponsHomePage() {
     setPage(value);
   }
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSaved(false);
+    setExists(false);
+  };
+
   return (
     <Grid container sx={{ marginTop: '20px' }}>
       <Grid
@@ -145,31 +163,27 @@ export default function CouponsHomePage() {
 
         {/*Display POST COUPON when ADMIN logs in and SAVED COUPONS when USER logs in*/}
         {
-          isUserLoggedIn()
-            ?
-            role === 1
-              ?
-              <Button
-                className="mx-auto bg-primary text-light w-100 mb-1"
-                color="secondary"
-                aria-label="add"
-                component="a"
-                href="/post-coupons"
-              >
-                Post Coupon
-              </Button>
-              :
-              <Button
-                className="mx-auto bg-primary text-light w-100 mb-1"
-                color="secondary"
-                aria-label="add"
-                component="a"
-                href="/saved-coupons"
-              >
-                Saved Coupons
-              </Button>
+          isUserLoggedIn() &&
+            role === 1 ?
+            <Button
+              className="mx-auto bg-primary text-light w-100 mb-1"
+              color="secondary"
+              aria-label="add"
+              component="a"
+              href="/post-coupons"
+            >
+              Post Coupon
+            </Button>
             :
-            <> </>
+            <Button
+              className="mx-auto bg-primary text-light w-100 mb-1"
+              color="secondary"
+              aria-label="add"
+              component="a"
+              href="/saved-coupons"
+            >
+              Saved Coupons
+            </Button>
         }
       </Grid >
 
@@ -185,7 +199,7 @@ export default function CouponsHomePage() {
       {/* Filters Option*/}
       <Grid item xs={2} md={2} sx={{ display: { xs: 'none', md: 'flex' }, pt: 2, pr: 2 }}>
         <Stack flex-direction={'column'} spacing={2}>
-          <CheckboxesGroup handleRadioChange={filterCoupons} />
+          <CouponsFilter handleRadioChange={filterCoupons} />
           <Button
             variant="contained"
             onClick={handleClearFilterClick}>
@@ -196,35 +210,54 @@ export default function CouponsHomePage() {
 
       {/* Coupons List*/}
       <Grid item xs={12} md={10} sx={{ pt: 2 }}>
-        <Item>
-          <Box sx={{ display: 'flex', width: '100%' }}>
-            <Grid container spacing={3}>
-              {list.map((item) => (
-                <CouponDetails
-                  data={item}
-                  key={item._id}
-                  role={role}
-                  userId={user.user.user_id}
-                  action="save"
-                  save={saveCoupons}
-                />
-              ))}
-            </Grid>
-          </Box>
-        </Item>
+        {loading ?
+          <Box sx={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}>
+            <CircularProgress />
+          </Box> :
+          <>
+            <Item>
+              <Box sx={{ display: 'flex', width: '100%' }}>
+                <Grid container spacing={3}>
+                  {list.map((item) => (
+                    <CouponDetails
+                      data={item}
+                      key={item._id}
+                      role={role}
+                      userId={user.user.user_id}
+                      action="save"
+                      save={saveCoupons}
+                    />
+                  ))}
+                </Grid>
+              </Box>
+            </Item>
 
-        {/* Pagination Bar */}
-        <Grid
-          item xs={12} pt={1}
-          sx={{ display: 'flex', justifyContent: 'center' }}
-          style={{ width: '100%' }}
-          justifyContent="center">
-          <PaginationRounded
-            data={couponsList}
-            page={page}
-            totalPages={totalPages}
-            handleChange={handlePagination} />
-        </Grid>
+            {/* Pagination Bar */}
+            <Grid
+              item xs={12} pt={1}
+              sx={{ display: 'flex', justifyContent: 'center' }}
+              style={{ width: '100%' }}
+              justifyContent="center">
+              <PaginationRounded
+                data={couponsList}
+                page={page}
+                totalPages={totalPages}
+                handleChange={handlePagination} />
+            </Grid>
+
+            <Snackbar open={saved} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success" sx={{ width: '300px' }}>
+                Coupon saved successfully!!!
+              </Alert>
+            </Snackbar>
+
+            <Snackbar open={exists} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="info" sx={{ width: '300px' }}>
+                Coupon is already saved!!!
+              </Alert>
+            </Snackbar>
+          </>
+        }
       </Grid>
     </Grid >
   );

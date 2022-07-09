@@ -11,16 +11,9 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import { Button, TextField, Typography } from '@mui/material';
 
-export default function CheckboxesGroup(props) {
-    const Item = styled(Paper)(({ theme }) => ({
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        width: '100%'
-    }));
-
+export default function CouponsFilter(props) {
     const [value, setValue] = React.useState();
     const handleRadioChange = (event) => {
         setValue((event.target).value);
@@ -51,7 +44,7 @@ export default function CheckboxesGroup(props) {
     return (
         <Box sx={{ display: 'flex', width: '100%' }}>
             <Stack spacing={2} sx={{ display: 'flex' }}>
-                <Item>
+                <Paper sx={{ p: 1.5, my: 1, alignContents: 'center', justifyItems: 'center', }}>
                     <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">DISCOUNT RANGE</FormLabel>
                         <RadioGroup
@@ -68,9 +61,9 @@ export default function CheckboxesGroup(props) {
                             <FormControlLabel value="7080" control={<Radio />} label="70% to 80%" />
                         </RadioGroup>
                     </FormControl>
-                </Item>
+                </Paper>
 
-                <Item>
+                <Paper sx={{ p: 1.5, my: 1, alignContents: 'center', justifyItems: 'center', }}>
                     <FormControl>
                         <FormLabel>CART PRICE</FormLabel>
                         <TextField
@@ -97,7 +90,7 @@ export default function CheckboxesGroup(props) {
                             sx={{ marginTop: 1, marginBottom: 2 }}
                         />
                     </FormControl>
-                </Item>
+                </Paper>
 
                 <Button
                     variant="contained"

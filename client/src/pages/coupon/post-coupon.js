@@ -1,5 +1,5 @@
 //Author: Minal Rameshchandra Khona (B00873733)
-import { Box, Button, IconButton, InputBase, Paper, Snackbar, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, Paper, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { DeleteRounded, ImageRounded } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
