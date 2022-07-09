@@ -3,6 +3,13 @@ const { validationResult } = require("express-validator");
 const CouponModel = require("../models/coupon");
 const SaveCouponModel = require("../models/saveCoupon")
 
+/**
+ * This function posts a new coupon into the system. This functionality is available to the admin.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 async function postCoupon(req, res, next) {
     try {
         const errors = validationResult(req);
@@ -28,6 +35,13 @@ async function postCoupon(req, res, next) {
     }
 }
 
+/**
+ * This function list all the available coupons in the system.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 async function getCoupons(req, res, next) {
     try {
         let coupons = await CouponModel.find();
@@ -37,6 +51,13 @@ async function getCoupons(req, res, next) {
     }
 }
 
+/**
+ * This function deletes the coupon from the system. This functionality is available to the admin.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 async function deleteCoupon(req, res, next) {
     try {
         const _id = req.params.id;
@@ -54,6 +75,13 @@ async function deleteCoupon(req, res, next) {
     }
 }
 
+/**
+ * This function applies filters to the coupons. This functionality can be used by both admin and the users.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 async function filterCoupons(req, res, next) {
     try {
         let condition = [];
@@ -91,6 +119,13 @@ async function filterCoupons(req, res, next) {
     }
 }
 
+/**
+ * This function saves the coupon for a user
+ * @param {*} req {userId, {coupon}}
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 async function saveCoupon(req, res, next) {
     try {
         const errors = validationResult(req);
@@ -100,7 +135,9 @@ async function saveCoupon(req, res, next) {
         const { userId } = req.body;
         const { coupon } = req.body;
 
+        //Get saved coupons for the user using userId
         const savedCoupons = await SaveCouponModel.findOne({ userId });
+
         if (savedCoupons) {
             //Check if the coupon is already saved
             for (const item of savedCoupons.coupons) {
@@ -131,6 +168,13 @@ async function saveCoupon(req, res, next) {
     }
 }
 
+/**
+ * This function fetches the saved coupons for a user using userId.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 async function getSavedCouponsForUser(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -146,19 +190,34 @@ async function getSavedCouponsForUser(req, res, next) {
     }
 }
 
-async function getSavedCouponsForUser(req, res, next) {
+/**
+ * This function removes coupons from the saved list of a user.
+ * @param {*} req {couponCode}
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
+async function removeSavedCoupon(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const userId = req.params.userId;
+    const { userId } = req.params;
+    const couponCode = req.body.couponCode;
+    console.log(couponCode)
+
     const savedCoupons = await SaveCouponModel.findOne({ userId });
     if (savedCoupons) {
+        let updatedCouponsList = savedCoupons.coupons.filter(item => item.code !== couponCode)
+        savedCoupons.coupons = updatedCouponsList;
+
+        await SaveCouponModel.updateOne({ userId: userId }, { coupons: updatedCouponsList });
+
         return res.status(200).send(savedCoupons);
     } else {
-        return res.status(404).send({ message: 'No Coupons found' });
+        return res.status(404).send({ message: 'No Saved Coupons found' });
     }
 }
 
-module.exports = { postCoupon, getCoupons, deleteCoupon, filterCoupons, saveCoupon, getSavedCouponsForUser }
+module.exports = { postCoupon, getCoupons, deleteCoupon, filterCoupons, saveCoupon, getSavedCouponsForUser, removeSavedCoupon }
