@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import { isEmail, isEmpty } from "./common-validators"
 
 const forgetPasswordValidator = {

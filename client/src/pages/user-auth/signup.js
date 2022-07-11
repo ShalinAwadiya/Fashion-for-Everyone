@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import useForm from "../../hooks/useForm";
 import signupValidator from "../../validators/signup-validator";
 import { ToastContainer } from 'react-toastify';

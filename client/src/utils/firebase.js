@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,

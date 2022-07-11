@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import { Container, Grid, Box, Link, Avatar } from '@material-ui/core';
 
 function Footer() {

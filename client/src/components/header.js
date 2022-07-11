@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import { Grid } from "@mui/material"
 import NavBar from "./navbar/Navbar"
 
