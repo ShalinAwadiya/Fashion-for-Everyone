@@ -6,12 +6,12 @@ var mongoose = require('mongoose');
 const checkAuth = require('./middlewares/authorization');
 const addUserRole = require('./middlewares/user_role_middleware');
 
-
 // ---------------------------------DATABASE CONFIG-----------------------------
-var mongoUrl = "mongodb+srv://deep:webproject@web-project.pmnnubo.mongodb.net/?retryWrites=true&w=majority"
+var mongoUrl =
+  'mongodb+srv://deep:webproject@web-project.pmnnubo.mongodb.net/?retryWrites=true&w=majority';
 mongoose
   .connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("connected to the database"));
+  .then(() => console.log('connected to the database'));
 // -----------------------------------------------------------------------------
 
 var app = express();
@@ -27,9 +27,11 @@ app.use(addUserRole);
 // --------------------------------ROUTE CONFIG---------------------------------
 var usersRouter = require('./routes/users');
 var couponsRouter = require('./routes/coupons');
+var productsRouter = require('./routes/products');
 
 app.use('/users', checkAuth, usersRouter);
 app.use('/coupons', checkAuth, couponsRouter);
+app.use('/products', checkAuth, productsRouter);
 // -----------------------------------------------------------------------------
 
 module.exports = app;
