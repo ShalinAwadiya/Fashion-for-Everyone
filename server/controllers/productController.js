@@ -3,6 +3,7 @@ const ProductModel = require('../models/product');
 
 /**
  * This function add product.
+ * usage: POST /products/add-product
  */
 async function addProduct(req, res, next) {
   try {
@@ -22,6 +23,7 @@ async function addProduct(req, res, next) {
 
 /**
  * This function return product by productId.
+ * usage: GET /products/productId
  */
 async function getProduct(req, res, next) {
   try {
@@ -39,6 +41,7 @@ async function getProduct(req, res, next) {
 
 /**
  * This function get first 50 available products in the system.
+ * usage: GET /products
  */
 async function getProducts(req, res, next) {
   try {
@@ -49,12 +52,14 @@ async function getProducts(req, res, next) {
   }
 }
 
+/**
+ * This function delete product by name.
+ * usage: DELETE /products/delete/:productId
+ */
 async function removeProduct(req, res, next) {
   try {
     const _id = req.params.productId;
     const product = await ProductModel.find({ _id });
-    console.log(product);
-    //Check whether the coupon with code req.params.id exists in the database
     if (!product.length) {
       return res.status(204).send({ message: 'Product does not exist' });
     } else {
