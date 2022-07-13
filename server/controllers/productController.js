@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const ProductModel = require('../models/product');
+const awsConfig = require('../config/aws-config');
 
 /**
  * This function add product.
@@ -11,6 +12,11 @@ async function addProduct(req, res, next) {
 
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
+    }
+
+    if (req.body.img) {
+      const url = await awsConfig.saveImage(req.body.img);
+      req.body.imageUrl = url;
     }
 
     await ProductModel.create(req.body);

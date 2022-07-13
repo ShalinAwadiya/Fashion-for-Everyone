@@ -21,6 +21,7 @@ var ProductSchema = new Schema({
   brand: { type: String, required: [true, 'Missing required value - brand'] },
   price: { type: Number, required: [true, 'Missing required value - price'] },
   description: String,
+  imageUrl: String,
   img: {
     data: Buffer,
     contentType: String,
