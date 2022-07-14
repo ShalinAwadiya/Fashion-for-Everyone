@@ -1,18 +1,23 @@
 //Author: Minal Rameshchandra Khona (B00873733)
-import { Button, Grid, Modal, Typography, Box, Stack } from '@mui/material';
+import { Button, Grid, Modal, Typography, Box, Stack, Snackbar } from '@mui/material';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Cancel } from '@mui/icons-material';
+import MuiAlert from '@mui/material/Alert';
 import AXIOS_CLIENT from "../../utils/apiClient";
 import { toast } from 'react-toastify';
 import React, { useState } from 'react';
-import { maxHeight } from '@mui/system';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const CouponDetails = (props) => {
     const [open, setOpen] = useState(false);
+    const [cart, setCart] = useState(false);
+    const [expired, setExpired] = useState(false);
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     const item = props.data;
     const role = props.role;
@@ -45,6 +50,41 @@ const CouponDetails = (props) => {
             props.unsave(item);
         }
     }
+
+    const addToCart = (item) => {
+        const req = {
+            userId: localStorage.getItem('userId'),
+            coupon: {
+                code: item.code,
+                minCartPrice: item.minCartPrice,
+            }
+        }
+        console.log(req);
+
+        AXIOS_CLIENT.post('/coupons/add-cart', req)
+            .then((res) => {
+                if (res.status === 200) {
+                    setCart(true);
+                    console.log('Coupon added successfully!!!')
+                }
+            }).catch(err => {
+                if (err.response.status === 400) {
+                    setExpired(true);
+                    console.log('Coupon has been expired!!!')
+                } else {
+                    console.error(err);
+                    toast.error("Something went wrong!");
+                }
+            });
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setCart(false);
+        setOpen(false);
+    };
 
     return (
         <Grid item xs={12} sm={6} md={4} sx={{ border: '1px' }}>
@@ -120,7 +160,7 @@ const CouponDetails = (props) => {
                         <BookmarkAddIcon onClick={() => saveOrUnsaveCoupon(item)} />
                     </Button>
                     <Button>
-                        <AddShoppingCartIcon />
+                        <AddShoppingCartIcon onClick={() => addToCart(item)} />
                     </Button>
                 </div>
             </Stack>
@@ -165,6 +205,12 @@ const CouponDetails = (props) => {
                     </div>
                 </Box>
             </Modal>
+
+            <Snackbar open={cart} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="info" sx={{ width: '300px' }}>
+                    Added to cart successfully!!!
+                </Alert>
+            </Snackbar>
         </Grid >);
 };
 export default CouponDetails;
