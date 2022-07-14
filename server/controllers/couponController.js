@@ -1,5 +1,6 @@
 //Minal Rameshchandra Khona - B00873733
 const { validationResult } = require("express-validator");
+const CartModel = require("../models/cart");
 const CouponModel = require("../models/coupon");
 const SaveCouponModel = require("../models/saveCoupon")
 
@@ -220,4 +221,44 @@ async function removeSavedCoupon(req, res, next) {
     }
 }
 
-module.exports = { postCoupon, getCoupons, deleteCoupon, filterCoupons, saveCoupon, getSavedCouponsForUser, removeSavedCoupon }
+/**
+ * This function adds the coupon to the cart
+ * @param {*} req {couponCode}
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
+async function addToCart(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    const { userId } = req.body;
+    console.log({ userId });
+
+    const { coupon } = req.body;
+    console.log(coupon)
+    try {
+        const userCart = await CartModel.findOne({ userId });
+        if (userCart) {
+            console.log({ userCart })
+            await CartModel.updateOne({ userId: userId }, { coupon });
+        } else {
+            await CartModel.create(req.body);
+        }
+        return res.status(200).send({ message: 'Coupon added to cart successfully' });
+    } catch (err) {
+        return next(err);
+    }
+}
+
+module.exports = {
+    postCoupon,
+    getCoupons,
+    deleteCoupon,
+    filterCoupons,
+    saveCoupon,
+    getSavedCouponsForUser,
+    removeSavedCoupon,
+    addToCart
+}
