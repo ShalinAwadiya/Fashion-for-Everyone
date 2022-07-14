@@ -1,5 +1,7 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   TableContainer,
   Table,
@@ -56,20 +58,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ComplainTable() {
+  const navigate = useNavigate();
+
+  const [complains, setComplains] = useState();
+
+  const getComplains = async () => {
+    const response = await fetch(
+      "http://localhost:8080/complains/user/viewComplains/3"
+    );
+    const data = await response.json();
+    console.log(data.complains);
+    setComplains(data.complains);
+  };
+  useEffect(() => {
+    getComplains();
+  }, []);
+
   const classes = useStyles();
 
-  const [complains, setComplains] = useState(data);
-
-  const handleDeleteClick = (complainId) => {
-    console.log("hello");
-    const newComplains = [...complains];
-
-    const index = complains.findIndex(
-      (complain) => complain.complainId === complainId
+  const handleDeleteClick = async (complainId) => {
+    var requestOptions = {
+      method: "DELETE",
+    };
+    const response = await fetch(
+      "http://localhost:8080/complains/user/deleteComplain/" + complainId,
+      requestOptions
     );
-
-    newComplains.splice(index, 1);
-    setComplains(newComplains);
+    const data = await response.json();
+    console.log(data.message);
+    getComplains();
+  };
+  const handleEditClick = async (complainId) => {
+    navigate("/edit_complain/" + complainId);
   };
 
   return (
@@ -88,11 +108,13 @@ export default function ComplainTable() {
                   Description
                 </Typography>
               </TableCell>
+              {/*
               <TableCell className={classes.tableHeaderCell}>
                 <Typography color="white" variant="h6">
                   Attachment
                 </Typography>
               </TableCell>
+  */}
               <TableCell className={classes.tableHeaderCell}>
                 <Typography color="white" variant="h6">
                   Status
@@ -111,60 +133,71 @@ export default function ComplainTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {complains.map((complain) => (
-              <TableRow key={complain.complainId} className={classes.tableBody}>
-                <TableCell>{complain.complainSubject}</TableCell>
-                <TableCell>{complain.complainDescription}</TableCell>
-                <TableCell>
-                  <a href="/" style={{ textDecoration: "none" }}>
-                    View
-                  </a>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    className={classes.status + " rounded"}
-                    style={{
-                      backgroundColor:
-                        (complain.complainStatus === "Pending" && "green") ||
-                        (complain.complainStatus === "Replied" && "red"),
-                    }}
-                  >
-                    {complain.complainStatus}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  {complain.complainStatus !== "Pending" ? (
-                    <a
-                      href="/replied_complain"
-                      style={{ textDecoration: "none" }}
-                    >
+            {complains &&
+              complains.map((complain) => (
+                <TableRow
+                  key={complain.complainId}
+                  className={classes.tableBody}
+                >
+                  <TableCell>{complain.complainSubject}</TableCell>
+                  <TableCell>{complain.complainDescription}</TableCell>
+                  {/*
+                  <TableCell>
+                    <a href="/" style={{ textDecoration: "none" }}>
                       View
                     </a>
-                  ) : (
-                    <span>View</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  <Grid container>
-                    <Grid item sm={5}>
-                      <button type="button" className="btn btn-primary">
-                        Edit
-                      </button>
-                    </Grid>
-                    &nbsp;&nbsp;
-                    <Grid item sm={2}>
-                      <button
-                        className="btn btn-secondary"
-                        type="button"
-                        onClick={() => handleDeleteClick(complain.complainId)}
+                  </TableCell>
+              */}
+                  <TableCell>
+                    <Typography
+                      className={classes.status + " rounded"}
+                      style={{
+                        backgroundColor:
+                          (complain.complainStatus === "Pending" && "green") ||
+                          (complain.complainStatus === "Replied" && "red"),
+                      }}
+                    >
+                      {complain.complainStatus}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    {complain.complainStatus !== "Pending" ? (
+                      <a
+                        href={"/replied_complain/" + complain.complainId}
+                        style={{ textDecoration: "none" }}
                       >
-                        Delete
-                      </button>
+                        View
+                      </a>
+                    ) : (
+                      <span>View</span>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <Grid container>
+                      <Grid item sm={5}>
+                        <button
+                          type="button"
+                          disabled={complain.complainStatus === "Replied"}
+                          className="btn btn-primary"
+                          onClick={() => handleEditClick(complain.complainId)}
+                        >
+                          Edit
+                        </button>
+                      </Grid>
+                      &nbsp;&nbsp;
+                      <Grid item sm={2}>
+                        <button
+                          className="btn btn-secondary"
+                          type="button"
+                          onClick={() => handleDeleteClick(complain.complainId)}
+                        >
+                          Delete
+                        </button>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

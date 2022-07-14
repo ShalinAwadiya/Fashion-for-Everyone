@@ -12,6 +12,8 @@ import {
 import { makeStyles } from "@mui/styles";
 import data from "../../data/replydata.json";
 import { Box } from "@mui/material";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -59,7 +61,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ComplainTable() {
   const classes = useStyles();
-  let complains = data;
+  const { complainId } = useParams();
+  const [complains, setComplains] = useState();
+  const getComplains = async () => {
+    const response = await fetch(
+      "http://localhost:8080/complains/user/viewComplainReply/" + complainId
+    );
+    const data = await response.json();
+    console.log(data.complain);
+    setComplains(data.complain);
+  };
+  useEffect(() => {
+    getComplains();
+  }, []);
 
   return (
     <Box margin="auto" marginTop="125px" marginLeft="175px" display="flex">
@@ -90,14 +104,18 @@ export default function ComplainTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {complains.map((complain) => (
-              <TableRow key={complain.complainId} className={classes.tableBody}>
-                <TableCell>{complain.replySubject}</TableCell>
-                <TableCell>{complain.replyMessage}</TableCell>
-                <TableCell>{complain.replyDate}</TableCell>
-                <TableCell>{complain.replyTime}</TableCell>
-              </TableRow>
-            ))}
+            {complains &&
+              complains.map((complain) => (
+                <TableRow
+                  key={complain.complainId}
+                  className={classes.tableBody}
+                >
+                  <TableCell>{complain.replySubject}</TableCell>
+                  <TableCell>{complain.replyMessage}</TableCell>
+                  <TableCell>{complain.replyDate}</TableCell>
+                  <TableCell>{complain.replyTime}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

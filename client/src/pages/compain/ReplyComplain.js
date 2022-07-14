@@ -1,51 +1,80 @@
 import * as React from "react";
 import { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ReplyComplain() {
   const navigate = useNavigate();
+  const { complainId } = useParams();
 
-  const [complainSubject, setComplainSubject] = useState("");
-  const [complainDescription, setComplainDescription] = useState("");
+  const [replySubject, setReplySubject] = useState("");
+  const [replyDescription, setReplyDescription] = useState("");
 
-  const [complainSubjectError, setComplainSubjectError] = useState("");
-  const [complainDescriptionError, setComplainDescriptionError] = useState("");
+  const [replySubjectError, setReplySubjectError] = useState("");
+  const [replyDescriptionError, setReplyDescriptionError] = useState("");
 
-  const complainSubjectHandler = (event) => {
-    setComplainSubject(event.target.value);
-
-    if (event.target.value === "") {
-      setComplainSubjectError("Reply Subject cannot be empty");
-    } else {
-      setComplainSubjectError("");
-    }
-  };
-  const complainDescriptionHandler = (event) => {
-    setComplainDescription(event.target.value);
+  const replySubjectHandler = (event) => {
+    setReplySubject(event.target.value);
 
     if (event.target.value === "") {
-      setComplainDescriptionError("Reply Message cannot be empty");
+      setReplySubjectError("Reply Subject cannot be empty");
     } else {
-      setComplainDescriptionError("");
+      setReplySubjectError("");
+    }
+  };
+  const replyDescriptionHandler = (event) => {
+    setReplyDescription(event.target.value);
+
+    if (event.target.value === "") {
+      setReplyDescriptionError("Reply Message cannot be empty");
+    } else {
+      setReplyDescriptionError("");
     }
   };
 
-  const submitButtonHandler = (event) => {
+  const submitButtonHandler = async (event) => {
     event.preventDefault();
-    let complainSubjectCheck = true;
-    let complainDescriptionCheck = true;
-    console.log(complainSubject, complainDescription);
-    if (complainSubject === "") {
-      complainSubjectCheck = false;
-      setComplainSubjectError("Reply Subject cannot be empty");
+    let replySubjectCheck = true;
+    let replyDescriptionCheck = true;
+    console.log(replySubject, replyDescription);
+    if (replySubject === "") {
+      replySubjectCheck = false;
+      setReplySubjectError("Reply Subject cannot be empty");
     }
-    if (complainDescription === "") {
-      complainDescriptionCheck = false;
-      setComplainDescriptionError("Reply Message cannot be empty");
+    if (replyDescription === "") {
+      replyDescriptionCheck = false;
+      setReplyDescriptionError("Reply Message cannot be empty");
     }
-    if (complainSubjectCheck === true && complainDescriptionCheck === true) {
-      navigate("/");
+    if (replySubjectCheck === true && replyDescriptionCheck === true) {
+      var today = new Date();
+      const date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      const time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      const complainDetails = {
+        complainId: complainId,
+        complainStatus: "Replied",
+        replySubject: replySubject,
+        replyMessage: replyDescription,
+        replyDate: date,
+        replyTime: time,
+      };
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(complainDetails),
+      };
+      const response = await fetch(
+        "http://localhost:3000/complains/admin/insertComplainReply",
+        requestOptions
+      );
+      const data = await response.json();
+      console.log(data);
+      navigate("/admin/view_complain");
     }
   };
 
@@ -70,11 +99,11 @@ export default function ReplyComplain() {
           type="text"
           style={{ width: "350px" }}
           width="300"
-          onChange={complainSubjectHandler}
+          onChange={replySubjectHandler}
         />
         <br />
         <span style={{ color: "red", fontSize: "10px" }}>
-          {complainSubjectError}
+          {replySubjectError}
         </span>
         <br />
         <br />
@@ -87,11 +116,11 @@ export default function ReplyComplain() {
           style={{ width: "350px" }}
           label="Reply Message"
           type="text"
-          onChange={complainDescriptionHandler}
+          onChange={replyDescriptionHandler}
         />
         <br />
         <span style={{ color: "red", fontSize: "10px" }}>
-          {complainDescriptionError}
+          {replyDescriptionError}
         </span>
         <br />
         <br />

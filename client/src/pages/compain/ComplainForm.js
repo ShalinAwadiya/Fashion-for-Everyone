@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ComplainForm() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function ComplainForm() {
     setComplainAttachment(event.target.value);
   };
 
-  const submitButtonHandler = (event) => {
+  const submitButtonHandler = async (event) => {
     event.preventDefault();
     let complainSubjectCheck = true;
     let complainDescriptionCheck = true;
@@ -49,7 +50,39 @@ export default function ComplainForm() {
       setComplainDescriptionError("Complain Description cannot be empty");
     }
     if (complainSubjectCheck === true && complainDescriptionCheck === true) {
-      navigate("/");
+      const uuid = uuidv4();
+
+      var today = new Date();
+      const date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      const time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      let complainDetails = {
+        complainId: uuid,
+        complainSubject: complainSubject,
+        complainDescription: complainDescription,
+        complainDate: date,
+        complainTime: time,
+        complainStatus: "Pending",
+        complainImage: "base64",
+        complainFrom_LoginId: 3,
+      };
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(complainDetails),
+      };
+      const response = await fetch(
+        "http://localhost:8080/complains/user/insertComplain",
+        requestOptions
+      );
+      const data = await response.json();
+      console.log(date, time, uuid, data);
+      navigate("/view_complain");
     }
   };
 
@@ -101,6 +134,7 @@ export default function ComplainForm() {
         <span style={{ color: "red", fontSize: "10px" }}>
           {complainDescriptionError}
         </span>
+        {/*
         <br />
         <br />
         <label>
@@ -114,6 +148,7 @@ export default function ComplainForm() {
             onChange={complainAttachmentHandler}
           />
         </label>
+  */}
         <br />
         <br />
         <br />

@@ -13,6 +13,7 @@ import { makeStyles } from "@mui/styles";
 import admindata from "../../data/admindata.json";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
+import { useState, useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -59,11 +60,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AllComplainTable() {
+  const [complains, setComplains] = useState();
+
+  const getComplains = async () => {
+    const response = await fetch(
+      "http://localhost:8080/complains/admin/viewComplains"
+    );
+    const data = await response.json();
+    console.log("complains", data.complains);
+    setComplains(data.complains);
+  };
+  useEffect(() => {
+    getComplains();
+  }, []);
+
   const classes = useStyles();
   const navigate = useNavigate();
-  let complains = admindata;
-  const replyButtonHandler = () => {
-    navigate("/admin/reply_complain");
+  const replyButtonHandler = (complainId) => {
+    navigate("/admin/reply_complain/" + complainId);
   };
   return (
     <Box margin="auto" marginTop="50px" marginLeft="175px" display="flex">
@@ -81,14 +95,21 @@ export default function AllComplainTable() {
                   Description
                 </Typography>
               </TableCell>
+              {/*
               <TableCell className={classes.tableHeaderCell}>
                 <Typography color="white" variant="h6">
                   Attachment
                 </Typography>
               </TableCell>
+  */}
               <TableCell className={classes.tableHeaderCell}>
                 <Typography color="white" variant="h6">
-                  Username
+                  Complain Date
+                </Typography>
+              </TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                <Typography color="white" variant="h6">
+                  Complain Time
                 </Typography>
               </TableCell>
               <TableCell className={classes.tableHeaderCell}>
@@ -104,44 +125,53 @@ export default function AllComplainTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {complains.map((complain) => (
-              <TableRow key={complain.complainId} className={classes.tableBody}>
-                <TableCell>{complain.complainSubject}</TableCell>
-                <TableCell>{complain.complainDescription}</TableCell>
-                <TableCell>
-                  <a href="/" style={{ textDecoration: "none" }}>
-                    View
-                  </a>
-                </TableCell>
-                <TableCell>{complain.complainUsername}</TableCell>
-                <TableCell>
-                  <Typography
-                    className={classes.status + " " + "rounded"}
-                    style={{
-                      backgroundColor:
-                        (complain.complainStatus === "Pending" && "green") ||
-                        (complain.complainStatus === "Replied" && "red"),
-                    }}
-                  >
-                    {complain.complainStatus}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Grid container>
-                    <Grid item sm={5}>
-                      <button
-                        disabled={complain.complainStatus === "Replied"}
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={replyButtonHandler}
-                      >
-                        Reply
-                      </button>
+            {complains &&
+              complains.map((complain) => (
+                <TableRow
+                  key={complain.complainId}
+                  className={classes.tableBody}
+                >
+                  <TableCell>{complain.complainSubject}</TableCell>
+                  <TableCell>{complain.complainDescription}</TableCell>
+                  <TableCell>{complain.complainDate}</TableCell>
+                  <TableCell>{complain.complainTime}</TableCell>
+                  {/*
+                  <TableCell>
+                    <a href="/" style={{ textDecoration: "none" }}>
+                      View
+                    </a>
+                  </TableCell>
+              */}
+                  <TableCell>
+                    <Typography
+                      className={classes.status + " " + "rounded"}
+                      style={{
+                        backgroundColor:
+                          (complain.complainStatus === "Pending" && "green") ||
+                          (complain.complainStatus === "Replied" && "red"),
+                      }}
+                    >
+                      {complain.complainStatus}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Grid container>
+                      <Grid item sm={5}>
+                        <button
+                          disabled={complain.complainStatus === "Replied"}
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() =>
+                            replyButtonHandler(complain.complainId)
+                          }
+                        >
+                          Reply
+                        </button>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
