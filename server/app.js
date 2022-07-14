@@ -32,8 +32,8 @@ var cartRouter = require('./routes/carts')
 
 app.use('/users', checkAuth, usersRouter);
 app.use('/coupons', checkAuth, couponsRouter);
-app.use('/products', checkAuth, productsRouter);
-app.use('/cart', checkAuth, cartRouter);
+app.use('/products', productsRouter);
+app.use('/cart', cartRouter);
 // -----------------------------------------------------------------------------
 
 module.exports = app;
