@@ -39,25 +39,43 @@ function App() {
         <Header />
         <div className="container">
           <Routes>
-            <Route path='/' element={<PublicRoute restrictedToPublicOnly={false} />}>
+            <Route
+              path="/"
+              element={<PublicRoute restrictedToPublicOnly={false} />}
+            >
               <Route exact path="/" element={<Home />} />
               <Route path="/coupons" element={<CouponsHomePage />} />
               <Route path="/search" element={<SeachPage />} />
-            </Route >
+            </Route>
 
-            <Route path='/' element={<PublicRoute restrictedToPublicOnly={true} />}>
+            <Route
+              path="/"
+              element={<PublicRoute restrictedToPublicOnly={true} />}
+            >
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
-            </Route >
+            </Route>
 
-            <Route path='/' element={<PrivateRoute />}>
+            <Route path="/" element={<PrivateRoute />}>
               <Route path="/post_complain" element={<ComplainForm />} />
               <Route path="/view_complain" element={<ComplainTable />} />
-              <Route path="/edit_complain" element={<EditComplainForm />} />
-              <Route path="/replied_complain" element={<ReplyTable />} />
-              <Route path="/admin/view_complain" element={<AllComplainTable />} />
-              <Route path="/admin/reply_complain" element={<ReplyComplain />} />
+              <Route
+                path="/edit_complain/:complainId"
+                element={<EditComplainForm />}
+              />
+              <Route
+                path="/replied_complain/:complainId"
+                element={<ReplyTable />}
+              />
+              <Route
+                path="/admin/view_complain"
+                element={<AllComplainTable />}
+              />
+              <Route
+                path="/admin/reply_complain/:complainId"
+                element={<ReplyComplain />}
+              />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/cart" element={<Cart />}></Route>
