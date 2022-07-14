@@ -9,40 +9,21 @@ import { Link } from 'react-router-dom';
 import 'react-pro-sidebar/dist/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function ItemView({ item: { name, brand, price, review, link } }) {
-  return (
-    <div className="grid-item">
-      <img src={link} alt="" />
-      <div>
-        <header>
-          <h5>{name}</h5>
-          <span>🌟{review}</span>
-        </header>
-      </div>
-      <div className="info">
-        <p className="brand">
-          <b>{brand}</b>
-          <b>${price}</b>
-        </p>
-      </div>
-    </div>
-  );
-}
-function Item2View({ item: { name, brand, price, review, link } }) {
+function Item2View({ item: { name, brand, price, rating, imageUrl, id } }) {
   return (
     <div className="grid-item">
       <Card>
         <CardBody>
-          <Link to={{ pathname: `/product/` }}>
+          <Link to={{ pathname: `/product/${id}` }}>
             <CardTitle>
               <b>{name}</b>
             </CardTitle>
 
-            <img className="img-thumbnail" src={link} alt={name} />
+            <img className="img-thumbnail" src={imageUrl} alt={name} />
           </Link>
           <p>
             {' '}
-            <span>🌟{review}</span>
+            <span>🌟{rating}</span>
           </p>
           Brand:{brand}
           <p>
