@@ -2,7 +2,6 @@
   "name": "assignment1",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
   "dependencies": {
     "@algolia/autocomplete-js": "^1.7.1",
     "@algolia/autocomplete-theme-classic": "^1.7.1",

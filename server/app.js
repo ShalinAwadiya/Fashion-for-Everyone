@@ -3,6 +3,9 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var cors = require('cors')
+
+
 const checkAuth = require('./middlewares/authorization');
 const addUserRole = require('./middlewares/user_role_middleware');
 
@@ -18,6 +21,7 @@ var app = express();
 
 // ---------------------------------MIDDLEWARES---------------------------------
 app.use(logger('dev'));
+app.use(cors())
 app.use(express.json({ limit: '200mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
