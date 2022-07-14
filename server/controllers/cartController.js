@@ -1,5 +1,6 @@
 const express = require("express");
 const CartModel = require("../models/cart");
+var mongoose = require("mongoose");
 
 /**
  *
@@ -11,20 +12,19 @@ async function postCart(req, res, next) {
     const cart = await CartModel.findOne({ userId: user });
     let product = req.body.products;
     let coupon = req.body.coupon;
-    if(product){
-
-        const product_id = product._id;
-        const name = product.name;
-        const price = product.price;
-        const imageUrl = product.imageUrl;
+    if (product) {
+      var product_id = product._id;
+      var name = product.name;
+      var price = product.price;
+      var imageUrl = product.imageUrl;
     }
-   
+
     if (cart) {
       if (product) {
         cart.products.push({ product_id, name, price, imageUrl });
       }
 
-      if (coupon) {
+      else if (coupon) {
         cart.coupon = coupon;
       }
       await cart.save();
@@ -35,10 +35,10 @@ async function postCart(req, res, next) {
           products: [{ product_id, name, price, imageUrl }],
         });
       }
-      if (coupon) {
-       await CartModel.create({
+      else if (coupon) {
+        await CartModel.create({
           userId: user,
-          products: [{ product_id, name, price, imageUrl }],
+          coupon: coupon,
         });
       }
     }
@@ -48,54 +48,81 @@ async function postCart(req, res, next) {
   }
 }
 
+/**
+ *
+ *
+ */
 async function getCart(req, res, next) {
-    try {
-      let user = req.body.userId;
-      const cart = await CartModel.findOne({ userId: user });
-      if (cart) {
-        
-            return res.status(200).send({"cart":cart });
-        
-    }
-      return res.status(200).send({ "cart":[]});
-    } catch (err) {
-      return next(err);
-    }
+  try {
+    console.log(req.user);
+    // let user = req.user
+    // const cart = await CartModel.findOne({ userId: user });
+    // if (cart) {
+    //   return res.status(200).send({ cart: cart });
+    // }
+    return res.status(200).send({ cart: [] });
+  } catch (err) {
+    return next(err);
   }
+}
 
-  async function deleteCheckout(req, res, next) {
-    try {
-      let user = req.body.userId;
-      const cart = await CartModel.findOne({ userId: user });
-      if (cart) {
-        
-            return res.status(200).send({"cart":cart });
-        
+/**
+ *
+ *
+ */
+async function deleteCart(req, res, next) {
+  try {
+    let user = req.body.userId;
+    const cart = await CartModel.findOne({ userId: user });
+    if(cart){
+      await cart.delete();
     }
-      return res.status(200).send({ "cart":[]});
-    } catch (err) {
-      return next(err);
-    }
+    
+    return res.status(200).send({ cart: [] });
+  } catch (err) {
+    return next(err);
   }
+}
 
-  async function removeProduct(req, res, next) {
-    try {
-      let user = req.body.userId;
-      let product_id = req.body.productId
-      const cart = await CartModel.findOne({ userId: user });
-      if (cart) {
-        const itemIndex = cart.products.findIndex(item => item.product_id == product_id);
-        cart.items.splice(itemIndex, 1);
-        await cart.save()
-        return res.status(200).send({"cart":cart });
-        
-    }
-      return res.status(200).send({ "cart":[]});
-    } catch (err) {
-      return next(err);
-    }
+/**
+ *
+ *
+ */
+async function removeProduct(req, res, next) {
+  try {
+    let user = req.body.userId;
+    const cart = await CartModel.findOneAndUpdate(
+      { userId: user },
+      {
+        $pull: {
+          products: { product_id: mongoose.Types.ObjectId(req.body.productId) },
+        },
+      }
+    );
+
+    await cart.save();
+    return res.status(200).send({ cart: cart });
+  } catch (err) {
+    return next(err);
   }
+}
 
+/**
+ *
+ *
+ */
+async function removeCoupon(req, res, next) {
+  try {
+    let user_id = req.body.userId;
+    const cart = await CartModel.findOne({ userId: user_id });
+    if (cart) {
+      cart.coupon = null;
+      await cart.save();
+      return res.status(200).send({ cart: cart });
+    }
+  } catch (err) {
+    return next(err);
+  }
+}
 
-
-module.exports = { postCart,getCart, removeProduct};
+module.exports = { postCart, getCart, removeProduct, removeCoupon, deleteCart };

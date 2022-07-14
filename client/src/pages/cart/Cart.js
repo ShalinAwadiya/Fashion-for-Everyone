@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useReducer } from "react";
 import { products } from "./Products";
 import Context from "./Context";
 import { reducer } from "./Reducer";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 export const CartContext = createContext();
 const initialState = {
