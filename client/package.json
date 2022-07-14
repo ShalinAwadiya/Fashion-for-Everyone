@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:8080",
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.7.1",
+    "@algolia/autocomplete-theme-classic": "^1.7.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@material-ui/core": "^4.12.4",
@@ -28,6 +30,7 @@
     "dialog": "^0.3.1",
     "firebase": "^9.8.4",
     "fs": "^0.0.1-security",
+    "preact": "^10.10.0",
     "primeicons": "^5.0.0",
     "primereact": "^8.1.1",
     "react": "^18.1.0",
