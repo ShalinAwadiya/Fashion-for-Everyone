@@ -31,6 +31,10 @@ import Wishlist from './pages/Wishlist/Wishlist';
 import { PrivateRoute, PublicRoute } from './utils/routeProtector';
 import PostCoupon from './pages/coupon/post-coupon';
 import SavedCoupon from './pages/coupon/saved-coupons';
+import AddressForm from "./pages/checkout/AddressForm";
+import PaymentForm from "./pages/checkout/PaymentForm";
+import Review from "./pages/checkout/Review";
+import PlacedInfo from "./pages/checkout/OrderPlaced"
 
 function App() {
   return (
@@ -68,7 +72,6 @@ function App() {
               />
               <Route path="/admin/reply_complain" element={<ReplyComplain />} />
               <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/checkout" element={<Checkout />} />
               <Route path="/cart" element={<Cart />}></Route>
               <Route path="/orders" element={<Orders />}></Route>
               <Route path="/show_products" element={<ShowProducts />}></Route>
@@ -81,6 +84,10 @@ function App() {
               <Route path="/collection/:collection" element={<Collection />} />
               <Route path="/post-coupons" element={<PostCoupon />} />
               <Route path="/saved-coupons" element={<SavedCoupon />} />
+              <Route path="/review" element={<Review />} />
+              <Route path="/order_placed" element={<PlacedInfo />} />
+              <Route path="/checkout" element={<AddressForm />} />
+              <Route path="/payment" element={<PaymentForm/>} />
             </Route>
           </Routes>
         </div>
