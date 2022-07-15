@@ -4,7 +4,8 @@ import axios from "axios";
 import { AUTH_TOKEN_KEY, deleteLocalToken } from './firebase'
 
 const AXIOS_CLIENT = axios.create({
-  baseURL: 'http://localhost:8080'
+  // baseURL: 'http://localhost:8080'
+  baseURL: 'https://web-project-backend.herokuapp.com/'
 });
 
 AXIOS_CLIENT.interceptors.request.use(function (config) {
