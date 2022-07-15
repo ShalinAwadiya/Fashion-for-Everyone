@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import '../../App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Header from "./Header";
-import {Link, useLocation, useParams} from 'react-router-dom'
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom'
 import AddReview from "../reviews/AddReview";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import AXIOS_CLIENT from "../../utils/apiClient";
-import {toast} from "react-toastify";
+
 
 export default function ProductPage() {
 
     const{id} = useParams();
+
+    const navigate = useNavigate();
 
     const [product, setProduct] = useState({});
 
@@ -23,10 +24,15 @@ export default function ProductPage() {
                 console.log(res.data.product);
                 setProduct(res.data.product);
             });
-
-
     }, []);
 
+    const addProductToCard = () => {
+        console.log("posting product", product);
+        AXIOS_CLIENT.post('/cart/post_cart', product).then(res=> {
+           console.log('product posted to cart successfully');
+        });
+        navigate('/cart');
+    }
 
     return (
         <div className="App">
@@ -106,9 +112,9 @@ export default function ProductPage() {
                                         </div>
 
                                         <div class="mb-4" style={{marginTop: "100px", marginLeft:"170px"}}>
-                                            <Link to={"/cart"}>
-                                                <a href="src/pages/products/ProductPage#" class="btn btn-light">Buy Now</a>
-                                            </Link>
+                                            {/*<Link to={"/cart"}>*/}
+                                                <a  class="btn btn-light" onClick={addProductToCard}>Buy Now</a>
+                                            {/*</Link>*/}
                                             <AddReview product_name={'Trouser'}></AddReview>
                                         </div>
 

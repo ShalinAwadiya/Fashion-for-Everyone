@@ -3,8 +3,11 @@ const CartModel = require("../models/cart");
 var mongoose = require("mongoose");
 
 /**
- *
- *
+ * This function applies to post the products into the cart and post the coupons from coupon page.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
  */
 async function postCart(req, res, next) {
   try {
@@ -47,8 +50,11 @@ async function postCart(req, res, next) {
 }
 
 /**
- *
- *
+ * This function applies to get the products from the cart when a user is logged in
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
  */
 async function getCart(req, res, next) {
   try {
@@ -70,8 +76,11 @@ async function getCart(req, res, next) {
 }
 
 /**
- *
- *
+ * This function applies after post payment feature to remove the entry from the cart table
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
  */
 async function deleteCart(req, res, next) {
   try {
@@ -88,8 +97,11 @@ async function deleteCart(req, res, next) {
 }
 
 /**
- *
- *
+ * This function applies to  the products from the cart.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
  */
 async function removeProduct(req, res, next) {
   try {
@@ -111,8 +123,11 @@ async function removeProduct(req, res, next) {
 }
 
 /**
- *
- *
+ * This function applies to removeCoupon if user doesn't require it
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
  */
 async function removeCoupon(req, res, next) {
   try {
@@ -130,8 +145,11 @@ async function removeCoupon(req, res, next) {
 }
 
 /**
- *
- *
+ * This function applies to update the quanity of the products into the cart.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
  */
 async function updateQuantity(req, res, next) {
   try {
