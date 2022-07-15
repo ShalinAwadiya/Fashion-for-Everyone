@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../utils/firebase";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 import {
   TableContainer,
@@ -65,12 +66,17 @@ export default function ComplainTable() {
   let temp;
   const getComplains = async () => {
     temp = auth.currentUser.uid;
+    /*
     const response = await fetch(
       "http://localhost:8080/complains/user/viewComplains/" + temp
     );
-    const data = await response.json();
-    console.log(data.complains);
-    setComplains(data.complains);
+    */
+    const response = await AXIOS_CLIENT.get(
+      "/complains/user/viewComplains/" + temp
+    );
+
+    console.log(response.data.complains);
+    setComplains(response.data.complains);
   };
   useEffect(() => {
     getComplains();
@@ -79,6 +85,7 @@ export default function ComplainTable() {
   const classes = useStyles();
 
   const handleDeleteClick = async (complainId) => {
+    /*
     var requestOptions = {
       method: "DELETE",
     };
@@ -86,8 +93,11 @@ export default function ComplainTable() {
       "http://localhost:8080/complains/user/deleteComplain/" + complainId,
       requestOptions
     );
-    const data = await response.json();
-    console.log(data.message);
+    */
+    const response = await AXIOS_CLIENT.delete(
+      "/complains/user/deleteComplain/" + complainId
+    );
+    console.log(response.data.message);
     getComplains();
   };
   const handleEditClick = async (complainId) => {

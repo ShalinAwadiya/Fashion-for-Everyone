@@ -14,6 +14,7 @@ import admindata from "../../data/admindata.json";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -63,12 +64,15 @@ export default function AllComplainTable() {
   const [complains, setComplains] = useState();
 
   const getComplains = async () => {
+    /*
     const response = await fetch(
       "http://localhost:8080/complains/admin/viewComplains"
     );
     const data = await response.json();
-    console.log("complains", data.complains);
-    setComplains(data.complains);
+    */
+    const response = await AXIOS_CLIENT.get("/complains/admin/viewComplains");
+    console.log("complains", response.data.complains);
+    setComplains(response.data.complains);
   };
   useEffect(() => {
     getComplains();

@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 const EditComplainForm = () => {
   const [complainSubject, setComplainSubject] = useState("");
@@ -16,12 +17,19 @@ const EditComplainForm = () => {
   let subject, description;
   const getComplain = async () => {
     console.log(complainId);
+    /*
     const response = await fetch(
       "http://localhost:8080/complains/user/getComplain/" + complainId
     );
     const data = await response.json();
     subject = data.complain[0].complainSubject;
     description = data.complain[0].complainDescription;
+    */
+    const response = await AXIOS_CLIENT.get(
+      "/complains/user/getComplain/" + complainId
+    );
+    subject = response.data.complain[0].complainSubject;
+    description = response.data.complain[0].complainDescription;
     console.log("subject", subject);
     setComplainSubject(subject);
     console.log("description", description);
@@ -84,6 +92,7 @@ const EditComplainForm = () => {
         complainTime: time,
         complainImage: "base64",
       };
+      /*
       const requestOptions = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -94,7 +103,13 @@ const EditComplainForm = () => {
         requestOptions
       );
       const data = await response.json();
-      console.log(date, time, data.message);
+      */
+      const response = await AXIOS_CLIENT.put(
+        "/complains/user/editComplain/",
+        complainDetails
+      );
+      console.log(response);
+      console.log(date, time, response.data.message);
       navigate("/view_complain");
     }
   };

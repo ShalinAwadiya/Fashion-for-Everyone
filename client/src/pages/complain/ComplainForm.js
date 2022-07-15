@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { auth } from "../../utils/firebase";
 import { AUTH_TOKEN_KEY, deleteLocalToken } from "../../utils/firebase";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 export default function ComplainForm() {
   const navigate = useNavigate();
@@ -73,6 +74,7 @@ export default function ComplainForm() {
         complainImage: "base64",
         complainFrom_LoginId: auth.currentUser.uid,
       };
+      /*
       const requestOptions = {
         method: "POST",
         headers: {
@@ -85,8 +87,12 @@ export default function ComplainForm() {
         "http://localhost:8080/complains/user/insertComplain",
         requestOptions
       );
-      const data = await response.json();
-      console.log(date, time, uuid, data);
+      */
+      const response = await AXIOS_CLIENT.post(
+        "/complains/user/insertComplain",
+        complainDetails
+      );
+      console.log(date, time, uuid, response.data);
       navigate("/view_complain");
     }
   };
