@@ -2,10 +2,13 @@ import * as React from "react";
 import { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { auth } from "../../utils/firebase";
+import { AUTH_TOKEN_KEY, deleteLocalToken } from "../../utils/firebase";
 
-const EditComplainForm = () => {
+export default function ComplainForm() {
   const navigate = useNavigate();
-
+  console.log(localStorage.getItem(AUTH_TOKEN_KEY));
   const [complainSubject, setComplainSubject] = useState("");
   const [complainDescription, setComplainDescription] = useState("");
   const [complainAttachment, setComplainAttachment] = useState("");
@@ -35,7 +38,7 @@ const EditComplainForm = () => {
     setComplainAttachment(event.target.value);
   };
 
-  const submitButtonHandler = (event) => {
+  const submitButtonHandler = async (event) => {
     event.preventDefault();
     let complainSubjectCheck = true;
     let complainDescriptionCheck = true;
@@ -49,15 +52,54 @@ const EditComplainForm = () => {
       setComplainDescriptionError("Complain Description cannot be empty");
     }
     if (complainSubjectCheck === true && complainDescriptionCheck === true) {
-      navigate("/");
+      const uuid = uuidv4();
+
+      var today = new Date();
+      const date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      const time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      let complainDetails = {
+        complainId: uuid,
+        complainSubject: complainSubject,
+        complainDescription: complainDescription,
+        complainDate: date,
+        complainTime: time,
+        complainStatus: "Pending",
+        complainImage: "base64",
+        complainFrom_LoginId: auth.currentUser.uid,
+      };
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(AUTH_TOKEN_KEY),
+        },
+        body: JSON.stringify(complainDetails),
+      };
+      const response = await fetch(
+        "http://localhost:8080/complains/user/insertComplain",
+        requestOptions
+      );
+      const data = await response.json();
+      console.log(date, time, uuid, data);
+      navigate("/view_complain");
     }
+  };
+
+  const viewComplainHandler = (event) => {
+    navigate("/view_complain");
   };
 
   return (
     <Box
       border={2}
       borderColor="rgb(26,125,230)"
-      height={500}
+      height={650}
       width={500}
       padding="20px"
       margin="auto"
@@ -65,7 +107,7 @@ const EditComplainForm = () => {
       display="flex"
     >
       <form>
-        <h2>Edit Complain</h2>
+        <h2>Post Complain</h2>
         <TextField
           required
           multiline
@@ -73,7 +115,6 @@ const EditComplainForm = () => {
           name="name"
           label="Complain Subject"
           type="text"
-          width="300"
           style={{ width: "350px" }}
           onChange={complainSubjectHandler}
         />
@@ -89,15 +130,16 @@ const EditComplainForm = () => {
           rows={4}
           id="name-input"
           name="name"
-          style={{ width: "350px" }}
           label="Complain Description"
           type="text"
+          style={{ width: "350px" }}
           onChange={complainDescriptionHandler}
         />
         <br />
         <span style={{ color: "red", fontSize: "10px" }}>
           {complainDescriptionError}
         </span>
+        {/*
         <br />
         <br />
         <label>
@@ -111,16 +153,26 @@ const EditComplainForm = () => {
             onChange={complainAttachmentHandler}
           />
         </label>
+  */}
         <br />
         <br />
         <br />
         <Button onClick={submitButtonHandler} variant="contained">
-          Update
+          Submit
         </Button>
         &nbsp;
         <Button variant="contained">Cancel</Button>
+        <br />
+        <br />
+        <br />
+        <Button
+          style={{ width: "200px" }}
+          onClick={viewComplainHandler}
+          variant="outlined"
+        >
+          View Complains
+        </Button>
       </form>
     </Box>
   );
-};
-export default EditComplainForm;
+}
