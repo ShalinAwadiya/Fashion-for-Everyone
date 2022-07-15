@@ -24,11 +24,9 @@ import TextField from "@material-ui/core/TextField";
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AXIOS_CLIENT from "../../utils/apiClient";
-import { toast } from "react-toastify";
-
-
 import NotificationMenu from './NotificationMenu';
 import { isUserLoggedIn, logout } from '../../utils/firebase';
+import { toast } from "react-toastify";
 
 
 const pages = [
