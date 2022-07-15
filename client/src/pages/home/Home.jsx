@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 import React from 'react';
 import './HomeStyles.css';
 import Carousel from 'react-material-ui-carousel';

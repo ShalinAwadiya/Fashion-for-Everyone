@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable object-curly-newline */
 /* eslint-disable operator-linebreak */

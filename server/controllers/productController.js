@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 const { validationResult } = require('express-validator');
 const ProductModel = require('../models/product');
 const awsConfig = require('../config/aws-config');
@@ -87,8 +89,7 @@ async function updateProduct(req, res, next) {
     const product = await ProductModel.find({ _id });
     if (!product.length) {
       return res.status(204).send({ message: 'Product does not exist' });
-    } else{
-
+    } else {
       if (req.body.img) {
         const url = await awsConfig.saveImage(req.body.img);
         req.body.imageUrl = url;
@@ -102,4 +103,10 @@ async function updateProduct(req, res, next) {
   }
 }
 
-module.exports = { addProduct, getProduct, getProducts, removeProduct, updateProduct };
+module.exports = {
+  addProduct,
+  getProduct,
+  getProducts,
+  removeProduct,
+  updateProduct,
+};

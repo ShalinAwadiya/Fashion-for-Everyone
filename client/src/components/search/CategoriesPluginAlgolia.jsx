@@ -1,6 +1,9 @@
+//Author: Manan Amin (B00897712)
+
 import { getAlgoliaFacets } from '@algolia/autocomplete-js';
 import { Fragment } from 'preact';
 
+// Reference from Algolia Documentation: https://www.algolia.com/doc/
 export function createCategoriesPlugin({ searchClient }) {
   return {
     getSources({ query }) {

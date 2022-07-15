@@ -1,8 +1,4 @@
-// import Paper from '@mui/material/Paper';
-// import InputBase from '@mui/material/InputBase';
-// import SearchIcon from '@mui/icons-material/Search';
-// import IconButton from '@mui/material/IconButton';
-// import { Link } from 'react-router-dom';
+//Author: Manan Amin (B00897712)
 
 import algoliasearch from 'algoliasearch/lite';
 import { getAlgoliaResults } from '@algolia/autocomplete-js';

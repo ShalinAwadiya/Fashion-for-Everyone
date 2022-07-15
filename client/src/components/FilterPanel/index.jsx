@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 /* eslint-disable comma-dangle */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */

@@ -1,8 +1,10 @@
+//Author: Manan Amin (B00897712)
+
 import { autocomplete } from '@algolia/autocomplete-js';
 import React, { createElement, Fragment, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 
-// Reference from Algolia Documentation
+// Reference from Algolia Documentation: https://www.algolia.com/doc/
 export function Autocomplete(props) {
   const containerRef = useRef(null);
   const panelRootRef = useRef(null);
