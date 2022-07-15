@@ -147,9 +147,8 @@ const reloadUser = async () => {
 
 const updateFirebaseUserProfile = async ({ email, password, name }) => {
   await updateProfile(auth.currentUser, { displayName: name });
-  if (email) {
+  if (email != auth.currentUser.email) {
     await updateEmail(auth.currentUser, email);
-    sendEmailVerification(auth.currentUser);
     toast.success("Please verify link sent to this email. Check in your spam!");
   }
   if (password) {
