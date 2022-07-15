@@ -23,6 +23,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import AXIOS_CLIENT from "../../utils/apiClient";
+import { toast } from "react-toastify";
+
 
 import NotificationMenu from './NotificationMenu';
 import { isUserLoggedIn, logout } from '../../utils/firebase';
@@ -104,6 +107,27 @@ const NavBar = () => {
 
   }
 
+  const [email, setEmail] = useState('')
+  const addSubscriber =() => {
+    const emailId = {
+      "email" : email
+    };
+
+    AXIOS_CLIENT.post('/subscription', emailId)
+    .then((res) => {
+      if (res.status === 201) {
+        console.log('Subscriber saved successfully!!!')
+      }
+    }).catch(err => {
+      if (err.response.status === 409) {
+        console.log('Error')
+      } else {
+        console.error(err);
+        toast.error("Something went wrong!");
+      }
+    });
+  }
+
   return (
     <AppBar position="relative"
       color="transparent"
@@ -132,22 +156,20 @@ const NavBar = () => {
           {/* Pages section Coupons */}
           <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
             {pages.map((page) => (
-              <Link to={"/" + page.route}>
-                <Button
-                  key={page.title}
-                  component="a"
-                  sx={{ my: 2, color: 'black', display: 'block' }}
-                >
-                  {page.title}
-                </Button>
-              </Link>
+              <Button
+                key={page.title}
+                component="a"
+                href={"/" + page.route}
+                sx={{ my: 2, color: 'black', display: 'block', textDecoration: 'none' }}
+              >
+                {page.title}
+              </Button>
             ))}
             <Button
               key="SubscribeUs"
               component="a"
               sx={{ my: 2, color: 'black', display: 'block' }}
               onClick={handleOpen}
-
             >
               Subscribe Us
             </Button>
@@ -216,7 +238,7 @@ const NavBar = () => {
 
           {/* Search Bar */}
           <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-            <Search placeholder="Search for Products" />
+            <Search />
           </Box>
 
           {/* Wishlist */}
@@ -231,6 +253,7 @@ const NavBar = () => {
           </Link>
 
           {/* Subscribe Us */}
+          
           <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
@@ -249,27 +272,43 @@ const NavBar = () => {
                 <p>
                   <img src="Subscription.png" height="280" width="250" />
                   <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
-                  <TextField variant="outlined" size="small" fullWidth onChange={onTextChange} value={textValue} label={"Enter your Email ID"} />
+                  <form onSubmit ={handleSubmit}>
+                  <TextField 
+                  variant="outlined" 
+                  size="small" 
+                  fullWidth 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  value={textValue} 
+                  label={"Enter your Email ID"} />
                   <br /> <br />
-                  <Button variant="contained" size="large" fullWidth onClick={handleSubmit}>Subscribe</Button>
+                  <Button
+                  type="submit" 
+                  variant="contained" 
+                  size="large" 
+                  fullWidth 
+                  onClick={addSubscriber}>
+                    Subscribe</Button>
+                  </form>
                 </p>
               </div>
             </Fade>
           </Modal>
 
+
           {/* Profile */}
-          <Link to="/profile">
-            <Tooltip title="My profile">
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <Button>
-                  <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-                </Button>
-              </Box>
-            </Tooltip>
-          </Link>
-
-
-
+          {
+            isUserLoggedIn() ?
+              <Link to="/profile">
+                <Tooltip title="My profile">
+                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Button>
+                      <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                    </Button>
+                  </Box>
+                </Tooltip>
+              </Link>
+              : null
+          }
 
           {/* Cart */}
           <Link to="/cart">
@@ -294,14 +333,14 @@ const NavBar = () => {
 
           {/* Pages section Sign in */}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Link to='/signup'>
-              <Button
-                onClick={() => isUserLoggedIn() ? logout() : null}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                {isUserLoggedIn() ? "Log out" : "Sign up"}
-              </Button>
-            </Link>
+            <Button
+              component="a"
+              href="/signup"
+              onClick={() => isUserLoggedIn() ? logout() : null}
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
+              {isUserLoggedIn() ? "Log out" : "Sign up"}
+            </Button>
           </Box>
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -314,8 +353,6 @@ const NavBar = () => {
               </Badge>
             </IconButton>
           </Box>
-
-
 
           {/* Responsive Profile, Wishlist, Cart */}
           <Box sx={{ display: { xs: 'flex', md: 'none', ml: 10 } }}>
@@ -403,7 +440,7 @@ const NavBar = () => {
       </Container>
       {notificanDropDownValue ? <NotificationMenu handleNotClick={handleNotClick} /> : null}
 
-    </AppBar>
+    </AppBar >
   );
 };
 export default NavBar;

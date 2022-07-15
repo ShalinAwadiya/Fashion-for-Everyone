@@ -7,16 +7,20 @@
     "dev": "DEBUG=server:* npm start"
   },
   "dependencies": {
+    "aws-sdk": "^2.1173.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-validator": "^6.14.2",
     "firebase-admin": "^8.13.0",
+    "fs": "^0.0.1-security",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongoose": "^6.4.1",
+    "mongoose-algolia": "^1.10.1",
     "morgan": "~1.9.1",
-    "nodemon": "^1.19.3"
+    "nodemon": "^1.19.3",
+    "path": "^0.12.7"
   }
 }
