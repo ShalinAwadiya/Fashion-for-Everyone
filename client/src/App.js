@@ -11,12 +11,12 @@ import ForgetPassword from './pages/user-auth/forget-password';
 import Footer from './components/footer';
 import CouponsHomePage from './pages/coupon/coupons-home-page';
 import SeachPage from './pages/search-page';
-import ComplainForm from './pages/compain/ComplainForm';
-import EditComplainForm from './pages/compain/EditComplainForm';
-import ComplainTable from './pages/compain/ComplainTable';
-import ReplyTable from './pages/compain/ReplyTable';
-import ReplyComplain from './pages/compain/ReplyComplain';
-import AllComplainTable from './pages/compain/AllComplainTable';
+import ComplainForm from './pages/complain/ComplainForm';
+import EditComplainForm from './pages/complain/EditComplainForm';
+import ComplainTable from './pages/complain/ComplainTable';
+import ReplyTable from './pages/complain/ReplyTable';
+import ReplyComplain from './pages/complain/ReplyComplain';
+import AllComplainTable from './pages/complain/AllComplainTable';
 import Cart from './pages/cart/Cart';
 import Checkout from './pages/checkout/Checkout';
 import Profile from './pages/user-auth/profile';
@@ -31,6 +31,12 @@ import Wishlist from './pages/Wishlist/Wishlist';
 import { PrivateRoute, PublicRoute } from './utils/routeProtector';
 import PostCoupon from './pages/coupon/post-coupon';
 import SavedCoupon from './pages/coupon/saved-coupons';
+import AddressForm from "./pages/checkout/AddressForm";
+import PaymentForm from "./pages/checkout/PaymentForm";
+import Review from "./pages/checkout/Review";
+import PlacedInfo from "./pages/checkout/OrderPlaced";
+import Action from "./pages/user-auth/action";
+import User_Products from "./pages/products/user_products";
 
 function App() {
   return (
