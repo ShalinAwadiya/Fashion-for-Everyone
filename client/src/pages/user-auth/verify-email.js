@@ -9,7 +9,7 @@ function VerifyEmail(props) {
     handleVerifyEmail(auth, props.actionCode);
   }, [])
 
-  function handleVerifyEmail(auth, actionCode) {
+  const handleVerifyEmail = (auth, actionCode) => {
     applyActionCode(auth, actionCode).then((resp) => {
       setEmailVerified(true);
     }).catch((error) => {

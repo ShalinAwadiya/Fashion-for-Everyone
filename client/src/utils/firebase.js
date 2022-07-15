@@ -45,7 +45,7 @@ const getLocalToken = () => {
 }
 
 const setUserId = (id) => {
-  localStorage.setItem(USER_ID)
+  localStorage.setItem(USER_ID, id)
 }
 
 const getUserId = (id) => {

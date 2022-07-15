@@ -30,20 +30,21 @@ function ResetPassword(props) {
     setActioncode(actionCode);
   }, []);
 
-  function handleResetPassword(actionCode) {
-    verifyPasswordResetCode(auth, actionCode).then((email) => {
-      confirmPasswordReset(auth, actionCode, values.newPassword).then((resp) => {
-        toast.success("Password reset done! Login again.")
+  const handleResetPassword = () => {
+    verifyPasswordResetCode(auth, actionCode)
+      .then((email) => {
+        confirmPasswordReset(auth, actionCode, values.newPassword).then((resp) => {
+          toast.success("Password reset done! Login again.")
+        }).catch((error) => {
+          toast.error("Something went wrong!")
+        });
       }).catch((error) => {
-        toast.error("Something went wrong!")
+        toast.error("Something went wrong! Please check URL again.")
       });
-    }).catch((error) => {
-      toast.error("Something went wrong! Please check URL again.")
-    });
   }
 
   const onSubmit = () => {
-    handleResetPassword(actionCode)
+    handleResetPassword()
   }
 
   const {
