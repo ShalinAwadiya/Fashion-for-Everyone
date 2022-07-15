@@ -69,7 +69,7 @@ export default function ReplyComplain() {
         body: JSON.stringify(complainDetails),
       };
       const response = await fetch(
-        "http://localhost:3000/complains/admin/insertComplainReply",
+        "http://localhost:8080/complains/admin/insertComplainReply",
         requestOptions
       );
       const data = await response.json();

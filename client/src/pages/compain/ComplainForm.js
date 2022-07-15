@@ -3,10 +3,12 @@ import { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { auth } from "../../utils/firebase";
+import { AUTH_TOKEN_KEY, deleteLocalToken } from "../../utils/firebase";
 
 export default function ComplainForm() {
   const navigate = useNavigate();
-
+  console.log(localStorage.getItem(AUTH_TOKEN_KEY));
   const [complainSubject, setComplainSubject] = useState("");
   const [complainDescription, setComplainDescription] = useState("");
   const [complainAttachment, setComplainAttachment] = useState("");
@@ -69,11 +71,14 @@ export default function ComplainForm() {
         complainTime: time,
         complainStatus: "Pending",
         complainImage: "base64",
-        complainFrom_LoginId: 3,
+        complainFrom_LoginId: auth.currentUser.uid,
       };
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(AUTH_TOKEN_KEY),
+        },
         body: JSON.stringify(complainDetails),
       };
       const response = await fetch(

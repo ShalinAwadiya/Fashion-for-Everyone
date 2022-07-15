@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../utils/firebase";
 
 import {
   TableContainer,
@@ -61,10 +62,11 @@ export default function ComplainTable() {
   const navigate = useNavigate();
 
   const [complains, setComplains] = useState();
-
+  let temp;
   const getComplains = async () => {
+    temp = auth.currentUser.uid;
     const response = await fetch(
-      "http://localhost:8080/complains/user/viewComplains/3"
+      "http://localhost:8080/complains/user/viewComplains/" + temp
     );
     const data = await response.json();
     console.log(data.complains);

@@ -31,7 +31,7 @@ const complainSchema = new mongoose.Schema({
     required: false,
   },
   complainFrom_LoginId: {
-    type: Number,
+    type: String,
     required: false,
   },
   replySubject: {

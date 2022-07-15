@@ -77,6 +77,7 @@ export default function ComplainTable() {
 
   return (
     <Box margin="auto" marginTop="125px" marginLeft="175px" display="flex">
+      <a href="/view_complain">Back</a>
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>

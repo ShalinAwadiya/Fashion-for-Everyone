@@ -36,7 +36,7 @@ var complainRouter = require("./routes/complains");
 app.use("/users", checkAuth, usersRouter);
 app.use("/coupons", checkAuth, couponsRouter);
 app.use("/products", checkAuth, productsRouter);
-app.use("/complains", checkAuth, complainRouter);
+app.use("/complains", complainRouter);
 // -----------------------------------------------------------------------------
 
 module.exports = app;
