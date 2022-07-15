@@ -3,6 +3,8 @@ import React from 'react';
 import { Modal, Button, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AXIOS_CLIENT from "../../utils/apiClient";
+import {toast} from "react-toastify";
 
 class DeleteModal extends React.Component{
 
@@ -10,7 +12,7 @@ class DeleteModal extends React.Component{
     {
         super(props);
         console.log(props);
-        this.state={productName: props.productName};
+        this.state=props.product_data
     }
     
     toggle = () =>{
@@ -21,10 +23,15 @@ class DeleteModal extends React.Component{
     
     onSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state)
+
+        AXIOS_CLIENT.delete('/products/delete/' + this.state._id).then(res=> {
+                if (res.status === 200) {
+                    console.log('Product Deleted successfully!!!!')
+                }
+            })
         this.toggle();
         window.location.reload();
-        console.log("task submited");
+        console.log("Deleted");
     }
  
     render(){
@@ -34,7 +41,7 @@ class DeleteModal extends React.Component{
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>Delete Product</ModalHeader>  
                     <ModalBody>
-                        <p>Are you sure you want to delete Product <b>{this.state.productName}</b></p>
+                        <p>Are you sure you want to delete Product <b>{this.state.name}</b></p>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.toggle}>Cancel</Button>

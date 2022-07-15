@@ -39,7 +39,7 @@ const pages = [
   },
   {
     title: 'Products',
-    route: 'show_products'
+    route: 'products'
   }];
 
 const useStyles = makeStyles(theme => ({

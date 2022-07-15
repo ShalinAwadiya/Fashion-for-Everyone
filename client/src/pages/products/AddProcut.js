@@ -25,6 +25,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function addProduct() {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,6 +33,8 @@ export default function addProduct() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    console.log("add product called")
   };
 
   return (

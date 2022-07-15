@@ -31,6 +31,7 @@ import Wishlist from './pages/Wishlist/Wishlist';
 import { PrivateRoute, PublicRoute } from './utils/routeProtector';
 import PostCoupon from './pages/coupon/post-coupon';
 import SavedCoupon from './pages/coupon/saved-coupons';
+import User_Products from "./pages/products/user_products";
 
 function App() {
   return (
@@ -71,8 +72,9 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/cart" element={<Cart />}></Route>
               <Route path="/orders" element={<Orders />}></Route>
+              <Route path="/products" element={<User_Products />}></Route>
               <Route path="/show_products" element={<ShowProducts />}></Route>
-              <Route path="/product" element={<ProductPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
               <Route path="/product/review" element={<ShowReviews />} />
               <Route path="/profile" element={<Profile />}></Route>
               <Route path="/fashion-blogs" element={<Fashion />} />

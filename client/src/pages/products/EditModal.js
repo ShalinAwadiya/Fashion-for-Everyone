@@ -1,22 +1,16 @@
 
 import React from 'react';
-import { Modal, Button, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import {Modal, Button, ModalHeader, ModalBody, ModalFooter, Toast} from 'reactstrap';
 import TextField from '@mui/material/TextField';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 class EditModal extends React.Component{
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
-        this.state={
-            product_name:  props.product_data.name,
-            product_description: props.product_data.description,
-            price: props.product_data.price,
-            modal:false,
-            isFormInvalid: false
-        };
+        this.state=props.product_data;
     }
 
     toggle = () =>{
@@ -27,16 +21,30 @@ class EditModal extends React.Component{
 
     validate = () => {
         console.log("validate called")
-        if (this.state.product_name === "" || this.state.product_description === "" || this.state.price === "") {
+        if (this.state.name === "" || this.state.description === "" || this.state.price === "" || this.state.brand==="") {
             console.log("invalidate")
             this.state.isFormInvalid = true;
             console.log(this.state)
         } else {
             this.state.isFormInvalid = false;
+
+            //make put call
+            delete this.state['imageUrl'];
+            console.log(this.state);
+
+            AXIOS_CLIENT.put('/products/update/'+this.state._id, this.state)
+                .then((res) => {
+                    console.log('Product addition result', res);
+                    if (res.status === 200) {
+                        console.log('product updated successfully!!!')
+                    }
+            }).catch(err => {
+                console.error(err);
+                Toast.error("Something went wrong!");
+            });
+
             this.toggle();
             window.location.reload();
-            console.log("task submited");
-
         }
     };
 
@@ -45,6 +53,19 @@ class EditModal extends React.Component{
         console.log(this.state)
 
         this.validate();
+    }
+
+    imageUpload = (e) => {
+        if (e.target.files) {
+            let reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+
+            reader.onload = () => {
+                this.setState({base64: reader.result});
+                this.setState({img: reader.result});
+            };
+        }
+        console.log("state after upload is", this.state)
     }
 
     myChangeHandler = (event) => {
@@ -61,27 +82,40 @@ class EditModal extends React.Component{
                     <ModalHeader toggle={this.toggle}>Edit Product</ModalHeader>
                     <ModalBody>
                         <TextField
-                            error={this.state.product_name === ""}
-                            helperText={this.state.product_name === "" && "product name required"}
+                            error={this.state.name === ""}
+                            helperText={this.state.name === "" && "product name required"}
                             required
                             fullWidth
                             id="lastName"
                             label="Product Name"
-                            name="product_name"
-                            value = {this.state.product_name}
+                            name="name"
+                            value = {this.state.name}
                             onChange={this.myChangeHandler}
                         />
                         <hr></hr>
 
                         <TextField
-                            error={this.state.product_description === ""}
-                            helperText={this.state.product_description === "" && "product description required"}
+                            error={this.state.description === ""}
+                            helperText={this.state.description === "" && "product description required"}
                             required
                             fullWidth
                             id="Product Description"
                             label="Product Description"
-                            name="product_description"
-                            value = {this.state.product_description}
+                            name="description"
+                            value = {this.state.description}
+                            onChange={this.myChangeHandler}
+                        />
+                        <hr></hr>
+
+                        <TextField
+                            error={this.state.brand === ""}
+                            helperText={this.state.brand === "" && "product brand required"}
+                            required
+                            fullWidth
+                            id="Product Brand"
+                            label="Product Brand"
+                            name="brand"
+                            value = {this.state.brand}
                             onChange={this.myChangeHandler}
                         />
                         <hr></hr>
@@ -94,14 +128,22 @@ class EditModal extends React.Component{
                             name="price"
                             label="Product Price"
                             type="number"
-                            id="Product Price"
+                            id="price"
                             value = {this.state.price}
                             onChange={this.myChangeHandler}
                         />
                         <hr></hr>
 
-                        <label for="img">Select Product Image: </label>
-                        <input className="pull-right"type="file" id="img" name="img" accept="image/*"/>
+                        <label htmlFor="img">Select Product Image: </label>
+                        <input
+                            className="pull-right"
+                            type="file"
+                            accept="image/*"
+                            name="img"
+                            id="img"
+                            required
+                            onChange={this.imageUpload}
+                        />
 
 
                     </ModalBody>
