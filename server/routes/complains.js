@@ -1,4 +1,7 @@
 // Shalin Hasanbhai Awadiya - B00892907
+/*
+This file contains both the admin side and user side routes for complain management
+*/
 var express = require("express");
 const {
   userInsertComplain,
