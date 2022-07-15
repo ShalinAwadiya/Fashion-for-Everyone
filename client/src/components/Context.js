@@ -21,7 +21,6 @@ const useStyles = makeStyles({
         height: "60%",
         padding:"15px"
     },
-
     title: {
         fontSize: 14
     },
@@ -48,7 +47,6 @@ const Context = () => {
         }
         setCoupon(event.target.value)
     }
-
     const handleSubmit=(event)=>{
         // event.preventDefault();
         toast("Coupon Applied!");
