@@ -18,7 +18,8 @@ var CartSchema = new Schema({
       brand: String,
       price: Number,
       description: String,
-      imageUrl: String
+      imageUrl: String,
+      quantity:Number
     },
   ],
   coupon: {

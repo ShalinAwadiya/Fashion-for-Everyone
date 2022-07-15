@@ -17,14 +17,13 @@ async function postCart(req, res, next) {
       var name = product.name;
       var price = product.price;
       var imageUrl = product.imageUrl;
+      var quantity = 1;
     }
 
     if (cart) {
       if (product) {
-        cart.products.push({ product_id, name, price, imageUrl });
-      }
-
-      else if (coupon) {
+        cart.products.push({ product_id, name, price, imageUrl, quantity });
+      } else if (coupon) {
         cart.coupon = coupon;
       }
       await cart.save();
@@ -32,10 +31,9 @@ async function postCart(req, res, next) {
       if (product) {
         await CartModel.create({
           userId: user,
-          products: [{ product_id, name, price, imageUrl }],
+          products: [{ product_id, name, price, imageUrl, quantity }],
         });
-      }
-      else if (coupon) {
+      } else if (coupon) {
         await CartModel.create({
           userId: user,
           coupon: coupon,
@@ -54,12 +52,11 @@ async function postCart(req, res, next) {
  */
 async function getCart(req, res, next) {
   try {
-    console.log(req.user);
-    // let user = req.user
-    // const cart = await CartModel.findOne({ userId: user });
-    // if (cart) {
-    //   return res.status(200).send({ cart: cart });
-    // }
+    let user = req.user.user_id;
+    const cart = await CartModel.findOne({ userId: user });
+    if (cart) {
+      return res.status(200).send({ cart: cart });
+    }
     return res.status(200).send({ cart: [] });
   } catch (err) {
     return next(err);
@@ -74,10 +71,10 @@ async function deleteCart(req, res, next) {
   try {
     let user = req.body.userId;
     const cart = await CartModel.findOne({ userId: user });
-    if(cart){
+    if (cart) {
       await cart.delete();
     }
-    
+
     return res.status(200).send({ cart: [] });
   } catch (err) {
     return next(err);
@@ -90,17 +87,17 @@ async function deleteCart(req, res, next) {
  */
 async function removeProduct(req, res, next) {
   try {
-    let user = req.body.userId;
+    let user = req.user.user_id;
     const cart = await CartModel.findOneAndUpdate(
       { userId: user },
       {
         $pull: {
           products: { product_id: mongoose.Types.ObjectId(req.body.productId) },
         },
-      }
+      },
+      { new: true }
     );
-
-    await cart.save();
+    // await cart.save();
     return res.status(200).send({ cart: cart });
   } catch (err) {
     return next(err);
@@ -113,10 +110,11 @@ async function removeProduct(req, res, next) {
  */
 async function removeCoupon(req, res, next) {
   try {
-    let user_id = req.body.userId;
+    let user_id = req.user.user_id;
     const cart = await CartModel.findOne({ userId: user_id });
     if (cart) {
-      cart.coupon = null;
+      cart.coupon.code = "-";
+      cart.coupon.minCartPrice=0
       await cart.save();
       return res.status(200).send({ cart: cart });
     }
@@ -125,4 +123,47 @@ async function removeCoupon(req, res, next) {
   }
 }
 
-module.exports = { postCart, getCart, removeProduct, removeCoupon, deleteCart };
+/**
+ *
+ *
+ */
+async function updateQuantity(req, res, next) {
+  try {
+    let user = req.user.user_id;
+    let index = req.body.index;
+    let type = req.body.type;
+    var cart = await CartModel.findOneAndUpdate({ userId: user });
+    if (type === "inc") {
+      cart.products[index].quantity += 1;
+    } else if(type==="dec"){
+      cart.products[index].quantity=cart.products[index].quantity-1;
+      if(cart.products[index].quantity===0){
+        const cart_remove = await CartModel.findOneAndUpdate(
+          { userId: user },
+          {
+            $pull: {
+              products: { product_id: cart.products[index].product_id },
+            },
+          },
+          { new: true }
+        )
+        return res.status(200).send({ cart: cart_remove.products });
+
+
+      }
+    }
+    await cart.save();
+    return res.status(200).send({ cart: cart.products });
+  } catch (err) {
+    return next(err);
+  }
+}
+
+module.exports = {
+  postCart,
+  getCart,
+  removeProduct,
+  removeCoupon,
+  deleteCart,
+  updateQuantity,
+};
