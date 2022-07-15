@@ -1,3 +1,4 @@
+// Pooja Anandani - B00911392
 import React, { useContext, useState } from "react";
 import { CartContext } from "./Cart";
 import {
@@ -52,6 +53,8 @@ const Context = () => {
     coupon,
     removeCoupon,
   } = useContext(CartContext);
+  
+  console.log(coupon,"this is coupon");
 
   let shipping = 30;
   let price = totalAmount + shipping - coupon.minCartPrice;
