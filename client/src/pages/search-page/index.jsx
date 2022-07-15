@@ -6,22 +6,32 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+
+import algoliasearch from 'algoliasearch/lite';
 
 import './styles.css';
-
-import SearchBar from '../../components/SearchBar';
 import ListView from '../../components/ListView';
 import FilterPanel from '../../components/FilterPanel';
-import { data } from '../../data/data';
+
+const appId = 'FXM5Z7L8QK';
+const apiKey = '8742666d8583123913b0ff879eb4d742';
+
+const client = algoliasearch(appId, apiKey);
+const index = client.initIndex('products');
 
 export default function SeachPage() {
+  let params = useParams();
   const [brand, setBrand] = useState(null);
   const [review, setReview] = useState(null);
   const [price, setPrice] = useState([10, 500]);
+  const [brandList, setBrandList] = useState([]);
 
-  const [items, setItems] = useState(data);
+  const [items, setItems] = useState([]);
+  const [displayresult, setDisplayResult] = useState([]);
   const [result, setResult] = useState(true);
-  const [inputText, setSearch] = useState('');
+
+  // Algolia Search Config
 
   const handleReview = (event, value) => {
     !value ? null : setReview(value);
@@ -32,16 +42,36 @@ export default function SeachPage() {
   const handlePrice = (event, value) => {
     !value ? null : setPrice(value);
   };
-  const handleSearch = (event) => {
-    setSearch(event.target.value);
-  };
+
+  useEffect(() => {
+    // with params
+    let searchQuery = params.query.replace('-', ' ');
+    if (searchQuery === 'all') searchQuery = '';
+    index
+      .search(searchQuery, {
+        hitsPerPage: 9,
+      })
+      .then(({ hits }) => {
+        let brands = new Set();
+        hits.forEach((pro) => {
+          brands.add(pro.brand.toLowerCase());
+        });
+        setBrandList(brands);
+        setItems(hits);
+        setDisplayResult(hits);
+      });
+  }, [params]);
+
+  useEffect(() => {
+    if (items) findResults();
+  }, [items, review, brand, price]);
 
   const findResults = () => {
-    let tempItems = data;
+    let tempItems = items;
 
     if (review) {
       tempItems = tempItems.filter(
-        (item) => parseInt(item.review, 10) === parseInt(review, 10)
+        (item) => parseInt(item.rating, 10) === parseInt(review, 10)
       );
     }
 
@@ -49,29 +79,15 @@ export default function SeachPage() {
       tempItems = tempItems.filter((item) => item.brand === brand);
     }
 
-    if (inputText) {
-      tempItems = tempItems.filter(
-        (item) =>
-          item.name.toLowerCase().search(inputText.toLowerCase().trim()) !== -1
-      );
-    }
-
     tempItems = tempItems.filter(
       (item) => item.price >= price[0] && item.price <= price[1]
     );
 
-    setItems(tempItems);
+    setDisplayResult(tempItems);
     !tempItems.length ? setResult(false) : setResult(true);
   };
-
-  useEffect(() => {
-    findResults();
-  }, [review, brand, inputText, price]);
-
   return (
     <div className="page">
-      <SearchBar value={inputText} changeValue={handleSearch} />
-
       <div className="main">
         <div className="sidebar">
           <FilterPanel
@@ -81,13 +97,14 @@ export default function SeachPage() {
             onBrandValueChange={handleBrand}
             priceValue={price}
             onPriceValueChange={handlePrice}
+            brandList={brandList}
           />
         </div>
         <div className="main_list">
           {result ? (
-            <ListView items={items} />
+            <ListView items={displayresult} />
           ) : (
-            <h1> No results for Search and Filters : {inputText}</h1>
+            <h1> No results for Search and Filters : {params.query}</h1>
           )}
         </div>
       </div>
