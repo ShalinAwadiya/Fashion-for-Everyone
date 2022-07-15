@@ -13,7 +13,7 @@ import {
   getIdToken,
   updateProfile,
   updateEmail,
-  sendEmailVerification
+  sendEmailVerification,
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import AXIOS_CLIENT from "./apiClient";
@@ -25,11 +25,11 @@ const firebaseConfig = {
   storageBucket: "web-project-9751f.appspot.com",
   messagingSenderId: "604191467484",
   appId: "1:604191467484:web:9b4e215a3ec3347be21119",
-  measurementId: "G-RDSC7N5F84"
+  measurementId: "G-RDSC7N5F84",
 };
 
-const AUTH_TOKEN_KEY = 'authToken';
-const USER_ID = "userId"
+const AUTH_TOKEN_KEY = "authToken";
+const USER_ID = "userId";
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
@@ -38,23 +38,23 @@ const googleProvider = new GoogleAuthProvider();
 
 const setLocalToken = (token) => {
   localStorage.setItem(AUTH_TOKEN_KEY, token);
-}
+};
 
 const getLocalToken = () => {
-  return localStorage.getItem(AUTH_TOKEN_KEY)
-}
+  return localStorage.getItem(AUTH_TOKEN_KEY);
+};
 
 const setUserId = (id) => {
-  localStorage.setItem(USER_ID, id)
-}
+  localStorage.setItem(USER_ID, id);
+};
 
 const getUserId = (id) => {
-  localStorage.getItem(USER_ID);
-}
+  return localStorage.getItem(USER_ID);
+};
 
 const deleteLocalToken = () => {
   localStorage.removeItem(AUTH_TOKEN_KEY);
-}
+};
 
 const signInWithGoogle = async () => {
   try {
@@ -63,13 +63,13 @@ const signInWithGoogle = async () => {
     setLocalToken(await user.getIdToken());
     setUserId(user.uid);
 
-    await AXIOS_CLIENT.post('/users', {
+    await AXIOS_CLIENT.post("/users", {
       email: user.email,
       name: user.displayName,
-      firebaseId: user.uid
+      firebaseId: user.uid,
     });
 
-    window.location.href = '/show_products';
+    window.location.href = "/show_products";
   } catch (err) {
     console.error(err);
     toast.error("Something went wrong!");
@@ -82,17 +82,16 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     const user = res.user;
     setLocalToken(await user.getIdToken());
     sendEmailVerification(user);
-    setUserId(user.uid)
+    setUserId(user.uid);
 
-    await AXIOS_CLIENT.post('/users', {
+    await AXIOS_CLIENT.post("/users", {
       email: user.email,
       name: name,
-      firebaseId: user.uid
+      firebaseId: user.uid,
     });
 
     await updateFirebaseUserProfile({ password, name });
-    window.location.href = '/show_products';
-
+    window.location.href = "/show_products";
   } catch (err) {
     console.error(err);
     toast.error(err.message);
@@ -105,7 +104,7 @@ const logInWithEmailAndPassword = async (email, password) => {
     const user = res.user;
     setLocalToken(await user.getIdToken());
     setUserId(user.uid);
-    window.location.href = '/show_products';
+    window.location.href = "/show_products";
   } catch (err) {
     console.error(err);
     toast.error(err.message);
@@ -115,7 +114,9 @@ const logInWithEmailAndPassword = async (email, password) => {
 const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
-    toast.success("Password reset link sent! Please check your spam folder too. ");
+    toast.success(
+      "Password reset link sent! Please check your spam folder too. "
+    );
   } catch (err) {
     console.error(err);
     toast.error(err.message);
@@ -128,42 +129,42 @@ const updateUserPassword = async (password) => {
   } catch (err) {
     toast.error(err.message);
   }
-}
+};
 
 const logout = () => {
   signOut(auth);
   deleteLocalToken();
-  window.location.href = '/';
+  window.location.href = "/";
 };
 
 const isUserLoggedIn = () => {
   return Boolean(localStorage.getItem(AUTH_TOKEN_KEY));
-}
+};
 
 const reloadUser = async () => {
   await reload(auth.currentUser);
-}
+};
 
 const updateFirebaseUserProfile = async ({ email, password, name }) => {
   await updateProfile(auth.currentUser, { displayName: name });
   if (email) {
-    await updateEmail(auth.currentUser, email)
+    await updateEmail(auth.currentUser, email);
     sendEmailVerification(auth.currentUser);
-    toast.success("Please verify link sent to this email. Check in your spam!")
+    toast.success("Please verify link sent to this email. Check in your spam!");
   }
   if (password) {
-    await updateUserPassword(password)
+    await updateUserPassword(password);
   }
   await reloadUser();
-}
+};
 
 const getUserProfile = async () => {
   return {
     name: await auth.currentUser.displayName,
     email: await auth.currentUser.email,
-    password: ""
-  }
-}
+    password: "",
+  };
+};
 
 export {
   logInWithEmailAndPassword,
@@ -179,5 +180,5 @@ export {
   updateFirebaseUserProfile,
   getUserId,
   auth,
-  AUTH_TOKEN_KEY
+  AUTH_TOKEN_KEY,
 };

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../utils/firebase";
 import AXIOS_CLIENT from "../../utils/apiClient";
-
+import { getUserId } from "../../utils/firebase";
 import {
   TableContainer,
   Table,
@@ -66,7 +66,9 @@ export default function ComplainTable() {
   const [complains, setComplains] = useState();
   let temp;
   const getComplains = async () => {
-    temp = auth.currentUser.uid;
+    const temp = getUserId();
+    console.log(temp);
+    //temp = auth.currentUser.uid;
     /*
     const response = await fetch(
       "http://localhost:8080/complains/user/viewComplains/" + temp
