@@ -33,11 +33,15 @@ var usersRouter = require('./routes/users');
 var couponsRouter = require('./routes/coupons');
 var productsRouter = require('./routes/products');
 var cartRouter = require('./routes/carts')
+var subscriptionRouter = require('./routes/subscription');
+var shippingAddressRouter = require('./routes/shippingAddress');
 
 app.use('/users', checkAuth, usersRouter);
 app.use('/coupons', checkAuth, couponsRouter);
 app.use('/products', checkAuth, productsRouter);
 app.use('/cart', checkAuth, cartRouter);
+app.use(['/'], subscriptionRouter);
+app.use(['/'], shippingAddressRouter);
 // -----------------------------------------------------------------------------
 
 module.exports = app;

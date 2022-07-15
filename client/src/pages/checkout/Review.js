@@ -6,27 +6,15 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
+import {useLocation} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Button from '@mui/material/Button';
+import AXIOS_CLIENT from "../../utils/apiClient";
+import { toast } from "react-toastify";
 
-const products = [
-  { name: "Product 1", desc: "A nice thing", price: "$9.99" },
-  { name: "Product 2", desc: "Another thing", price: "$3.45" },
-  { name: "Product 3", desc: "Something else", price: "$6.51" },
-  { name: "Product 4", desc: "Best thing of all", price: "$14.11" },
-  { name: "Shipping", desc: "", price: "Free" }
-];
-const addresses = [
-  "1 Material-UI Drive",
-  "Reactville",
-  "Anytown",
-  "99999",
-  "USA"
-];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" }
-];
+
+const baseURL = "http://localhost:8080/checkout";
 
 const styles = theme => ({
   listItem: {
@@ -40,52 +28,109 @@ const styles = theme => ({
   }
 });
 
+
+
 function Review(props) {
   const { classes } = props;
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const addShippingInfo =() => {
+    const user = {
+      "userId" : "sushil@gmail.com",
+      "address": {
+        "firstName": location.state.firstName,
+        "lastName" : location.state.lastName,
+        "address1" : location.state.address1,
+        "city" : location.state.address1,
+        "state" : location.state.state,
+        "zip" : location.state.zip,
+        "country" : location.state.country
+        }
+      };
+      AXIOS_CLIENT.post('/checkout', user)
+      .then((res) => {
+        if (res.status === 201) {
+          console.log('Subscriber saved successfully!!!')
+        }
+      }).catch(err => {
+        if (err.response.status === 409) {
+          console.log('Error')
+        } else {
+          console.error(err);
+          toast.error("Something went wrong!");
+        }
+      });
+    }
+  
   return (
     <React.Fragment>
+      <br />
+      <br />
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map(product => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
-          </ListItem>
-        ))}
         <ListItem className={classes.listItem}>
+          <hr />
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
             $34.06
           </Typography>
         </ListItem>
+        <hr />
       </List>
       <Grid container spacing={16}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          <Typography gutterBottom>{location.state.firstName}{location.state.lastName}</Typography>
+          <Typography gutterBottom>{location.state.address1}{location.state.address2}</Typography>
+          <Typography gutterBottom>{location.state.city}{location.state.country}{location.state.zip}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Payment details
           </Typography>
           <Grid container>
-            {payments.map(payment => (
-              <React.Fragment key={payment.name}>
+              <React.Fragment key="Name">
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
+                  <Typography gutterBottom>Card Holder Name</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
+                  <Typography gutterBottom>{location.state.cardName}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>Card Number</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{location.state.cardNumber}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>Expiry Date</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{location.state.expDate}</Typography>
                 </Grid>
               </React.Fragment>
-            ))}
+              <br />
+              <br />
+              <br />
+              
           </Grid>
         </Grid>
+
+        <Button
+                onClick = {addShippingInfo}
+                type="submit"
+                color="secondary"
+                variant="contained"
+                href="/order_placed"
+                fullWidth
+                >
+                  Place Order
+                </Button>
       </Grid>
     </React.Fragment>
   );
