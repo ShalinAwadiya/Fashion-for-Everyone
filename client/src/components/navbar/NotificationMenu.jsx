@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 import React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';

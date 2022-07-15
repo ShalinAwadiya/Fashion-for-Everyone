@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */

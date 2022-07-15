@@ -1,4 +1,6 @@
-import { Container, Grid, Box, Link, Avatar } from "@material-ui/core";
+//Author: Manan Amin (B00897712)
+
+import { Container, Grid, Box, Link, Avatar } from '@material-ui/core';
 
 function Footer() {
   return (
@@ -9,13 +11,13 @@ function Footer() {
             <Box borderBottom={2}>Get to Know Us</Box>
             <Box>
               <Link href="/" color="inherit">
-                {" "}
+                {' '}
                 About Company
               </Link>
             </Box>
             <Box>
               <Link href="/" color="inherit">
-                {" "}
+                {' '}
                 Culture
               </Link>
             </Box>
@@ -25,13 +27,13 @@ function Footer() {
             <Box borderBottom={1}> Make Money with Us </Box>
             <Box>
               <Link href="/" color="inherit">
-                {" "}
+                {' '}
                 sell on Fashion World
               </Link>
             </Box>
             <Box>
               <Link href="/" color="inherit">
-                {" "}
+                {' '}
                 Publish With Us
               </Link>
             </Box>
@@ -41,17 +43,17 @@ function Footer() {
             <Box borderBottom={1}>Help </Box>
             <Box>
               <Link href="/post_complain" color="inherit">
-                {" "}
+                {' '}
                 Client-Complain
               </Link>
               <Link href="/admin/view_complain" color="inherit">
-                {" "}
+                {' '}
                 Admin-Complain
               </Link>
             </Box>
             <Box>
               <Link href="/" color="inherit">
-                {" "}
+                {' '}
                 Manage your Account
               </Link>
             </Box>

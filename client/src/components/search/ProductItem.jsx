@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 import React, { createElement } from 'react';
 
 export function ProductItem({ hit, components, query }) {

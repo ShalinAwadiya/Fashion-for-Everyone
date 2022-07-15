@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 var AWS = require('aws-sdk');
 
 AWS.config.update({

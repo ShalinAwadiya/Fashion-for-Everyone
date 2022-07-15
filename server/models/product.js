@@ -1,3 +1,5 @@
+//Author: Manan Amin (B00897712)
+
 var mongoose = require('mongoose');
 const mongooseAlgolia = require('mongoose-algolia');
 const algolia = require('../config/algolia-config');
