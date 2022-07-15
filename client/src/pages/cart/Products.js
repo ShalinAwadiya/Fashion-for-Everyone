@@ -1,3 +1,4 @@
+// Pooja Anandani - B00911392
 import DressOne from '../../assets/images/dress1.png'
 import DressTwo from '../../assets/images/dress2.png'
 import DressThree from '../../assets/images/dress3.png'

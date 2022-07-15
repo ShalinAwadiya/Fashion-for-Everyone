@@ -1,3 +1,4 @@
+// Pooja Anandani - B00911392
 import React, { useContext, useState } from "react";
 import { CartContext } from "./Cart";
 import {
@@ -52,9 +53,11 @@ const Context = () => {
     coupon,
     removeCoupon,
   } = useContext(CartContext);
+  
+  console.log(coupon,"this is coupon");
 
   let shipping = 30;
-  let price = totalAmount + shipping - coupon.minCartPrice;
+  let price = Math.max(totalAmount + shipping - coupon.minCartPrice, 0);
 
   if (totalAmount == 0) {
     shipping = 0;
@@ -93,7 +96,7 @@ const Context = () => {
           justifyContent="center"
           alignItems="flex-start"
         >
-          {item.length === 0 ? (
+          {item?.length === 0 ? (
             <div>
               <img src="https://alphapharmaexhibitions.com/images/cartempty1.png"></img>
             </div>

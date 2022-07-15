@@ -1,3 +1,4 @@
+// Pooja Anandani - B00911392
 import AXIOS_CLIENT from "../../utils/apiClient";
 
 export const reducer = (state, action) => {
@@ -5,7 +6,6 @@ export const reducer = (state, action) => {
     return {...state, item:action.payload}
   }
   if (action.type === "INCREMENT") {
-    console.log("action pay",action.payload);
     const inccart = state.item.map((currentElemenet,index) => {
       if (index=== action.payload) {
         return { ...currentElemenet, quantity: currentElemenet.quantity + 1 };
