@@ -77,4 +77,29 @@ async function removeProduct(req, res, next) {
   }
 }
 
-module.exports = { addProduct, getProduct, getProducts, removeProduct };
+/**
+ * This function updates product by id.
+ * usage: update /products/update/:productId
+ */
+async function updateProduct(req, res, next) {
+  try {
+    const _id = req.params.productId;
+    const product = await ProductModel.find({ _id });
+    if (!product.length) {
+      return res.status(204).send({ message: 'Product does not exist' });
+    } else{
+
+      if (req.body.img) {
+        const url = await awsConfig.saveImage(req.body.img);
+        req.body.imageUrl = url;
+      }
+
+      await ProductModel.findByIdAndUpdate(req.body._id, req.body);
+    }
+    return res.status(200).send({ message: 'Product updated successfully' });
+  } catch (err) {
+    return next(err);
+  }
+}
+
+module.exports = { addProduct, getProduct, getProducts, removeProduct, updateProduct };

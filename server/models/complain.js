@@ -1,6 +1,8 @@
 // Shalin Hasanbhai Awadiya - B00892907
 const mongoose = require("mongoose");
 
+// The below mentioned schema specifies the mongoDB collection and document details for complain management.
+
 const complainSchema = new mongoose.Schema({
   complainId: {
     type: String,

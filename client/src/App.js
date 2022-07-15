@@ -1,40 +1,42 @@
-import "./App.scss";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import ShowProducts from "./pages/products/ShowProducts";
-import Home from "./pages/home/Home";
-import SignUp from "./pages/user-auth/signup";
-import Header from "./components/header";
-import Login from "./pages/user-auth/login";
-import ForgetPassword from "./pages/user-auth/forget-password";
-import Footer from "./components/footer";
-import CouponsHomePage from "./pages/coupon/coupons-home-page";
-import SeachPage from "./pages/search-page";
-import ComplainForm from "./pages/complain/ComplainForm";
-import EditComplainForm from "./pages/complain/EditComplainForm";
-import ComplainTable from "./pages/complain/ComplainTable";
-import ReplyTable from "./pages/complain/ReplyTable";
-import ReplyComplain from "./pages/complain/ReplyComplain";
-import AllComplainTable from "./pages/complain/AllComplainTable";
-import Cart from "./pages/cart/Cart";
-import Checkout from "./pages/checkout/Checkout";
-import Profile from "./pages/user-auth/profile";
-import ProductPage from "./pages/products/ProductPage";
-import ShowReviews from "./pages/reviews/ShowReviews";
-import Fashion from "./pages/blogging/fashion-blogging";
-import CreateBlog from "./pages/blogging/create-blog/createBlog";
-import PostBlog from "./pages/blogging/post-blog/postBlog";
-import Orders from "./pages/orders/Orders";
-import Collection from "./pages/collection/Collection";
-import Wishlist from "./pages/Wishlist/Wishlist";
-import { PrivateRoute, PublicRoute } from "./utils/routeProtector";
-import PostCoupon from "./pages/coupon/post-coupon";
-import SavedCoupon from "./pages/coupon/saved-coupons";
+import './App.scss';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import ShowProducts from './pages/products/ShowProducts';
+
+import Home from './pages/home/Home';
+import SignUp from './pages/user-auth/signup';
+import Header from './components/header';
+import Login from './pages/user-auth/login';
+import ForgetPassword from './pages/user-auth/forget-password';
+import Footer from './components/footer';
+import CouponsHomePage from './pages/coupon/coupons-home-page';
+import SeachPage from './pages/search-page';
+import ComplainForm from './pages/complain/ComplainForm';
+import EditComplainForm from './pages/complain/EditComplainForm';
+import ComplainTable from './pages/complain/ComplainTable';
+import ReplyTable from './pages/complain/ReplyTable';
+import ReplyComplain from './pages/complain/ReplyComplain';
+import AllComplainTable from './pages/complain/AllComplainTable';
+import Cart from './pages/cart/Cart';
+import Checkout from './pages/checkout/Checkout';
+import Profile from './pages/user-auth/profile';
+import ProductPage from './pages/products/ProductPage';
+import ShowReviews from './pages/reviews/ShowReviews';
+import Fashion from './pages/blogging/fashion-blogging';
+import CreateBlog from './pages/blogging/create-blog/createBlog';
+import PostBlog from './pages/blogging/post-blog/postBlog';
+import Orders from './pages/orders/Orders';
+import Collection from './pages/collection/Collection';
+import Wishlist from './pages/Wishlist/Wishlist';
+import { PrivateRoute, PublicRoute } from './utils/routeProtector';
+import PostCoupon from './pages/coupon/post-coupon';
+import SavedCoupon from './pages/coupon/saved-coupons';
 import AddressForm from "./pages/checkout/AddressForm";
 import PaymentForm from "./pages/checkout/PaymentForm";
 import Review from "./pages/checkout/Review";
 import PlacedInfo from "./pages/checkout/OrderPlaced";
 import Action from "./pages/user-auth/action";
+import User_Products from "./pages/products/user_products";
 
 function App() {
   return (
@@ -79,8 +81,9 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/cart" element={<Cart />}></Route>
               <Route path="/orders" element={<Orders />}></Route>
+              <Route path="/products" element={<User_Products />}></Route>
               <Route path="/show_products" element={<ShowProducts />}></Route>
-              <Route path="/product" element={<ProductPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
               <Route path="/product/review" element={<ShowReviews />} />
               <Route path="/profile" element={<Profile />}></Route>
               <Route path="/fashion-blogs" element={<Fashion />} />
