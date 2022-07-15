@@ -29,6 +29,8 @@ import Orders from "./pages/orders/Orders";
 import Collection from "./pages/collection/Collection";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import { PrivateRoute, PublicRoute } from "./utils/routeProtector";
+import ResetPassword from "./pages/user-auth/reset-password";
+import Action from "./pages/user-auth/action";
 
 function App() {
   return (
@@ -42,13 +44,12 @@ function App() {
               <Route path="/coupons" element={<CouponsHomePage />} />
               <Route path="/search" element={<SeachPage />} />
             </Route >
-
             <Route path='/' element={<PublicRoute restrictedToPublicOnly={true} />}>
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
+              <Route path="/_auth/action" element={<Action />} />
             </Route >
-
             <Route path='/' element={<PrivateRoute />}>
               <Route path="/post_complain" element={<ComplainForm />} />
               <Route path="/view_complain" element={<ComplainTable />} />

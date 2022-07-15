@@ -78,6 +78,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       firebaseId: user.uid
     });
 
+    await updateFirebaseUserProfile({ password, name });
     window.location.href = '/show_products';
 
   } catch (err) {
@@ -101,16 +102,16 @@ const logInWithEmailAndPassword = async (email, password) => {
 const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
-    toast.success("Password reset link sent!");
+    toast.success("Password reset link sent! Please check your spam folder too. ");
   } catch (err) {
     console.error(err);
     toast.error(err.message);
   }
 };
 
-const updateUserPassword = async (email) => {
+const updateUserPassword = async (password) => {
   try {
-    await updatePassword(auth, email);
+    await updatePassword(auth.currentUser, password);
   } catch (err) {
     toast.error(err.message);
   }
@@ -131,9 +132,12 @@ const reloadUser = async () => {
 }
 
 const updateFirebaseUserProfile = async ({ email, password, name }) => {
-  await updateProfile(auth.currentUser, { displayName: name, password });
-  if(email) {
+  await updateProfile(auth.currentUser, { displayName: name });
+  if (email) {
     await updateEmail(auth.currentUser, email)
+  }
+  if (password) {
+    await updateUserPassword(password)
   }
   await reloadUser();
 }
