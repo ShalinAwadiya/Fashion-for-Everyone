@@ -57,7 +57,13 @@ async function getCart(req, res, next) {
     if (cart) {
       return res.status(200).send({ cart: cart });
     }
-    return res.status(200).send({ cart: [] });
+    return res.status(200).send({ cart: {
+      products:[],
+      coupon:{
+        code:"-",
+        minCartPrice: 0
+      }
+    } });
   } catch (err) {
     return next(err);
   }
