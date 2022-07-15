@@ -48,19 +48,15 @@ function App() {
             >
               <Route exact path="/" element={<Home />} />
               <Route path="/coupons" element={<CouponsHomePage />} />
-              <Route path="/search/:query" element={<SeachPage />} />
-            </Route>
-
-            <Route
-              path="/"
-              element={<PublicRoute restrictedToPublicOnly={true} />}
-            >
+              <Route path="/search" element={<SeachPage />} />
+            </Route >
+            <Route path='/' element={<PublicRoute restrictedToPublicOnly={true} />}>
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
-            </Route>
-
-            <Route path="/" element={<PrivateRoute />}>
+              <Route path="/_auth/action" element={<Action />} />
+            </Route >
+            <Route path='/' element={<PrivateRoute />}>
               <Route path="/post_complain" element={<ComplainForm />} />
               <Route path="/view_complain" element={<ComplainTable />} />
               <Route

@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import { isAlphabaticString, isEmail, isEmpty } from "./common-validators"
 
 const updateProfileValidator = {

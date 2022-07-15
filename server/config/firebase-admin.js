@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 const admin = require('firebase-admin');
 const serviceAccountKey = require("./firebaseAdminKeys.json");
 

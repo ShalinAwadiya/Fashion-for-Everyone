@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 const UserModel = require("../models/user");
 
 async function addUserRole(req, res, next) {

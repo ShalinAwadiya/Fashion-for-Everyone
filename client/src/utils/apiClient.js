@@ -1,3 +1,5 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
+
 import axios from "axios";
 import { AUTH_TOKEN_KEY, deleteLocalToken } from './firebase'
 

@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 const { validationResult } = require("express-validator");
 const UserModel = require("../models/user");
 const admin = require('../config/firebase-admin');

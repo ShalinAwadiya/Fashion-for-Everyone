@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 /**
  * Reference: https://dimitr.im/form-validation-react-hooks
 **/

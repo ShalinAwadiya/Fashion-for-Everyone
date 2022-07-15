@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 const admin = require('../config/firebase-admin');
 
 function checkAuth(req, res, next) {
