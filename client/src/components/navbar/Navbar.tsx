@@ -214,7 +214,7 @@ const NavBar = () => {
 
           {/* Search Bar */}
           <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-            <Search  />
+            <Search />
           </Box>
 
           {/* Wishlist */}
@@ -256,15 +256,19 @@ const NavBar = () => {
           </Modal>
 
           {/* Profile */}
-          <Link to="/profile">
-            <Tooltip title="My profile">
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <Button>
-                  <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-                </Button>
-              </Box>
-            </Tooltip>
-          </Link>
+          {
+            isUserLoggedIn() ?
+              <Link to="/profile">
+                <Tooltip title="My profile">
+                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Button>
+                      <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                    </Button>
+                  </Box>
+                </Tooltip>
+              </Link>
+              : null
+          }
 
           {/* Cart */}
           <Link to="/cart">

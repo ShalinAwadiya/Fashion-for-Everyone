@@ -31,11 +31,13 @@ app.use(addUserRole);
 var usersRouter = require("./routes/users");
 var couponsRouter = require("./routes/coupons");
 var productsRouter = require("./routes/products");
+var cartRouter = require("./routes/carts");
 var complainRouter = require("./routes/complains");
 
 app.use("/users", checkAuth, usersRouter);
 app.use("/coupons", checkAuth, couponsRouter);
 app.use("/products", checkAuth, productsRouter);
+app.use("/cart", checkAuth, cartRouter);
 app.use("/complains", complainRouter);
 // -----------------------------------------------------------------------------
 
