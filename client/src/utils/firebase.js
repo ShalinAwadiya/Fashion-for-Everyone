@@ -29,6 +29,7 @@ const firebaseConfig = {
 };
 
 const AUTH_TOKEN_KEY = 'authToken';
+const USER_ID = "userId"
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
@@ -43,6 +44,14 @@ const getLocalToken = () => {
   return localStorage.getItem(AUTH_TOKEN_KEY)
 }
 
+const setUserId = (id) => {
+  localStorage.setItem(USER_ID)
+}
+
+const getUserId = (id) => {
+  localStorage.getItem(USER_ID);
+}
+
 const deleteLocalToken = () => {
   localStorage.removeItem(AUTH_TOKEN_KEY);
 }
@@ -52,6 +61,7 @@ const signInWithGoogle = async () => {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
     setLocalToken(await user.getIdToken());
+    setUserId(user.uid);
 
     await AXIOS_CLIENT.post('/users', {
       email: user.email,
@@ -72,6 +82,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     const user = res.user;
     setLocalToken(await user.getIdToken());
     sendEmailVerification(user);
+    setUserId(user.uid)
 
     await AXIOS_CLIENT.post('/users', {
       email: user.email,
@@ -93,6 +104,7 @@ const logInWithEmailAndPassword = async (email, password) => {
     const res = await signInWithEmailAndPassword(auth, email, password);
     const user = res.user;
     setLocalToken(await user.getIdToken());
+    setUserId(user.uid);
     window.location.href = '/show_products';
   } catch (err) {
     console.error(err);
@@ -165,6 +177,7 @@ export {
   reloadUser,
   getUserProfile,
   updateFirebaseUserProfile,
+  getUserId,
   auth,
   AUTH_TOKEN_KEY
 };

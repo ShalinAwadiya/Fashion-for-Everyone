@@ -4,13 +4,20 @@ import ResetPassword from "./reset-password";
 import VerifyEmail from "./verify-email";
 
 // Ref: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-function getParameterByName(name, url = window.location.href) {
+function getParameterByName(name) {
   name = name.replace(/[\[\]]/g, '\\$&');
-  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-    results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+
+  let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+    results = regex.exec(window.location.href);
+
+  if (!results) {
+    return null;
+  } else if (!results[2]) {
+    return '';
+  }
+
+  const result = decodeURIComponent(results[2].replace(/\+/g, ' '))
+  return result;
 }
 
 function Action(props) {
