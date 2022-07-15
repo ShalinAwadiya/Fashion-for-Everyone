@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;

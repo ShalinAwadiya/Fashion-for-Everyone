@@ -2,10 +2,14 @@ import * as React from "react";
 import { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { auth } from "../../utils/firebase";
+import { AUTH_TOKEN_KEY, deleteLocalToken } from "../../utils/firebase";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 export default function ComplainForm() {
   const navigate = useNavigate();
-
+  console.log(localStorage.getItem(AUTH_TOKEN_KEY));
   const [complainSubject, setComplainSubject] = useState("");
   const [complainDescription, setComplainDescription] = useState("");
   const [complainAttachment, setComplainAttachment] = useState("");
@@ -35,7 +39,7 @@ export default function ComplainForm() {
     setComplainAttachment(event.target.value);
   };
 
-  const submitButtonHandler = (event) => {
+  const submitButtonHandler = async (event) => {
     event.preventDefault();
     let complainSubjectCheck = true;
     let complainDescriptionCheck = true;
@@ -49,7 +53,47 @@ export default function ComplainForm() {
       setComplainDescriptionError("Complain Description cannot be empty");
     }
     if (complainSubjectCheck === true && complainDescriptionCheck === true) {
-      navigate("/");
+      const uuid = uuidv4();
+
+      var today = new Date();
+      const date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      const time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      let complainDetails = {
+        complainId: uuid,
+        complainSubject: complainSubject,
+        complainDescription: complainDescription,
+        complainDate: date,
+        complainTime: time,
+        complainStatus: "Pending",
+        complainImage: "base64",
+        complainFrom_LoginId: auth.currentUser.uid,
+      };
+      /*
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(AUTH_TOKEN_KEY),
+        },
+        body: JSON.stringify(complainDetails),
+      };
+      const response = await fetch(
+        "http://localhost:8080/complains/user/insertComplain",
+        requestOptions
+      );
+      */
+      const response = await AXIOS_CLIENT.post(
+        "/complains/user/insertComplain",
+        complainDetails
+      );
+      console.log(date, time, uuid, response.data);
+      navigate("/view_complain");
     }
   };
 
@@ -101,6 +145,7 @@ export default function ComplainForm() {
         <span style={{ color: "red", fontSize: "10px" }}>
           {complainDescriptionError}
         </span>
+        {/*
         <br />
         <br />
         <label>
@@ -114,6 +159,7 @@ export default function ComplainForm() {
             onChange={complainAttachmentHandler}
           />
         </label>
+  */}
         <br />
         <br />
         <br />

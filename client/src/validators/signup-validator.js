@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import { isEmpty, isEmail } from "./common-validators"
 
 const signupValidator = {
