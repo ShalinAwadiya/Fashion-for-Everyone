@@ -8,7 +8,7 @@ var mongoose = require("mongoose");
  */
 async function postCart(req, res, next) {
   try {
-    let user = req.body.userId;
+    let user = req.user.user_id;
     const cart = await CartModel.findOne({ userId: user });
     let product = req.body.products;
     let coupon = req.body.coupon;
