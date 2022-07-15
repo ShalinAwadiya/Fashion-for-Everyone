@@ -92,6 +92,7 @@
 ## Tasks
 ---
 - User Singup:  Responsible for onboarding new users
+- User email validation: Responsible for varifying user's email
 - User login: Responsible for authentication of users
 - User Forget Password: Responsible for reseting password for the user
 - User Profile edit: Responsible for changing user details

@@ -42,7 +42,7 @@ export default function CouponsHomePage() {
         setUser(res.data)
         setRole(res.data.user_role)
         if (!localStorage.getItem('userId')) {
-          localStorage.setItem('userId', res.data.user.user_id);
+          localStorage.setItem('userId', res.data.user_id);
         }
       }
     }).catch(err => {
@@ -225,7 +225,7 @@ export default function CouponsHomePage() {
                       data={item}
                       key={item._id}
                       role={role}
-                      userId={user.user.user_id}
+                      userId={user.user_id}
                       action="save"
                       save={saveCoupons}
                     />

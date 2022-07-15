@@ -14,7 +14,7 @@ function VerifyEmail(props) {
       setEmailVerified(true);
     }).catch((error) => {
       console.log(error)
-      setEmailVerified(true);
+      setEmailVerified(false);
     });
   }
 
