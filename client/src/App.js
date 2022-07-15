@@ -34,6 +34,7 @@ import AddressForm from "./pages/checkout/AddressForm";
 import PaymentForm from "./pages/checkout/PaymentForm";
 import Review from "./pages/checkout/Review";
 import PlacedInfo from "./pages/checkout/OrderPlaced";
+import Action from "./pages/user-auth/action";
 
 function App() {
   return (
@@ -49,12 +50,12 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route path="/coupons" element={<CouponsHomePage />} />
               <Route path="/search" element={<SeachPage />} />
+              <Route path="/_auth/action" element={<Action />} />
             </Route >
             <Route path='/' element={<PublicRoute restrictedToPublicOnly={true} />}>
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
-              <Route path="/_auth/action" element={<Action />} />
             </Route >
             <Route path='/' element={<PrivateRoute />}>
               <Route path="/post_complain" element={<ComplainForm />} />

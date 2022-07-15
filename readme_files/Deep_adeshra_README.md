@@ -51,6 +51,7 @@
 - client/src/pages/user-auth/profile.js
 - client/src/pages/user-auth/signup.js
 - client/src/pages/user-auth/reset-password.js
+- client/src/pages/user-auth/verify-email.js
 - client/src/pages/user-auth/action.js
 - client/src/validators/common-validators.js
 - client/src/validators/forget-password-validator.js

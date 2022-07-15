@@ -12,7 +12,8 @@ import {
   reload,
   getIdToken,
   updateProfile,
-  updateEmail
+  updateEmail,
+  sendEmailVerification
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import AXIOS_CLIENT from "./apiClient";
@@ -52,7 +53,6 @@ const signInWithGoogle = async () => {
     const user = res.user;
     setLocalToken(await user.getIdToken());
 
-
     await AXIOS_CLIENT.post('/users', {
       email: user.email,
       name: user.displayName,
@@ -71,6 +71,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     setLocalToken(await user.getIdToken());
+    sendEmailVerification(user);
 
     await AXIOS_CLIENT.post('/users', {
       email: user.email,
@@ -135,6 +136,8 @@ const updateFirebaseUserProfile = async ({ email, password, name }) => {
   await updateProfile(auth.currentUser, { displayName: name });
   if (email) {
     await updateEmail(auth.currentUser, email)
+    sendEmailVerification(auth.currentUser);
+    toast.success("Please verify link sent to this email. Check in your spam!")
   }
   if (password) {
     await updateUserPassword(password)

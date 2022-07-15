@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ResetPassword from "./reset-password";
+import VerifyEmail from "./verify-email";
 
 // Ref: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 function getParameterByName(name, url = window.location.href) {
@@ -19,12 +20,14 @@ function Action(props) {
   useEffect(() => {
     const mode = getParameterByName('mode');
     const actionCode = getParameterByName('oobCode');
+    let component = "";
 
-    if (mode != 'resetPassword') {
-      navigate('/');
+    if (mode == 'resetPassword') {
+      component = <ResetPassword actionCode={actionCode} />
+    } else if (mode == "verifyEmail") {
+      component = <VerifyEmail actionCode={actionCode} />
     }
-    const resetComponent = <ResetPassword actionCode={actionCode} />
-    setComponentToRender(resetComponent)
+    setComponentToRender(component)
   }, [])
 
   return (
