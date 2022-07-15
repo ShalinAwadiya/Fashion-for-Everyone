@@ -76,7 +76,9 @@ export default function SeachPage() {
     }
 
     if (brand) {
-      tempItems = tempItems.filter((item) => item.brand === brand);
+      tempItems = tempItems.filter(
+        (item) => item.brand.toLowerCase() === brand.toLowerCase()
+      );
     }
 
     tempItems = tempItems.filter(
