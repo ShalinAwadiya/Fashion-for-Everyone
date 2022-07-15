@@ -40,7 +40,7 @@ app.use("/users", checkAuth, usersRouter);
 app.use("/coupons", checkAuth, couponsRouter);
 app.use("/products", checkAuth, productsRouter);
 app.use("/cart", checkAuth, cartRouter);
-app.use("/complains", complainRouter);
+app.use("/complains", checkAuth, complainRouter);
 app.use(["/"], subscriptionRouter);
 app.use(["/"], shippingAddressRouter);
 // -----------------------------------------------------------------------------
