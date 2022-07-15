@@ -33,12 +33,16 @@ var couponsRouter = require("./routes/coupons");
 var productsRouter = require("./routes/products");
 var cartRouter = require("./routes/carts");
 var complainRouter = require("./routes/complains");
+var subscriptionRouter = require("./routes/subscription");
+var shippingAddressRouter = require("./routes/shippingAddress");
 
 app.use("/users", checkAuth, usersRouter);
 app.use("/coupons", checkAuth, couponsRouter);
 app.use("/products", checkAuth, productsRouter);
 app.use("/cart", checkAuth, cartRouter);
 app.use("/complains", complainRouter);
+app.use(["/"], subscriptionRouter);
+app.use(["/"], shippingAddressRouter);
 // -----------------------------------------------------------------------------
 
 module.exports = app;
