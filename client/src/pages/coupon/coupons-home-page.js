@@ -199,7 +199,7 @@ export default function CouponsHomePage() {
       </Grid>
 
       {/* Filters Option*/}
-      <Grid item xs={2} md={2} sx={{ display: { xs: 'none', sm: 'none', md: 'flex' }, pt: 2, pr: 2 }}>
+      <Grid item xs={2} md={2} sx={{ display: { xs: 'none', sm: 'none', md: 'flex' }, pt: 1, pr: 2 }}>
         <Stack flex-direction={'column'} spacing={2}>
           <CouponsFilter handleRadioChange={filterCoupons} />
           <Button
