@@ -1,3 +1,5 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
+
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import AXIOS_CLIENT from "../../utils/apiClient";
@@ -16,7 +18,9 @@ function Profile(props) {
 
   const getUserDetails = async () => {
     try {
-      setValues(await getUserProfile());
+      // setValues(await getUserProfile());
+      const res = await AXIOS_CLIENT.get('/users');
+      setValues(res.data)
     } catch (err) {
       console.log(err)
       toast.error("Something went wrong!");
@@ -26,8 +30,8 @@ function Profile(props) {
   const updateUserProfile = async () => {
     try {
       await updateFirebaseUserProfile(values);
-      await(getUserDetails())
       const res = await AXIOS_CLIENT.put('/users', values);
+      await(getUserDetails())
       toast.success("Done!!");
     } catch (err) {
       console.log(err)

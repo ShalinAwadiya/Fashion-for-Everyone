@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 export function isEmpty(value) {
   return (!value || value.trim().length === 0) ? 'This field is required' : '';
 }

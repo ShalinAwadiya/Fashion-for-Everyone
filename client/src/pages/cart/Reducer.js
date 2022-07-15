@@ -1,29 +1,14 @@
+import AXIOS_CLIENT from "../../utils/apiClient";
+
 export const reducer = (state, action) => {
   if (action.type === "REMOVE") {
-    return {
-      ...state,
-      item: state.item.filter((currentElemenet) => {
-        return currentElemenet.id !== action.payload;
-      }
-
-      ),
-    }
+    return {...state, item:action.payload}
   }
   if (action.type === "INCREMENT") {
-    let inccart = state.item.map((currentElemenet) => {
-      if (currentElemenet.id === action.payload) {
+    console.log("action pay",action.payload);
+    const inccart = state.item.map((currentElemenet,index) => {
+      if (index=== action.payload) {
         return { ...currentElemenet, quantity: currentElemenet.quantity + 1 };
-      }
-      return currentElemenet
-    });
-    return { ...state, item: inccart }
-
-  }
-
-  if (action.type === "DECREMENT") {
-    const inccart = state.item.map((currentElemenet) => {
-      if (currentElemenet.id === action.payload) {
-        return { ...currentElemenet, quantity: currentElemenet.quantity - 1 };
       }
       return currentElemenet
     })
@@ -31,11 +16,21 @@ export const reducer = (state, action) => {
     return { ...state, item: inccart }
   }
 
+  if (action.type === "DECREMENT") {
+    const inccart = state.item.map((currentElemenet,index) => {
+      if (index === action.payload) {
+
+        return { ...currentElemenet, quantity: currentElemenet.quantity - 1 };
+      }
+      return currentElemenet
+    }).filter((currentElemenet) => currentElemenet.quantity !== 0 & currentElemenet.quantity > 0);
+    return { ...state, item: inccart }
+  }
+
   if (action.type === "TOTAL") {
     let { totalItem, totalAmount } = state.item.reduce(
       (accum, curVal) => {
         let { price, quantity } = curVal;
-
         let updatedTotalAmount = price * quantity;
         accum.totalAmount += updatedTotalAmount;
 
@@ -48,6 +43,15 @@ export const reducer = (state, action) => {
       }
     );
     return { ...state, totalItem, totalAmount };
+  }
+  if(action.type === "LOAD") {
+    return {...state, item:action.payload}
+  }
+  if(action.type === "GetCoupon") {
+    return {...state, coupon:action.payload}
+  }
+  if(action.type === "REMOVECOUPON") {
+    return {...state, coupon:action.payload}
   }
   return state;
 

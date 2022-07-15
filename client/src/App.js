@@ -31,7 +31,6 @@ import Wishlist from './pages/Wishlist/Wishlist';
 import { PrivateRoute, PublicRoute } from './utils/routeProtector';
 import PostCoupon from './pages/coupon/post-coupon';
 import SavedCoupon from './pages/coupon/saved-coupons';
-import User_Products from "./pages/products/user_products";
 
 function App() {
   return (
@@ -46,30 +45,34 @@ function App() {
             >
               <Route exact path="/" element={<Home />} />
               <Route path="/coupons" element={<CouponsHomePage />} />
-              <Route path="/search/:query" element={<SeachPage />} />
-            </Route>
-
-            <Route
-              path="/"
-              element={<PublicRoute restrictedToPublicOnly={true} />}
-            >
+              <Route path="/search" element={<SeachPage />} />
+              <Route path="/_auth/action" element={<Action />} />
+            </Route >
+            <Route path='/' element={<PublicRoute restrictedToPublicOnly={true} />}>
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
-            </Route>
-
-            <Route path="/" element={<PrivateRoute />}>
+            </Route >
+            <Route path='/' element={<PrivateRoute />}>
               <Route path="/post_complain" element={<ComplainForm />} />
               <Route path="/view_complain" element={<ComplainTable />} />
-              <Route path="/edit_complain" element={<EditComplainForm />} />
-              <Route path="/replied_complain" element={<ReplyTable />} />
+              <Route
+                path="/edit_complain/:complainId"
+                element={<EditComplainForm />}
+              />
+              <Route
+                path="/replied_complain/:complainId"
+                element={<ReplyTable />}
+              />
               <Route
                 path="/admin/view_complain"
                 element={<AllComplainTable />}
               />
-              <Route path="/admin/reply_complain" element={<ReplyComplain />} />
+              <Route
+                path="/admin/reply_complain/:complainId"
+                element={<ReplyComplain />}
+              />
               <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/checkout" element={<Checkout />} />
               <Route path="/cart" element={<Cart />}></Route>
               <Route path="/orders" element={<Orders />}></Route>
               <Route path="/products" element={<User_Products />}></Route>
@@ -83,6 +86,10 @@ function App() {
               <Route path="/collection/:collection" element={<Collection />} />
               <Route path="/post-coupons" element={<PostCoupon />} />
               <Route path="/saved-coupons" element={<SavedCoupon />} />
+              <Route path="/review" element={<Review />} />
+              <Route path="/order_placed" element={<PlacedInfo />} />
+              <Route path="/checkout" element={<AddressForm />} />
+              <Route path="/payment" element={<PaymentForm />} />
             </Route>
           </Routes>
         </div>

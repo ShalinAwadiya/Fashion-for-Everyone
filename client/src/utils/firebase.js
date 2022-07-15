@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
@@ -11,7 +12,8 @@ import {
   reload,
   getIdToken,
   updateProfile,
-  updateEmail
+  updateEmail,
+  sendEmailVerification
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import AXIOS_CLIENT from "./apiClient";
@@ -51,7 +53,6 @@ const signInWithGoogle = async () => {
     const user = res.user;
     setLocalToken(await user.getIdToken());
 
-
     await AXIOS_CLIENT.post('/users', {
       email: user.email,
       name: user.displayName,
@@ -70,6 +71,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     setLocalToken(await user.getIdToken());
+    sendEmailVerification(user);
 
     await AXIOS_CLIENT.post('/users', {
       email: user.email,
@@ -77,6 +79,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       firebaseId: user.uid
     });
 
+    await updateFirebaseUserProfile({ password, name });
     window.location.href = '/show_products';
 
   } catch (err) {
@@ -100,16 +103,16 @@ const logInWithEmailAndPassword = async (email, password) => {
 const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
-    toast.success("Password reset link sent!");
+    toast.success("Password reset link sent! Please check your spam folder too. ");
   } catch (err) {
     console.error(err);
     toast.error(err.message);
   }
 };
 
-const updateUserPassword = async (email) => {
+const updateUserPassword = async (password) => {
   try {
-    await updatePassword(auth, email);
+    await updatePassword(auth.currentUser, password);
   } catch (err) {
     toast.error(err.message);
   }
@@ -130,9 +133,14 @@ const reloadUser = async () => {
 }
 
 const updateFirebaseUserProfile = async ({ email, password, name }) => {
-  await updateProfile(auth.currentUser, { displayName: name, password });
-  if(email) {
+  await updateProfile(auth.currentUser, { displayName: name });
+  if (email) {
     await updateEmail(auth.currentUser, email)
+    sendEmailVerification(auth.currentUser);
+    toast.success("Please verify link sent to this email. Check in your spam!")
+  }
+  if (password) {
+    await updateUserPassword(password)
   }
   await reloadUser();
 }

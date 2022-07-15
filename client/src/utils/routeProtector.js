@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { isUserLoggedIn } from './firebase';

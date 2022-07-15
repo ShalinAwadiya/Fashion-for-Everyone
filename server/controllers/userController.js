@@ -1,3 +1,4 @@
+// Author: Deep Adeshra (dp974154@dal.ca)
 const { validationResult } = require("express-validator");
 const UserModel = require("../models/user");
 const admin = require('../config/firebase-admin');
@@ -29,10 +30,8 @@ async function getUser(req, res, next) {
   try {
     const user = req.user;
 
-    // const dbUser = await UserModel.findOne({firebaseId: user.user_id});
-    // user.role = dbUser.role;
-
-    return res.status(200).send({ user });
+    const dbUser = await UserModel.findOne({firebaseId: user.user_id});
+    return res.status(200).send({ ...user, ...dbUser._doc });
   } catch (err) {
     return next(err);
   }

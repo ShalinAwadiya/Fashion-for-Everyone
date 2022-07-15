@@ -1,3 +1,4 @@
+// Shalin Hasanbhai Awadiya - B00892907
 import * as React from "react";
 import {
   TableContainer,
@@ -12,6 +13,9 @@ import {
 import { makeStyles } from "@mui/styles";
 import data from "../../data/replydata.json";
 import { Box } from "@mui/material";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -59,10 +63,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ComplainTable() {
   const classes = useStyles();
-  let complains = data;
+  const { complainId } = useParams();
+  const [complains, setComplains] = useState();
+  const getComplains = async () => {
+    /*
+    const response = await fetch(
+      "http://localhost:8080/complains/user/viewComplainReply/" + complainId
+    );
+    const data = await response.json();
+    */
+    const response = await AXIOS_CLIENT.get(
+      "/complains/user/viewComplainReply/" + complainId
+    );
+    console.log(response.data.complain);
+    setComplains(response.data.complain);
+  };
+  useEffect(() => {
+    getComplains();
+  }, []);
 
   return (
     <Box margin="auto" marginTop="125px" marginLeft="175px" display="flex">
+      <a href="/view_complain">Back</a>
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -90,14 +112,18 @@ export default function ComplainTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {complains.map((complain) => (
-              <TableRow key={complain.complainId} className={classes.tableBody}>
-                <TableCell>{complain.replySubject}</TableCell>
-                <TableCell>{complain.replyMessage}</TableCell>
-                <TableCell>{complain.replyDate}</TableCell>
-                <TableCell>{complain.replyTime}</TableCell>
-              </TableRow>
-            ))}
+            {complains &&
+              complains.map((complain) => (
+                <TableRow
+                  key={complain.complainId}
+                  className={classes.tableBody}
+                >
+                  <TableCell>{complain.replySubject}</TableCell>
+                  <TableCell>{complain.replyMessage}</TableCell>
+                  <TableCell>{complain.replyDate}</TableCell>
+                  <TableCell>{complain.replyTime}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
