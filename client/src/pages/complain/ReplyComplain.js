@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 export default function ReplyComplain() {
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ export default function ReplyComplain() {
         replyDate: date,
         replyTime: time,
       };
+      /*
       const requestOptions = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -73,7 +75,12 @@ export default function ReplyComplain() {
         requestOptions
       );
       const data = await response.json();
-      console.log(data);
+      */
+      const response = await AXIOS_CLIENT.put(
+        "/complains/admin/insertComplainReply",
+        complainDetails
+      );
+      console.log(response.data);
       navigate("/admin/view_complain");
     }
   };

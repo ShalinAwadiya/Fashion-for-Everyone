@@ -14,6 +14,7 @@ import data from "../../data/replydata.json";
 import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -64,12 +65,17 @@ export default function ComplainTable() {
   const { complainId } = useParams();
   const [complains, setComplains] = useState();
   const getComplains = async () => {
+    /*
     const response = await fetch(
       "http://localhost:8080/complains/user/viewComplainReply/" + complainId
     );
     const data = await response.json();
-    console.log(data.complain);
-    setComplains(data.complain);
+    */
+    const response = await AXIOS_CLIENT.get(
+      "/complains/user/viewComplainReply/" + complainId
+    );
+    console.log(response.data.complain);
+    setComplains(response.data.complain);
   };
   useEffect(() => {
     getComplains();
