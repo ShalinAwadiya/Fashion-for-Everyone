@@ -214,7 +214,7 @@ const NavBar = () => {
 
           {/* Search Bar */}
           <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-            <Search placeholder="Search for Products" />
+            <Search  />
           </Box>
 
           {/* Wishlist */}

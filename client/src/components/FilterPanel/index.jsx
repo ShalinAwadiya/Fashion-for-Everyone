@@ -3,6 +3,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './styles.css';
 import ToggleButton from '@material-ui/lab/ToggleButton';
@@ -96,29 +97,15 @@ export default function FilterPanel({
   onBrandValueChange,
   priceValue,
   onPriceValueChange,
+  brandList,
 }) {
-  const brandList = [
-    {
-      id: 1,
-      value: 'nike',
-      label: 'Nike',
-    },
-    {
-      id: 2,
-      value: 'adidas',
-      label: 'Adidas',
-    },
-    {
-      id: 3,
-      value: 'fila',
-      label: 'Fila',
-    },
-    {
-      id: 4,
-      value: 'under-armour',
-      label: 'Under Armour',
-    },
-  ];
+  const navigate = useNavigate();
+  brandList = Array.from(brandList);
+  let brandListDisplay = [];
+  for (let index = 0; index < brandList.length && index < 4; index++) {
+    const item = brandList[index];
+    brandListDisplay.push({ id: index, label: item, value: item });
+  }
 
   const reviewsList = [
     {
@@ -162,7 +149,7 @@ export default function FilterPanel({
       <div className="filter-group">
         <p className="label">Brand</p>
         <FilterListToggle
-          options={brandList}
+          options={brandListDisplay}
           value={BrandValue}
           changeToggle={onBrandValueChange}
         />
@@ -175,6 +162,7 @@ export default function FilterPanel({
         <Button
           variant="outlined"
           onClick={() => {
+            navigate('/search/all');
             window.location.reload();
           }}
         >
