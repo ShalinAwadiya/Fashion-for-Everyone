@@ -7,6 +7,9 @@ const USER_ROLE = 0;
 const ADMIN_ROLE = 1;
 const user_roles = [ADMIN_ROLE, USER_ROLE]
 
+/**
+ * User model
+ */
 var UserSchema = new Schema({
   email: String,
   name: String,

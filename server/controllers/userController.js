@@ -1,8 +1,19 @@
-// Author: Deep Adeshra (dp974154@dal.ca)
+/**
+ * Author: Deep Adeshra (dp974154@dal.ca)
+ *
+ * */
+
 const { validationResult } = require("express-validator");
 const UserModel = require("../models/user");
 const admin = require('../config/firebase-admin');
 
+/**
+ * Registers user in MongoDB
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 async function registerUser(req, res, next) {
   try {
     const errors = validationResult(req);
@@ -26,6 +37,13 @@ async function registerUser(req, res, next) {
   }
 }
 
+/**
+ * Give information about the user. User will be determined from Auth. header.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 async function getUser(req, res, next) {
   try {
     const user = req.user;
@@ -37,6 +55,13 @@ async function getUser(req, res, next) {
   }
 }
 
+/**
+ * Updates user data in MongoDb
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 async function updateUser(req, res, next) {
   try {
     const user = req.user;

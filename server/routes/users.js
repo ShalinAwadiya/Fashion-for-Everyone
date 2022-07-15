@@ -1,9 +1,13 @@
-// Author: Deep Adeshra (dp974154@dal.ca)
+/**
+ * Author: Deep Adeshra (dp974154@dal.ca)
+ *
+ * */
 var express = require('express');
 const { body } = require('express-validator');
 const { registerUser, getUser, updateUser } = require('../controllers/userController');
 var router = express.Router();
 
+// Validates resquest body for registerUser and updateUser controller
 const validate = (method) => {
   switch (method) {
     case 'registerUser': {

@@ -1,3 +1,7 @@
+/**
+ * Author: Deep Adeshra (dp974154@dal.ca)
+ *
+ * */
 var createError = require("http-errors");
 var express = require("express");
 var cookieParser = require("cookie-parser");

@@ -1,6 +1,16 @@
-// Author: Deep Adeshra (dp974154@dal.ca)
+/**
+ * Author: Deep Adeshra (dp974154@dal.ca)
+ *
+ * */
 const admin = require('../config/firebase-admin');
 
+/**
+ * Authentictes incoming request. If user is valid and in our database, then
+ * it allows to access the route. Otherwise return 403 HTTP Code.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 function checkAuth(req, res, next) {
   if (req.headers.authorization) {
     admin
