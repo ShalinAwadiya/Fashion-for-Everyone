@@ -142,13 +142,16 @@ const isUserLoggedIn = () => {
 };
 
 const reloadUser = async () => {
-  await reload(auth.currentUser);
+  const token  = await auth.currentUser.getIdToken()
+  await auth.currentUser.reload()
+  setLocalToken(token)
 };
 
 const updateFirebaseUserProfile = async ({ email, password, name }) => {
   await updateProfile(auth.currentUser, { displayName: name });
   if (email != auth.currentUser.email) {
     await updateEmail(auth.currentUser, email);
+    sendEmailVerification(auth.currentUser)
     toast.success("Please verify link sent to this email. Check in your spam!");
   }
   if (password) {
@@ -178,6 +181,7 @@ export {
   getUserProfile,
   updateFirebaseUserProfile,
   getUserId,
+  getLocalToken,
   auth,
   AUTH_TOKEN_KEY,
 };
