@@ -41,10 +41,10 @@ class EditModal extends React.Component{
             }).catch(err => {
                 console.error(err);
                 Toast.error("Something went wrong!");
+            }).then(data =>{
+                this.toggle();
+                window.location.reload();
             });
-
-            this.toggle();
-            window.location.reload();
         }
     };
 
