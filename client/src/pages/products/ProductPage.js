@@ -30,8 +30,9 @@ export default function ProductPage() {
         console.log("posting product", {products: product});
         AXIOS_CLIENT.post('/cart/post_cart', {products: product}).then(res=> {
            console.log('product posted to cart successfully');
+           navigate('/cart');
         });
-        navigate('/cart');
+       
     }
 
     return (
