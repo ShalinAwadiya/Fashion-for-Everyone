@@ -25,7 +25,7 @@ AXIOS_CLIENT.interceptors.response.use(function (response) {
       deleteLocalToken();
       if (window.location.pathname != '/login') { window.location.href = '/login' }
     }
-    
+
     return Promise.reject(err);
   }
 
