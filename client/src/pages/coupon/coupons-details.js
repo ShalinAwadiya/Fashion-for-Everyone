@@ -59,6 +59,7 @@ const CouponDetails = (props) => {
             coupon: {
                 code: item.code,
                 minCartPrice: item.minCartPrice,
+                discount: item.discount
             }
         }
         console.log(req);

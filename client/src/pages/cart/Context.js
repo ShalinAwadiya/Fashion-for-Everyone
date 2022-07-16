@@ -53,11 +53,17 @@ const Context = () => {
     coupon,
     removeCoupon,
   } = useContext(CartContext);
-  
-  console.log(coupon,"this is coupon");
+
+  console.log(coupon, "this is coupon");
 
   let shipping = 30;
-  let price = Math.max(totalAmount + shipping - coupon.minCartPrice, 0);
+  let price = Math.max(totalAmount + shipping, 0);
+
+  let discount = 0;
+  if (price > 0) {
+    discount = (parseInt(coupon.discount) * parseInt(totalAmount)) / parseInt(100);
+    price = price - discount;
+  }
 
   if (totalAmount == 0) {
     shipping = 0;
@@ -228,7 +234,7 @@ const Context = () => {
                 </Grid>
                 <Grid item xs={1} sm={1} md={1} lg={1}>
                   <Typography variant="body1" component="div">
-                    ${coupon.minCartPrice}
+                    ${discount}
                   </Typography>
                 </Grid>
                 <Grid item xs={11} sm={11} md={11} lg={11}>
