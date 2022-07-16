@@ -27,11 +27,12 @@ export default function ProductPage() {
     }, []);
 
     const addProductToCard = () => {
-        console.log("posting product", product);
-        AXIOS_CLIENT.post('/cart/post_cart', product).then(res=> {
+        console.log("posting product", {products: product});
+        AXIOS_CLIENT.post('/cart/post_cart', {products: product}).then(res=> {
            console.log('product posted to cart successfully');
+           navigate('/cart');
         });
-        navigate('/cart');
+       
     }
 
     return (

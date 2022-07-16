@@ -81,7 +81,7 @@ function SliderRange({ value, changePrice }) {
         value={value}
         onChange={changePrice}
         valueLabelDisplay="on"
-        min={10}
+        min={0}
         max={500}
         classes={{
           thumb: classes.thumb,

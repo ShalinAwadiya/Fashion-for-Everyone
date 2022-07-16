@@ -72,6 +72,7 @@ async function removeProduct(req, res, next) {
       return res.status(204).send({ message: 'Product does not exist' });
     } else {
       await ProductModel.deleteOne({ _id });
+      product[0].RemoveFromAlgolia();
     }
     return res.status(200).send({ message: 'Product delete successfully' });
   } catch (err) {
