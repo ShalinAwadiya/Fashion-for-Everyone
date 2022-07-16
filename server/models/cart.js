@@ -19,7 +19,7 @@ var CartSchema = new Schema({
       price: Number,
       description: String,
       imageUrl: String,
-      quantity:Number
+      quantity: Number
     },
   ],
   coupon: {
@@ -27,6 +27,9 @@ var CartSchema = new Schema({
       type: String,
     },
     minCartPrice: {
+      type: Number,
+    },
+    discount: {
       type: Number,
     },
   },
