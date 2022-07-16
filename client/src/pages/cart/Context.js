@@ -60,7 +60,7 @@ const Context = () => {
   let price = Math.max(totalAmount + shipping, 0);
 
   let discount = 0;
-  if (price > 0) {
+  if (price > 0 & coupon.code!=="-") {
     discount = (parseInt(coupon.discount) * parseInt(totalAmount)) / parseInt(100);
     price = price - discount;
   }
