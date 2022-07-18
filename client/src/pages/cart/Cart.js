@@ -40,12 +40,39 @@ const Cart = () => {
     );
   };
   const increment = (index) => {
-    AXIOS_CLIENT.post("/cart/update_quantity", { index: index, type: "inc" });
+    AXIOS_CLIENT.post("/cart/update_quantity", { index: index, type: "inc" }).then(
+      (response)=>{
+        return dispatch({
+          type: "INCREMENT",
+          payload: index,
+        }); 
+      }
 
-    return dispatch({
-      type: "INCREMENT",
-      payload: index,
-    });
+    ).catch(
+      (error)=>{
+        console.log(error);
+      }
+    )
+
+  
+  };
+
+  const decrement = (index) => {
+    AXIOS_CLIENT.post("/cart/update_quantity", { index: index, type: "dec" }).then(
+      (response)=>{
+        return dispatch({
+          type: "DECREMENT",
+          payload: index,
+        }); 
+      }
+
+    ).catch(
+      (error)=>{
+        console.log(error);
+      }
+    )
+
+  
   };
   const removeCoupon = () => {
     AXIOS_CLIENT.delete("/cart/remove_coupon").then((response) => {
@@ -53,16 +80,11 @@ const Cart = () => {
         type: "REMOVECOUPON",
         payload: response.data.cart.coupon,
       });
+    }).catch((error)=>{
+      console.log(error);
     });
   };
-  const decrement = (index) => {
-    AXIOS_CLIENT.post("/cart/update_quantity", { index: index, type: "dec" });
-    return dispatch({
-      type: "DECREMENT",
-      payload: index,
-    });
-  };
-
+  
   useEffect(() => {
     AXIOS_CLIENT.get("/cart")
       .then((response) => {
@@ -89,6 +111,7 @@ const Cart = () => {
         value={{ ...state, removeItem, increment, decrement, removeCoupon }}
       >
         <Context />
+       
       </CartContext.Provider>
     </>
   );
