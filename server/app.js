@@ -2,51 +2,54 @@
  * Author: Deep Adeshra (dp974154@dal.ca)
  *
  * */
-var createError = require("http-errors");
-var express = require("express");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
-var cors = require("cors");
+var createError = require('http-errors');
+var express = require('express');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var mongoose = require('mongoose');
+var cors = require('cors');
 
-const checkAuth = require("./middlewares/authorization");
-const addUserRole = require("./middlewares/user_role_middleware");
+const checkAuth = require('./middlewares/authorization');
+const addUserRole = require('./middlewares/user_role_middleware');
 
 // ---------------------------------DATABASE CONFIG-----------------------------
 var mongoUrl =
-  "mongodb+srv://deep:webproject@web-project.pmnnubo.mongodb.net/?retryWrites=true&w=majority";
+  'mongodb+srv://deep:webproject@web-project.pmnnubo.mongodb.net/?retryWrites=true&w=majority';
 mongoose
   .connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("connected to the database"));
+  .then(() => console.log('connected to the database'));
 // -----------------------------------------------------------------------------
 
 var app = express();
 
 // ---------------------------------MIDDLEWARES---------------------------------
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(cors());
-app.use(express.json({ limit: "200mb" }));
+app.use(express.json({ limit: '200mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(addUserRole);
 // -----------------------------------------------------------------------------
 
 // --------------------------------ROUTE CONFIG---------------------------------
-var usersRouter = require("./routes/users");
-var couponsRouter = require("./routes/coupons");
-var productsRouter = require("./routes/products");
-var cartRouter = require("./routes/carts");
-var complainRouter = require("./routes/complains");
-var subscriptionRouter = require("./routes/subscription");
-var shippingAddressRouter = require("./routes/shippingAddress");
+var usersRouter = require('./routes/users');
+var couponsRouter = require('./routes/coupons');
+var productsRouter = require('./routes/products');
+var cartRouter = require('./routes/carts');
+var complainRouter = require('./routes/complains');
+var subscriptionRouter = require('./routes/subscription');
+var shippingAddressRouter = require('./routes/shippingAddress');
 
-app.use("/users", checkAuth, usersRouter);
-app.use("/coupons", checkAuth, couponsRouter);
-app.use("/products", checkAuth, productsRouter);
-app.use("/cart", checkAuth, cartRouter);
-app.use("/complains", checkAuth, complainRouter);
-app.use(["/"], subscriptionRouter);
-app.use(["/"], shippingAddressRouter);
+app.use('/users', checkAuth, usersRouter);
+app.use('/coupons', checkAuth, couponsRouter);
+app.use('/products', productsRouter);
+app.use('/cart', checkAuth, cartRouter);
+app.use('/complains', checkAuth, complainRouter);
+app.use(['/'], subscriptionRouter);
+app.use(['/'], shippingAddressRouter);
 // -----------------------------------------------------------------------------
 
+var listener = app.listen(8888, function () {
+  console.log('Listening on port ' + listener.address().port); //Listening on port 8888
+});
 module.exports = app;

@@ -24,7 +24,7 @@ function Footer() {
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <Box borderBottom={1}> Make Money with Us </Box>
+            <Box borderBottom={2}> Make Money with Us </Box>
             <Box>
               <Link href="/" color="inherit">
                 {' '}
@@ -40,7 +40,7 @@ function Footer() {
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <Box borderBottom={1}>Help </Box>
+            <Box borderBottom={2}>Help </Box>
             <Box>
               <Link href="/post_complain" color="inherit">
                 {' '}
