@@ -78,7 +78,7 @@ const Context = () => {
       toast("Can't apply this coupon !");
       navigate("/cart");
     } else {
-      navigate("/checkout");
+      navigate("/checkout",{ state: { amount: totalAmount }});
     }
   };
 
