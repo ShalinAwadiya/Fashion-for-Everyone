@@ -1,10 +1,12 @@
+<!--- This README.md file was adapted from https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#file-readme-template-md by Gabriella Mosquera for academic use --->
+
 # Assignment 3: Group-5
 
 * *Name*: [Deep Adeshra](dp974154@dal.ca)
 * *Student ID*: B00894867
 * *Course*: CSCI 5709 - Advanced Topics in Web Development
 * *Date Created*: July 15, 2022
-* *URL of depoyed app*:
+* *URL of depoyed app*: https://group-5-web.surge.sh/
 * *URL For group repository*: https://git.cs.dal.ca/anandani/csci-5709-group5
 * *URL For my branch*: https://git.cs.dal.ca/anandani/csci-5709-group5/-/tree/deep-dev
 
@@ -44,6 +46,29 @@
 * [ExpressJs](https://expressjs.com/)
 * [Reactjs](https://reactjs.org/)
 * [NodeJS](https://nodejs.org/en/)
+
+## Installation
+---
+
+```
+cd client
+npm install
+cd ..
+cd server
+npm install
+```
+
+## Starting the application
+---
+The following commands will run the application on your localhost.
+```
+cd client
+npm run dev
+cd ..
+cd server
+npm run dev
+```
+
 
 ## Feature developed
 ----
