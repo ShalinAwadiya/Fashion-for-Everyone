@@ -26,7 +26,7 @@ export default function SeachPage() {
   let params = useParams();
   const [brand, setBrand] = useState(null);
   const [review, setReview] = useState(null);
-  const [price, setPrice] = useState([10, 500]);
+  const [price, setPrice] = useState([1, 1000]);
   const [brandList, setBrandList] = useState([]);
 
   const [items, setItems] = useState([]);
@@ -55,9 +55,14 @@ export default function SeachPage() {
       })
       .then(({ hits }) => {
         let brands = new Set();
+        let min = 100;
+        let max = 100;
         hits.forEach((pro) => {
           brands.add(pro.brand.toLowerCase());
+          if (pro.price < min) min = pro.price;
+          if (pro.price > max) max = pro.price;
         });
+        setPrice([min, max]);
         setBrandList(brands);
         setItems(hits);
         setDisplayResult(hits);

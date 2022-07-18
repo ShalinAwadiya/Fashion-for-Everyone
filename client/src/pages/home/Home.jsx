@@ -7,9 +7,6 @@ import { Paper } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 
-import KidImage from '../../assets/images/home-kid.jpg';
-import ManImage from '../../assets/images/home-man.jpg';
-import WomanImage from '../../assets/images/home-woman.jpg';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
@@ -53,7 +50,7 @@ function Item(props) {
               maxHeight: { xs: 300, md: 700 },
               maxWidth: { xs: 400, md: 1080 },
             }}
-            alt={props.item.description}
+            alt={props.item.name}
             src={props.item.image}
           />
         </Link>
@@ -69,21 +66,18 @@ function Slides(props) {
   var items = [
     {
       name: 'KID',
-      description: 'KID CLOTHS COLLECTION',
-      image: KidImage,
+      image: 'https://fashion-world.s3.amazonaws.com/home-kid.jpg',
       route: '/kid/',
     },
     {
-      name: 'MAN',
-      description: 'MAN CLOTHS COLLECTION',
-      image: ManImage,
-      route: '/man/',
+      name: 'MEN',
+      image: 'https://fashion-world.s3.amazonaws.com/home-man.jpg',
+      route: '/men/',
     },
     {
-      name: 'WOMAN',
-      description: 'WOMAN CLOTHS COLLECTION',
-      image: WomanImage,
-      route: '/woman/',
+      name: 'WOMEN',
+      image: 'https://fashion-world.s3.amazonaws.com/home-woman.jpg',
+      route: '/women/',
     },
   ];
 

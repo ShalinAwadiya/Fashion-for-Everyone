@@ -8,8 +8,8 @@ var Schema = mongoose.Schema;
 
 const NO_RATINGS = 0;
 const RATINGS = [NO_RATINGS, 1, 2, 3, 4, 5];
-const KIDS = 0,
-  WOMEN = 1,
+const WOMEN = 0,
+  KIDS = 1,
   MEN = 2;
 const CATEGORIES = [KIDS, WOMEN, MEN];
 

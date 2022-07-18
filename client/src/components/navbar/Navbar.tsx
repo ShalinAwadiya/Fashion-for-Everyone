@@ -80,7 +80,7 @@ const NavBar = () => {
 
   const [textValue, setTextValue] = useState();
 
-  const [notificanCountValue, setNotificationCountValue] = useState(3);
+  const [notificanCountValue, setNotificationCountValue] = useState(0);
   const [notificanDropDownValue, setNotificanDropDownValue] = useState(false);
 
 
