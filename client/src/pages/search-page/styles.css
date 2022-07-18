@@ -11,6 +11,14 @@
       display: flex;
       min-height: 600px;
     }
+    .search-buttons{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;  
+      align-items: center;  
+      margin-left: 15rem;
+
+    }
   }
 
   .sidebar {
@@ -26,3 +34,11 @@
   .container{
     margin-top: 2rem;
   }
+  .search-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  
+    align-items: center;  
+  }
+
+ 
