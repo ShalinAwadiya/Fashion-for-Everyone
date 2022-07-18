@@ -54,7 +54,7 @@ const Context = () => {
     removeCoupon,
   } = useContext(CartContext);
 
-  console.log(coupon, "this is coupon");
+
 
   let shipping = 30;
   let price = Math.max(totalAmount + shipping, 0);

@@ -39,6 +39,7 @@ var cartRouter = require("./routes/carts");
 var complainRouter = require("./routes/complains");
 var subscriptionRouter = require("./routes/subscription");
 var shippingAddressRouter = require("./routes/shippingAddress");
+var orderRouter = require("./routes/orders");
 
 app.use("/users", checkAuth, usersRouter);
 app.use("/coupons", checkAuth, couponsRouter);
@@ -47,6 +48,7 @@ app.use("/cart", checkAuth, cartRouter);
 app.use("/complains", checkAuth, complainRouter);
 app.use(["/"], subscriptionRouter);
 app.use(["/"], shippingAddressRouter);
+app.use("/order",checkAuth, orderRouter)
 // -----------------------------------------------------------------------------
 
 module.exports = app;
