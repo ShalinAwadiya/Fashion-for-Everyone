@@ -79,7 +79,7 @@ const NavBar = () => {
 
   const [textValue, setTextValue] = useState();
 
-  const [notificanCountValue, setNotificationCountValue] = useState(3);
+  const [notificanCountValue, setNotificationCountValue] = useState(0);
   const [notificanDropDownValue, setNotificanDropDownValue] = useState(false);
 
 
@@ -419,7 +419,7 @@ const NavBar = () => {
                   aria-label="show 3 new notifications"
                   color="inherit"
                 >
-                  <Badge badgeContent={3} color="error">
+                  <Badge  color="error">
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
