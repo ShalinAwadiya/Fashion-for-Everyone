@@ -16,8 +16,16 @@ function checkAuth(req, res, next) {
     admin
       .auth()
       .verifyIdToken(req.headers.authorization)
-      .then((decoded) => {
-        req.user = decoded;
+      .then(async (decoded) => {
+        const resp = await admin.auth().getUser(decoded.uid)
+        req.user = {
+          uid: resp.uid,
+          user_id: resp.uid,
+          email: resp.email,
+          emailVerified: resp.emailVerified,
+          displayName: resp.displayName,
+          photoURL: resp.photoURL
+        }
         next();
       }).catch(() => {
         res.status(403).send({ message: 'Unauthorized' });

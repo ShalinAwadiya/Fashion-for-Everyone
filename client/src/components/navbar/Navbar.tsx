@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [isUserVerified, setIsUserVerified] = useState(true);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -106,339 +107,356 @@ const NavBar = () => {
   }
 
   const [email, setEmail] = useState('')
-  const addSubscriber =() => {
+  const addSubscriber = () => {
     const emailId = {
-      "email" : email
+      "email": email
     };
 
     AXIOS_CLIENT.post('/subscription', emailId)
-    .then((res) => {
-      if (res.status === 201) {
-        console.log('Subscriber saved successfully!!!')
-      }
-    }).catch(err => {
-      if (err.response.status === 409) {
-        console.log('Error')
-      } else {
-        console.error(err);
-        toast.error("Something went wrong!");
-      }
+      .then((res) => {
+        if (res.status === 201) {
+          console.log('Subscriber saved successfully!!!')
+        }
+      }).catch(err => {
+        if (err.response.status === 409) {
+          console.log('Error')
+        } else {
+          console.error(err);
+          toast.error("Something went wrong!");
+        }
+      });
+  }
+
+  React.useEffect(() => {
+    getUser()
+  }, [])
+
+  function getUser() {
+    AXIOS_CLIENT.get('/users').then(res => {
+      setIsUserVerified(res.data.emailVerified)
     });
   }
 
   return (
-    <AppBar position="relative"
-      color="transparent"
-      sx={{
-        display: { xs: 'flex', md: 'flex' },
-        width: '100%'
-      }}>
-      <Container maxWidth="xl" >
-        <Toolbar disableGutters>
-          <ShopIcon sx={{ display: { xs: 'none', md: 'flex', fontSize: 'large' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 600,
-              letterSpacing: '.3rem',
-              color: 'sky blue',
-              textDecoration: 'none',
-            }}
-          >SHOP</Typography>
-
-          {/* Pages section Coupons */}
-          <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.title}
-                component="a"
-                href={"/" + page.route}
-                sx={{ my: 2, color: 'black', display: 'block', textDecoration: 'none' }}
-              >
-                {page.title}
-              </Button>
-            ))}
-            <Button
-              key="SubscribeUs"
+    <div className='w-100'>
+      <AppBar position="relative"
+        color="transparent"
+        sx={{
+          display: { xs: 'flex', md: 'flex' },
+          width: '100%'
+        }}>
+        <Container maxWidth="xl" >
+          <Toolbar disableGutters>
+            <ShopIcon sx={{ display: { xs: 'none', md: 'flex', fontSize: 'large' }, mr: 1 }} />
+            <Typography
+              variant="h6"
               component="a"
-              sx={{ my: 2, color: 'black', display: 'block' }}
-              onClick={handleOpen}
-            >
-              Subscribe Us
-            </Button>
-          </Box>
-
-
-          {/* Responsive NavBar */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
-            <IconButton
-              size="large"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit">
-              <MenuIcon />
-            </IconButton>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              href="/"
               sx={{
-                display: { xs: 'flex', md: 'none' },
-              }}>
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 600,
+                letterSpacing: '.3rem',
+                color: 'sky blue',
+                textDecoration: 'none',
+              }}
+            >SHOP</Typography>
+
+            {/* Pages section Coupons */}
+            <Box sx={{ display: { xs: 'none', md: 'flex', flexGrow: 1 } }}>
               {pages.map((page) => (
-                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    component='a'
-                    href={'/' + page.route}
-                    sx={{ textDecoration: 'none' }}
-                  >
-                    {page.title}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          <ShopIcon sx={{ display: { xs: 'flex', md: 'none', fontSize: 'large' }, mr: 1, ml: 5 }} />
-
-          <Typography
-            variant="h6"
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              flexGrow: 1,
-              display: { xs: 'flex', md: 'none' },
-              fontFamily: 'monospace',
-              fontWeight: 600,
-              letterSpacing: '.3rem',
-              color: 'sky blue',
-              textDecoration: 'none',
-            }}
-          >SHOP</Typography>
-
-          {/* Search Bar */}
-          <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-            <Search />
-          </Box>
-
-          {/* Wishlist */}
-          <Link to='/wishlist'>
-            <Tooltip title="favourites">
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <Button>
-                  <FavoriteIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-                </Button>
-              </Box>
-            </Tooltip>
-          </Link>
-
-          {/* Subscribe Us */}
-          
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.paper}>
-                <h2>Subscribe to our NewsLetter!</h2>
-                <p>
-                  <img src="Subscription.png" height="280" width="250" />
-                  <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
-                  <form onSubmit ={handleSubmit}>
-                  <TextField 
-                  variant="outlined" 
-                  size="small" 
-                  fullWidth 
-                  onChange={(e) => setEmail(e.target.value)} 
-                  value={textValue} 
-                  label={"Enter your Email ID"} />
-                  <br /> <br />
-                  <Button
-                  type="submit" 
-                  variant="contained" 
-                  size="large" 
-                  fullWidth 
-                  onClick={addSubscriber}>
-                    Subscribe</Button>
-                  </form>
-                </p>
-              </div>
-            </Fade>
-          </Modal>
-
-
-          {/* Profile */}
-          {
-            isUserLoggedIn() ?
-              <Link to="/profile">
-                <Tooltip title="My profile">
-                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <Button>
-                      <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-                    </Button>
-                  </Box>
-                </Tooltip>
-              </Link>
-              : null
-          }
-
-          {/* Cart */}
-          <Link to="/cart">
-            <Tooltip title="Cart">
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <Button>
-                  <ShoppingCartIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-                </Button>
-              </Box>
-            </Tooltip>
-          </Link>
-
-          <Link to="/orders">
-            <Tooltip title="My orders">
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <Button>
-                  <ListAltIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-                </Button>
-              </Box>
-            </Tooltip>
-          </Link>
-
-          {/* Pages section Sign in */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button
-              component="a"
-              href="/signup"
-              onClick={() => isUserLoggedIn() ? logout() : null}
-              sx={{ my: 2, color: 'black', display: 'block' }}
-            >
-              {isUserLoggedIn() ? "Log out" : "Sign up"}
-            </Button>
-          </Box>
-
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton
-              sx={{ color: 'black', display: 'block' }}
-              onClick={handleNotificationToggle}
-            >
-              <Badge badgeContent={notificanCountValue} color="error">
-                <NotificationsIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
-              </Badge>
-            </IconButton>
-          </Box>
-
-          {/* Responsive Profile, Wishlist, Cart */}
-          <Box sx={{ display: { xs: 'flex', md: 'none', ml: 10 } }}>
-            <IconButton
-              size="large"
-              aria-haspopup="true"
-              onClick={handleOpenUserMenu}
-              color="inherit"
-            >
-              <ChevronRight />
-            </IconButton>
-
-            <Menu
-              id="settings"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-              sx={{
-                display: { xs: 'flex', md: 'none' },
-              }}>
-
-              <Link to="/wishlist">
-                <MenuItem>
-                  <Button>
-                    <FavoriteIcon sx={{ color: "black" }} />
-                  </Button>
-                </MenuItem>
-              </Link>
-
-              <Link to="/profile">
-                <MenuItem>
-                  <Button>
-                    <PersonIcon sx={{ color: "black" }} />
-                  </Button>
-                </MenuItem>
-              </Link>
-
-              <Link to="/cart">
-                <MenuItem>
-                  <Button>
-                    <ShoppingCartIcon sx={{ color: "black" }} />
-                  </Button>
-                </MenuItem>
-              </Link>
-
-              <Link to="/orders">
-                <MenuItem>
-                  <Button>
-                    <ListAltIcon sx={{ color: "black" }} />
-                  </Button>
-                </MenuItem>
-              </Link>
-
-              <MenuItem>
-                <IconButton
-                  size="large"
-                  aria-label="show 3 new notifications"
-                  color="inherit"
+                <Button
+                  key={page.title}
+                  component="a"
+                  href={"/" + page.route}
+                  sx={{ my: 2, color: 'black', display: 'block', textDecoration: 'none' }}
                 >
-                  <Badge  color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-              </MenuItem>
+                  {page.title}
+                </Button>
+              ))}
+              <Button
+                key="SubscribeUs"
+                component="a"
+                sx={{ my: 2, color: 'black', display: 'block' }}
+                onClick={handleOpen}
+              >
+                Subscribe Us
+              </Button>
+            </Box>
 
-              <Link to="/signup">
-                <MenuItem>
+
+            {/* Responsive NavBar */}
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
+              <IconButton
+                size="large"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit">
+                <MenuIcon />
+              </IconButton>
+
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'flex', md: 'none' },
+                }}>
+                {pages.map((page) => (
+                  <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                    <Typography
+                      textAlign="center"
+                      component='a'
+                      href={'/' + page.route}
+                      sx={{ textDecoration: 'none' }}
+                    >
+                      {page.title}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+
+            <ShopIcon sx={{ display: { xs: 'flex', md: 'none', fontSize: 'large' }, mr: 1, ml: 5 }} />
+
+            <Typography
+              variant="h6"
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                flexGrow: 1,
+                display: { xs: 'flex', md: 'none' },
+                fontFamily: 'monospace',
+                fontWeight: 600,
+                letterSpacing: '.3rem',
+                color: 'sky blue',
+                textDecoration: 'none',
+              }}
+            >SHOP</Typography>
+
+            {/* Search Bar */}
+            <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
+              <Search />
+            </Box>
+
+            {/* Wishlist */}
+            <Link to='/wishlist'>
+              <Tooltip title="favourites">
+                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                   <Button>
-                    Sign up
+                    <FavoriteIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
                   </Button>
-                </MenuItem>
-              </Link>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-      {notificanDropDownValue ? <NotificationMenu handleNotClick={handleNotClick} /> : null}
+                </Box>
+              </Tooltip>
+            </Link>
 
-    </AppBar >
+            {/* Subscribe Us */}
+
+            <Modal
+              aria-labelledby="transition-modal-title"
+              aria-describedby="transition-modal-description"
+              className={classes.modal}
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <Fade in={open}>
+                <div className={classes.paper}>
+                  <h2>Subscribe to our NewsLetter!</h2>
+                  <p>
+                    <img src="Subscription.png" height="280" width="250" />
+                    <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
+                    <form onSubmit={handleSubmit}>
+                      <TextField
+                        variant="outlined"
+                        size="small"
+                        fullWidth
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={textValue}
+                        label={"Enter your Email ID"} />
+                      <br /> <br />
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        size="large"
+                        fullWidth
+                        onClick={addSubscriber}>
+                        Subscribe</Button>
+                    </form>
+                  </p>
+                </div>
+              </Fade>
+            </Modal>
+
+
+            {/* Profile */}
+            {
+              isUserLoggedIn() ?
+                <Link to="/profile">
+                  <Tooltip title="My profile">
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                      <Button>
+                        <PersonIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                      </Button>
+                    </Box>
+                  </Tooltip>
+                </Link>
+                : null
+            }
+
+            {/* Cart */}
+            <Link to="/cart">
+              <Tooltip title="Cart">
+                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                  <Button>
+                    <ShoppingCartIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                  </Button>
+                </Box>
+              </Tooltip>
+            </Link>
+
+            <Link to="/orders">
+              <Tooltip title="My orders">
+                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                  <Button>
+                    <ListAltIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                  </Button>
+                </Box>
+              </Tooltip>
+            </Link>
+
+            {/* Pages section Sign in */}
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Button
+                component="a"
+                href="/signup"
+                onClick={() => isUserLoggedIn() ? logout() : null}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                {isUserLoggedIn() ? "Log out" : "Sign up"}
+              </Button>
+            </Box>
+
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <IconButton
+                sx={{ color: 'black', display: 'block' }}
+                onClick={handleNotificationToggle}
+              >
+                <Badge badgeContent={notificanCountValue} color="error">
+                  <NotificationsIcon sx={{ display: { xs: 'none', md: 'flex', color: 'black', fontSize: 'large' } }} />
+                </Badge>
+              </IconButton>
+            </Box>
+
+            {/* Responsive Profile, Wishlist, Cart */}
+            <Box sx={{ display: { xs: 'flex', md: 'none', ml: 10 } }}>
+              <IconButton
+                size="large"
+                aria-haspopup="true"
+                onClick={handleOpenUserMenu}
+                color="inherit"
+              >
+                <ChevronRight />
+              </IconButton>
+
+              <Menu
+                id="settings"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+                sx={{
+                  display: { xs: 'flex', md: 'none' },
+                }}>
+
+                <Link to="/wishlist">
+                  <MenuItem>
+                    <Button>
+                      <FavoriteIcon sx={{ color: "black" }} />
+                    </Button>
+                  </MenuItem>
+                </Link>
+
+                <Link to="/profile">
+                  <MenuItem>
+                    <Button>
+                      <PersonIcon sx={{ color: "black" }} />
+                    </Button>
+                  </MenuItem>
+                </Link>
+
+                <Link to="/cart">
+                  <MenuItem>
+                    <Button>
+                      <ShoppingCartIcon sx={{ color: "black" }} />
+                    </Button>
+                  </MenuItem>
+                </Link>
+
+                <Link to="/orders">
+                  <MenuItem>
+                    <Button>
+                      <ListAltIcon sx={{ color: "black" }} />
+                    </Button>
+                  </MenuItem>
+                </Link>
+
+                <MenuItem>
+                  <IconButton
+                    size="large"
+                    aria-label="show 3 new notifications"
+                    color="inherit"
+                  >
+                    <Badge badgeContent={3} color="error">
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                </MenuItem>
+
+                <Link to="/signup">
+                  <MenuItem>
+                    <Button>
+                      Sign up
+                    </Button>
+                  </MenuItem>
+                </Link>
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+        {notificanDropDownValue ? <NotificationMenu handleNotClick={handleNotClick} /> : null}
+
+      </AppBar >
+      {
+        isUserVerified == false
+        &&
+        <div className='w-100 bg-danger text-white p-1 text-center'>Please verify your email. Check spam emais if it is not in your primary inbox.</div>
+      }
+    </div>
   );
 };
 export default NavBar;
