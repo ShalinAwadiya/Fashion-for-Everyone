@@ -54,11 +54,30 @@ const toggleStyles = makeStyles({
   },
 });
 
+function FilterListToggleHori({ options, value, changeToggle }) {
+  const classes = toggleStyles();
+  return (
+    <ToggleButtonGroup
+      value={value}
+      exclusive
+      onChange={changeToggle}
+      className={classes.root}
+    >
+      {options.map(({ label, id, value }) => (
+        <ToggleButton className={classes.toggle} key={id} value={value}>
+          {label}
+        </ToggleButton>
+      ))}
+    </ToggleButtonGroup>
+  );
+}
+
 function FilterListToggle({ options, value, changeToggle }) {
   const classes = toggleStyles();
   return (
     <ToggleButtonGroup
       value={value}
+      orientation="vertical"
       exclusive
       onChange={changeToggle}
       className={classes.root}
@@ -104,7 +123,7 @@ export default function FilterPanel({
   const navigate = useNavigate();
   brandList = Array.from(brandList);
   let brandListDisplay = [];
-  for (let index = 0; index < brandList.length && index < 4; index++) {
+  for (let index = 0; index < brandList.length; index++) {
     const item = brandList[index];
     brandListDisplay.push({ id: index, label: item, value: item });
   }
@@ -138,11 +157,11 @@ export default function FilterPanel({
   ];
 
   return (
-    <div>
+    <div className="filter-parent">
       <div className="filter-group">
         <p className="label">Reviews</p>
 
-        <FilterListToggle
+        <FilterListToggleHori
           options={reviewsList}
           value={ReviewValue}
           changeToggle={onReviewChange}
