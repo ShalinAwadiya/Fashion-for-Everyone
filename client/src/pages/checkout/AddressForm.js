@@ -7,6 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { useState } from "react";
 import Button from '@mui/material/Button';
 import { useNavigate,useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 function AddressForm() {
   const [firstName, setFirstName] = useState('')
@@ -25,8 +26,10 @@ function AddressForm() {
     e.preventDefault()
 
     if (firstName && lastName && address1 && address2 && city && state && zip && country) {
-      console.log (firstName,lastName,address1,address2,city,state,zip,country)
-    }
+      navigate('/payment',{state:{firstName :firstName,lastName:lastName,address1 : address1,address2 : address2,city : city,state : state,zip : zip,country : country, totalAmount:location.state.totalAmount, item : location.state.item}})
+   }else {
+     toast.error("Please fill all the fields")
+  }
   }
 
 
@@ -38,6 +41,7 @@ function AddressForm() {
           <Typography variant="h6" gutterBottom>
             Shipping address
           </Typography>
+          <ToastContainer />
           <form onSubmit ={handleSubmit}>
           <Grid container spacing={24} justifyContent="center">
               <Grid item xs={12} sm={6}>
@@ -75,6 +79,7 @@ function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  required
                   id="address2"
                   name="address2"
                   label="Address line 2"
@@ -96,6 +101,7 @@ function AddressForm() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  required
                   id="state"
                   name="state"
                   label="State/Province/Region"
@@ -135,7 +141,7 @@ function AddressForm() {
                 />
               </Grid>
                 <Button
-                  onClick = {() => navigate('/payment',{state:{firstName :firstName,lastName:lastName,address1 : address1,address2 : address2,city : city,state : state,zip : zip,country : country, totalAmount:location.state.totalAmount, item : location.state.item}})}
+                  onClick = {handleSubmit}
                   type="submit"
                   color="secondary"
                   variant="contained"

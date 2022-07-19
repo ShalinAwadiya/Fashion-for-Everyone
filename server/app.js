@@ -50,8 +50,8 @@ app.use("/products", checkAuth, productsRouter);
 app.use('/reviews', checkAuth, reviewRouter);
 app.use("/cart", checkAuth, cartRouter);
 app.use("/complains", checkAuth, complainRouter);
-app.use(["/"], subscriptionRouter);
-app.use(["/"], shippingAddressRouter);
+app.use("/", checkAuth, subscriptionRouter);
+app.use("/", checkAuth, shippingAddressRouter);
 app.use("/blogs", blogRouter);
 app.use("/order",checkAuth, orderRouter)
 // -----------------------------------------------------------------------------
