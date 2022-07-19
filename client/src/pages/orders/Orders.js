@@ -198,10 +198,7 @@ function Orders() {
                             </Typography>
                             <Typography component="div" variant="caption">
                               Quantity : {product.quantity}                               
-                            </Typography>
-                            <Typography component="div" variant="caption">
-                              Size : {product.size}
-                            </Typography>                            
+                            </Typography>                          
                           </CardContent>
                         </Box>
                       </Card>

@@ -148,13 +148,6 @@ const Context = () => {
                           component="div"
                           marginLeft={3}
                         >
-                          <b>Size:</b> {curItem.size}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          component="div"
-                          marginLeft={3}
-                        >
                           <b>Price:</b> ${curItem.price}
                         </Typography>
                       </Grid>
