@@ -6,7 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from '@mui/material/Button';
@@ -46,24 +46,24 @@ function Review(props) {
   //     toast.error("Something went wrong!");
   //   }
   // });
-  const addShippingInfo =() => {
+  const addShippingInfo = () => {
 
-    
+
     const user = {
-      "userId" : "requ",
+      "userId": "requ",
       "address": {
         "firstName": location.state.firstName,
-        "lastName" : location.state.lastName,
-        "address1" : location.state.address1,
-        "city" : location.state.address1,
-        "state" : location.state.state,
-        "zip" : location.state.zip,
-        "country" : location.state.country
-        }
-      };
+        "lastName": location.state.lastName,
+        "address1": location.state.address1,
+        "city": location.state.address1,
+        "state": location.state.state,
+        "zip": location.state.zip,
+        "country": location.state.country
+      }
+    };
 
-      
-      AXIOS_CLIENT.post('/checkout', user)
+
+    AXIOS_CLIENT.post('/checkout', user)
       .then((res) => {
         if (res.status === 201) {
           console.log('Shipping Address saved successfully!!!')
@@ -76,17 +76,15 @@ function Review(props) {
           toast.error("Something went wrong!");
         }
       });
-      // const res = async () => {
-        // console.log("Postingto OrderAPI")
-        // await AXIOS_CLIENT.post('/order/post_order', {products : location.state.item, total_amount : location.state.totalAmount, order_date : Date.now()}) 
-      // res()
-      AXIOS_CLIENT.post('/order/post_order', {products : location.state.item, total_amount : location.state.totalAmount, order_date : Date.now()}) 
+    // const res = async () => {
+    // console.log("Postingto OrderAPI")
+    // await AXIOS_CLIENT.post('/order/post_order', {products : location.state.item, total_amount : location.state.totalAmount, order_date : Date.now()})
+    // res()
+    AXIOS_CLIENT.post('/order/post_order', { products: location.state.item, total_amount: location.state.totalAmount, order_date: Date.now() })
       .then((res) => {
-        if (res.status === 201) {
-          AXIOS_CLIENT.delete('/cart/remove_cart')
+        AXIOS_CLIENT.delete('/cart/remove_cart')
           .then((res) => {
-            if (res.status === 201) {
-            }
+            navigate('/orders')
           }).catch(err => {
             if (err.response.status === 409) {
               console.log('Error')
@@ -95,8 +93,6 @@ function Review(props) {
               toast.error("Something went wrong!");
             }
           });
-          navigate('/orders')
-        }
       }).catch(err => {
         if (err.response.status === 409) {
           console.log('Error')
@@ -105,9 +101,9 @@ function Review(props) {
           toast.error("Something went wrong!");
         }
       });
-    }
-    
-  
+  }
+
+
   return (
     <React.Fragment>
       <br />
@@ -137,42 +133,42 @@ function Review(props) {
             Payment details
           </Typography>
           <Grid container>
-              <React.Fragment key="Name">
-                <Grid item xs={6}>
-                  <Typography gutterBottom>Card Holder Name</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{location.state.cardName}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>Card Number</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{location.state.cardNumber}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>Expiry Date</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{location.state.expDate}</Typography>
-                </Grid>
-              </React.Fragment>
-              <br />
-              <br />
-              <br />
-              
+            <React.Fragment key="Name">
+              <Grid item xs={6}>
+                <Typography gutterBottom>Card Holder Name</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{location.state.cardName}</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Card Number</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{location.state.cardNumber}</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>Expiry Date</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography gutterBottom>{location.state.expDate}</Typography>
+              </Grid>
+            </React.Fragment>
+            <br />
+            <br />
+            <br />
+
           </Grid>
         </Grid>
 
         <Button
-                onClick = {addShippingInfo}
-                type="submit"
-                color="secondary"
-                variant="contained"
-                fullWidth
-                >
-                  Place Order
-                </Button>
+          onClick={addShippingInfo}
+          type="submit"
+          color="secondary"
+          variant="contained"
+          fullWidth
+        >
+          Place Order
+        </Button>
       </Grid>
     </React.Fragment>
   );

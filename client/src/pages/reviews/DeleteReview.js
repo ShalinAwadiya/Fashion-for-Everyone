@@ -1,25 +1,24 @@
 
 import React from 'react';
-import { Modal, Button, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DeleteIcon from "@mui/icons-material/Delete";
 import AXIOS_CLIENT from "../../utils/apiClient";
 
-class DeleteReview extends React.Component{
+class DeleteReview extends React.Component {
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         console.log(props);
-        this.state= {
+        this.state = {
             reviewData: props.review_data
         };
     }
 
-    toggle = () =>{
+    toggle = () => {
         console.log("toggle called");
-        this.setState({modal: !this.state.modal})
+        this.setState({ modal: !this.state.modal })
         console.log(this.state);
     }
 
@@ -27,21 +26,20 @@ class DeleteReview extends React.Component{
         event.preventDefault();
         console.log(this.state)
 
-        AXIOS_CLIENT.delete('/reviews/delete/' + this.state.reviewData._id).then(res=> {
+        AXIOS_CLIENT.delete('/reviews/delete/' + this.state.reviewData._id).then(res => {
             if (res.status === 200) {
                 console.log('Product Deleted successfully!!!!')
+                this.toggle();
+                window.location.reload();
+                console.log("task submited");
             }
         })
-
-        this.toggle();
-        window.location.reload();
-        console.log("task submited");
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <span>
-                 <DeleteIcon onClick={this.toggle} color="danger" style={{marginLeft :'5px' }}></DeleteIcon>
+                <DeleteIcon onClick={this.toggle} color="danger" style={{ marginLeft: '5px' }}></DeleteIcon>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>Delete Review</ModalHeader>
                     <ModalBody>
