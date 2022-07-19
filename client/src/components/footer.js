@@ -48,9 +48,9 @@ function Footer() {
               </Link>
             </Box>
             <Box>
-              <Link href="/" color="inherit">
+              <Link href="/wishlist" color="inherit">
                 {" "}
-                Publish With Us
+                Wishlist
               </Link>
             </Box>
           </Grid>

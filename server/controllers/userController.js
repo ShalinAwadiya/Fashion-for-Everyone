@@ -5,7 +5,7 @@
 
 const { validationResult } = require("express-validator");
 const UserModel = require("../models/user");
-const admin = require('../config/firebase-admin');
+const admin = require("../config/firebase-admin");
 
 /**
  * Registers user in MongoDB
@@ -31,7 +31,7 @@ async function registerUser(req, res, next) {
 
     await UserModel.create({ email, firebaseId, name });
 
-    return res.status(201).send({ message: "user created" })
+    return res.status(201).send({ message: "user created" });
   } catch (err) {
     return next(err);
   }
@@ -47,7 +47,7 @@ async function registerUser(req, res, next) {
 async function getUser(req, res, next) {
   try {
     const user = req.user;
-    const dbUser = await UserModel.findOne({firebaseId: user.user_id});
+    const dbUser = await UserModel.findOne({ firebaseId: user.user_id });
     return res.status(200).send({ ...user, ...dbUser._doc });
   } catch (err) {
     return next(err);
@@ -66,12 +66,15 @@ async function updateUser(req, res, next) {
     const user = req.user;
     const { email, name } = req.body;
 
-    await UserModel.findOneAndUpdate({ firebaseId: user.user_id }, { $set: { email: email, name: name } });
+    await UserModel.findOneAndUpdate(
+      { firebaseId: user.user_id },
+      { $set: { email: email, name: name } }
+    );
 
     return res.status(200).send({ success: "true" });
   } catch (err) {
-    return next(err)
+    return next(err);
   }
 }
 
-module.exports = { getUser, registerUser, updateUser }
+module.exports = { getUser, registerUser, updateUser };
