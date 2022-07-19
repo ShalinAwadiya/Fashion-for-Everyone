@@ -115,7 +115,6 @@ export default function ProductPage() {
                                             {/*<Link to={"/cart"}>*/}
                                                 <a  class="btn btn-light" onClick={addProductToCard}>Buy Now</a>
                                             {/*</Link>*/}
-                                            <p>Hi There {product.name}</p>
                                             <AddReview product_id={id}></AddReview>
                                         </div>
 
