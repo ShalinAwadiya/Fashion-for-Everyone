@@ -20,7 +20,6 @@ function PaymentForm(props) {
   const [cardNumber, setCardNumber] = useState('')
   const [expDate, setExpDate] = useState('')
 
-
   const location = useLocation();
   const navigate = useNavigate();
   return (
@@ -29,7 +28,7 @@ function PaymentForm(props) {
       <br />
       <br />
       <Typography variant="h6" gutterBottom>
-        Payment method
+        Payment Method
       </Typography>
       <Grid container spacing={24}>
         <Grid item xs={12} md={6}>
@@ -57,7 +56,7 @@ function PaymentForm(props) {
           />
         </Grid>
         <Button
-                onClick = {() => navigate('/review',{state:{cardName :cardName,cardNumber :cardNumber,expDate :expDate,firstName :location.state.firstName,lastName :location.state.lastName,address1 :location.state.address1,address2 : location.state.address2,city : location.state.city,state : location.state.state,zip : location.state.zip,country : location.state.country}})}
+                onClick = {() => navigate('/review',{state:{cardName :cardName,cardNumber :cardNumber,expDate :expDate,firstName :location.state.firstName,lastName :location.state.lastName,address1 :location.state.address1,address2 : location.state.address2,city : location.state.city,state : location.state.state,zip : location.state.zip,country : location.state.country, totalAmount : location.state.totalAmount, item : location.state.item}})}
                 type="submit"
                 color="secondary"
                 variant="contained"

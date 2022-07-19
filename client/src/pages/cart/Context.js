@@ -1,4 +1,3 @@
-// Pooja Anandani - B00911392
 import React, { useContext, useState } from "react";
 import { CartContext } from "./Cart";
 import {
@@ -78,7 +77,7 @@ const Context = () => {
       toast("Can't apply this coupon !");
       navigate("/cart");
     } else {
-      navigate("/checkout",{ state: { amount: totalAmount }});
+      navigate("/checkout",{ state: { totalAmount: price, item: item }});
     }
   };
 
