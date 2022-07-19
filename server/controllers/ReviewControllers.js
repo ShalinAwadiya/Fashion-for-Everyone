@@ -1,6 +1,7 @@
 const express = require("express");
 var mongoose = require("mongoose");
 const ReviewModel = require("../models/Review");
+const UserModel = require("../models/user")
 
 async function addReview(req, res, next){
     try {
@@ -8,15 +9,16 @@ async function addReview(req, res, next){
         let productId = req.product_id;
         let reviewMessage = req.reviewMessage;
         let reviewScore = req.reviewScore;
+        let user = UserModel.findOne({userId});
 
-        const review = await ReviewModel.findOne({ userId: userId, productId: productId});
+        const review = await ReviewModel.findOne({ user: user, productId: productId});
         //only one review allowed for a user per product
         if(review){
             return res.status(409).send({ message: 'Review Already Provided by user for this project' });
         }
 
         await ReviewModel.create({
-            userId: userId,
+            user: user,
             productId: productId,
             reviewMessage: reviewMessage,
             reviewScore: reviewScore
