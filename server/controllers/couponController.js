@@ -46,7 +46,7 @@ async function postCoupon(req, res, next) {
 async function getCoupons(req, res, next) {
     try {
         let coupons = await CouponModel.find();
-        return res.status(201).send({ coupons })
+        return res.status(200).send({ coupons })
     } catch (err) {
         return next(err);
     }
