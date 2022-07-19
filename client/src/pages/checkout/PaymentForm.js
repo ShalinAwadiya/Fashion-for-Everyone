@@ -8,10 +8,7 @@ import {useLocation} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
-const handleSubmit = (e) => {
-  e.preventDefault()
-}
+import { ToastContainer, toast } from "react-toastify";
 
 
 function PaymentForm(props) {
@@ -22,6 +19,16 @@ function PaymentForm(props) {
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (cardName && cardNumber && expDate) {
+      navigate('/review', {state:{cardName : cardName,cardNumber : cardNumber,expDate : expDate,firstName :location.state.firstName,lastName :location.state.lastName,address1 :location.state.address1,address2 : location.state.address2,city : location.state.city,state : location.state.state,zip : location.state.zip,country : location.state.country, totalAmount : location.state.totalAmount, item : location.state.item}})
+   }else {
+     toast.error("Please fill all the fields")
+  }
+  }
+
   return (
     <form onSubmit ={handleSubmit}>
     <React.Fragment>
@@ -30,18 +37,26 @@ function PaymentForm(props) {
       <Typography variant="h6" gutterBottom>
         Payment Method
       </Typography>
+      <ToastContainer />
       <Grid container spacing={24}>
         <Grid item xs={12} md={6}>
           <TextField required id="cardName" label="Name on card" fullWidth onChange={(e) => setCardName(e.target.value)}/>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardNumber" label="Card number" fullWidth onChange={(e) => setCardNumber(e.target.value)}/>
+          <TextField 
+          type="number"
+          required 
+          id="cardNumber" 
+          label="Card number" 
+          fullWidth 
+          onChange={(e) => setCardNumber(e.target.value)}/>
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField required id="expDate" label="Expiry date" fullWidth onChange={(e) => setExpDate(e.target.value)}/>
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            type="number"
             required
             id="cvv"
             label="CVV"
@@ -56,7 +71,7 @@ function PaymentForm(props) {
           />
         </Grid>
         <Button
-                onClick = {() => navigate('/review',{state:{cardName :cardName,cardNumber :cardNumber,expDate :expDate,firstName :location.state.firstName,lastName :location.state.lastName,address1 :location.state.address1,address2 : location.state.address2,city : location.state.city,state : location.state.state,zip : location.state.zip,country : location.state.country, totalAmount : location.state.totalAmount, item : location.state.item}})}
+                onClick = {handleSubmit}
                 type="submit"
                 color="secondary"
                 variant="contained"
