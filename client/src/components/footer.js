@@ -48,10 +48,13 @@ function Footer() {
               </Link>
             </Box>
             <Box>
-              <Link href="/" color="inherit">
-                {" "}
-                Publish With Us
-              </Link>
+              {console.log("Role", role)}
+              {role == 0 ? (
+                <Link href="/wishlist" color="inherit">
+                  {" "}
+                  Wishlist
+                </Link>
+              ) : null}
             </Box>
           </Grid>
 
