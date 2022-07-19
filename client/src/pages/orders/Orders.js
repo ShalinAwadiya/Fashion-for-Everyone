@@ -17,83 +17,67 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import DressOne from '../../assets/images/dress1.png'
-import DressTwo from '../../assets/images/dress2.png'
-import DressThree from '../../assets/images/dress3.png'
+import AXIOS_CLIENT from "../../utils/apiClient";
+
 
 function Orders() {
-  const ordersJSON = {
-    orders: [
-      {
-        orderId: "12",
-        products: [
-          {
-            id: 1,
-            title: "Louis Vuitton Mini Dress",
-            size: "M",
-            price: "700",
-            img: DressOne,
-            quantity: 1,
-          },
-          {
-            id: 2,
-            title: "Blue Party Dress",
-            size: "M",
-            price: "50",
-            img: DressTwo,
-            quantity: 1,
-          },
-        ],
-        orderDate: "22-May-2022",
-        price: "223",
-        status: "Delivered",
-      },
-      {
-        orderId: "657",
-        products: [
-          {
-            id: 2,
-            title: "Blue Party Dress",
-            size: "M",
-            price: "50",
-            img: DressTwo,
-            quantity: 1,
-          },
-          {
-            id: 3,
-            title: "Polka Dot Frock",
-            size: "M",
-            price: "300",
-            img: DressThree,
-            quantity: 1,
-          }
-        ],
-        orderDate: "05-May-2022",
-        price: "123",
-        status: "Pending",
-      },
-    ],
-  };
-
+  
   const [orders,setOrders]=useState([]);
 
   const handleCancelOrder = (item,index) =>{
     let temp=orders;
-
     if(temp[index]===item){
-      temp[index].status="Cancelled"
-      toast.success("Order #"+item.orderId+" has been cancelled successfully!")
+      temp[index].is_cancelled=true
+      temp[index].is_delivered=true
+      const res = async()=>{
+        await AXIOS_CLIENT.post("/order/update_order");
+      
+    }
+    
+    res()
+    setOrders([...temp])
+    order_status(temp[index])
+    toast.success("Order #"+item._id.substring(1,6).toUpperCase()+" has been cancelled successfully!")
+
+    
+  }
+}
+
+  const order_status = (order)=>{
+    if(order.is_delivered && !order.is_cancelled){
+      return "DELIVERED"
+    }
+    else if(order.is_cancelled & order.is_delivered){
+      return "CANCELED"
+    }
+   
+    else{
+      return "PENDING"
     }
 
-    setOrders([...temp])
+   
+   }
+
+  const order_date = (order)=>{
+   var date =  new Date(order.order_date)
+   const day = date.getDate() + "-"+date.getMonth()+"-"+date.getFullYear()
+   return day
   }
 
+
   useState(()=>{
-    setOrders(ordersJSON.orders);
+    AXIOS_CLIENT.get("/order").then((response) => {
+      setOrders(response.data.order);
+  }).catch((err)=>{
+    setOrders([]);
+  }
+)
   })
+
 
   return (
     <Container maxWidth="md">
@@ -104,7 +88,7 @@ function Orders() {
       <Grid container mt={2}>
         <Grid item xs={12}>
           {orders.map((order,index) => (
-            <Card key={order.orderId} sx={{ mb: 2 }}>
+            <Card key={order._id} sx={{ mb: 2 }}>
               <CardContent sx={{ p: 0 }}>
                 <TableContainer
                   component={Paper}
@@ -163,7 +147,7 @@ function Orders() {
                             fontSize: 13,
                           }}
                         >
-                          ORDER # {order.orderId}
+                          ORDER # {order._id.substring(1,6).toUpperCase()}
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -172,12 +156,14 @@ function Orders() {
                         <TableCell
                           sx={{ p: 1, pt: 0, color: grey[700], fontSize: 14 }}
                         >
-                          {order.orderDate}
+                          {order_date(order)}
+                        
+                          {/* {new Date(order.order_date).getDate()+"-"+new Date(order.order_date).getMonth()+"-"+new Date(order.order_date).getMonth()} */}
                         </TableCell>
                         <TableCell
                           sx={{ p: 1, pt: 0, color: grey[700], fontSize: 14 }}
                         >
-                          {order.price} CAD
+                          {order.total_amount} CAD
                         </TableCell>
                         <TableCell
                           sx={{ p: 1, pt: 0, color: grey[700], fontSize: 14 }}
@@ -194,21 +180,21 @@ function Orders() {
                 </TableContainer>
               </CardContent>
               <CardContent>
-                <Typography variant="h6">{order.status}</Typography>
+                <Typography variant="h6">{order_status(order)}</Typography>
                 <Grid container>
                   <Grid item xs={9}>
                     {order.products.map((product) => (
                       <Card key={product.id} sx={{ display: "flex",boxShadow:0}}>
                         <CardMedia
                           component="img"
-                          sx={{ width: 80, ml: 2 }}
-                          image={product.img}
+                          sx={{ width: 80, ml: 2, margin:1 }}
+                          image={product.imageUrl}
                           alt="Dress Image"
                         />
                         <Box sx={{ display: "flex", flexDirection: "column" }}>
                           <CardContent sx={{ flex: "1 0 auto" }}>
                             <Typography component="div" variant="subtitle1">
-                              {product.title}
+                              {product.name}
                             </Typography>
                             <Typography component="div" variant="caption">
                               Quantity : {product.quantity}                               
@@ -222,7 +208,7 @@ function Orders() {
                     ))}
                   </Grid>
                   <Grid item xs={3}>
-                    {order.status==="Pending"?<Box textAlign="right">
+                    {order.is_delivered===false?<Box textAlign="right">
                       <Button variant="outlined" color="error" onClick={()=>handleCancelOrder(order,index)}>Cancel Order</Button>
                     </Box>:""}
                   </Grid>

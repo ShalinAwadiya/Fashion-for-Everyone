@@ -8,17 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Fashion = () => {
 	const navigate = useNavigate();
-	const pages = ['Create Post', 'Following'];
-	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>();
-
-	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElNav(event.currentTarget);
-	};
-
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
-
 	return (
 		<>
 			<Container maxWidth="sm">

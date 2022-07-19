@@ -11,6 +11,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import algoliasearch from 'algoliasearch/lite';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import IconButton from '@material-ui/core/IconButton';
 
 import './styles.css';
 import ListView from '../../components/ListView';
@@ -26,8 +29,10 @@ export default function SeachPage() {
   let params = useParams();
   const [brand, setBrand] = useState(null);
   const [review, setReview] = useState(null);
-  const [price, setPrice] = useState([10, 500]);
+  const [price, setPrice] = useState([1, 1000]);
   const [brandList, setBrandList] = useState([]);
+  const [page, setPage] = useState(0);
+  const [next, setNext] = useState(false);
 
   const [items, setItems] = useState([]);
   const [displayresult, setDisplayResult] = useState([]);
@@ -45,24 +50,42 @@ export default function SeachPage() {
     !value ? null : setPrice(value);
   };
 
+  const handleBack = (event, value) => {
+    setPage(page - 1);
+  };
+  const handleNext = (event, value) => {
+    setPage(page + 1);
+  };
+
   useEffect(() => {
     // with params
     let searchQuery = params.query.replace('-', ' ');
     if (searchQuery === 'all') searchQuery = '';
     index
       .search(searchQuery, {
-        hitsPerPage: 9,
+        hitsPerPage: 6,
+        page,
       })
-      .then(({ hits }) => {
+      .then(({ nbPages, hits }) => {
+        if (page < nbPages - 1) {
+          setNext(true);
+        } else {
+          setNext(false);
+        }
         let brands = new Set();
+        let min = 100;
+        let max = 100;
         hits.forEach((pro) => {
           brands.add(pro.brand.toLowerCase());
+          if (pro.price < min) min = pro.price;
+          if (pro.price > max) max = pro.price;
         });
+        setPrice([min, max]);
         setBrandList(brands);
         setItems(hits);
         setDisplayResult(hits);
       });
-  }, [params]);
+  }, [params, page]);
 
   useEffect(() => {
     if (items) findResults();
@@ -92,24 +115,39 @@ export default function SeachPage() {
   };
   return (
     <div className="page">
-      <div className="main">
-        <div className="sidebar">
-          <FilterPanel
-            ReviewValue={review}
-            onReviewChange={handleReview}
-            BrandValue={brand}
-            onBrandValueChange={handleBrand}
-            priceValue={price}
-            onPriceValueChange={handlePrice}
-            brandList={brandList}
-          />
+      <div className="search-results">
+        <div className="main">
+          <div className="sidebar">
+            <FilterPanel
+              ReviewValue={review}
+              onReviewChange={handleReview}
+              BrandValue={brand}
+              onBrandValueChange={handleBrand}
+              priceValue={price}
+              onPriceValueChange={handlePrice}
+              brandList={brandList}
+            />
+          </div>
+          <div className="main_list">
+            {result ? (
+              <ListView items={displayresult} />
+            ) : (
+              <h1> No results for Search and Filters : {params.query}</h1>
+            )}
+          </div>
         </div>
-        <div className="main_list">
-          {result ? (
-            <ListView items={displayresult} />
-          ) : (
-            <h1> No results for Search and Filters : {params.query}</h1>
-          )}
+        <div className="search-buttons">
+          {page > 0 ? (
+            <IconButton color="primary" onClick={handleBack}>
+              <ArrowBackIosNewIcon />
+            </IconButton>
+          ) : null}
+          {page + 1}
+          {next ? (
+            <IconButton color="primary" onClick={handleNext}>
+              <ArrowForwardIosIcon />
+            </IconButton>
+          ) : null}
         </div>
       </div>
     </div>

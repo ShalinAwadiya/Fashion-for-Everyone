@@ -3,75 +3,26 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import AddIcon from '@mui/icons-material/Add';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const Table = () => {
-    const [rows, setRows] = useState([]);
-    const [isEdit, setEdit] = useState(false);
-    const [showConfirm, setShowConfirm] = React.useState(false);
-
-    const handleEdit = () => {
-        setEdit(!isEdit);
-    };
-
-    const handleAdd = () => {
-        setRows([
-            ...rows,
-            {
-                id: rows.length + 1,
-                ProductType: "",
-                ProductLink: ""
-            },
-        ]);
-        setEdit(true);
-    };
-
-    const handleInputChange = (e, index) => {
-        const { name, value } = e.target;
-        const list = [...rows];
-        list[index][name] = value;
-        setRows(list);
-    };
-
-
-    const handleSave = () => {
-        setEdit(!isEdit);
-        setRows(rows);
-        console.log("saved : ", rows);
-    };
-
-    const handleConfirm = () => {
-        setShowConfirm(true);
-    };
-
-    const handleRemoveClick = (i) => {
-        const list = [...rows];
-        list.splice(i, 1);
-        setRows(list);
-        setShowConfirm(false);
-    };
-
-    const handleNo = () => {
-        setShowConfirm(false);
-    };
-
+const Table = (props) => {
     return (
         <TableBody>
             <Box margin={1}>
                 <>
-                    <Button onClick={handleAdd}>
-                        <AddIcon onClick={handleAdd} />
+                    <Button onClick={props.handleAdd}>
+                        <AddIcon onClick={props.handleAdd} />
                         ADD
                     </Button>
-                    {rows.length !== 0 && (
+                    {props.rows.length !== 0 && (
                         <>
-                            <Button align="right" onClick={handleEdit}>
+                            <Button align="right" onClick={props.handleEdit}>
                                 <EditIcon />
                                 EDIT
                             </Button>
-                            <Button align="right" onClick={handleEdit}>
+                            <Button align="right" onClick={props.handleEdit}>
                                 <SaveAltIcon />
                                 SAVE
                             </Button>
@@ -86,61 +37,60 @@ const Table = () => {
                         <TableCell>Action</TableCell>
                     </TableRow>
 
-                    {rows.map((row, i) => {
+                    {props.rows.map((row, i) => {
                         return (
                             <TableRow>
-                                {
-                                    isEdit ? (
-                                        <>
-                                            <TableCell sx={{ minWidth: 100 }} component="th" scope="row" align="left">
-                                                <TextField
-                                                    value={row.ProductType}
-                                                    name="ProductType"
-                                                    onChange={(e) => handleInputChange(e, i)}
-                                                />
-                                            </TableCell>
-                                            <TableCell component="th" scope="row" align="left">
-                                                <TextField
-                                                    value={row.ProductLink}
-                                                    name="ProductLink"
-                                                    onChange={(e) => handleInputChange(e, i)}
-                                                />
-                                            </TableCell>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <TableCell component="th" scope="row" align="left">
-                                                {row.ProductType}
-                                            </TableCell>
-                                            <TableCell component="th" scope="row" align="left">
-                                                {row.ProductLink}
-                                            </TableCell>
-                                        </>
-                                    )
+                                {props.isEdit ? (
+                                    <>
+                                        <TableCell sx={{ minWidth: 100 }} component="th" scope="row" align="left">
+                                            <TextField
+                                                value={row.ProductType}
+                                                name="ProductType"
+                                                onChange={(e) => props.handleInputChange(e, i)}
+                                            />
+                                        </TableCell>
+                                        <TableCell component="th" scope="row" align="left">
+                                            <TextField
+                                                value={row.ProductLink}
+                                                name="ProductLink"
+                                                onChange={(e) => props.handleInputChange(e, i)}
+                                            />
+                                        </TableCell>
+                                    </>
+                                ) : (
+                                    <>
+                                        <TableCell component="th" scope="row" align="left">
+                                            {row.ProductType}
+                                        </TableCell>
+                                        <TableCell component="th" scope="row" align="left">
+                                            {row.ProductLink}
+                                        </TableCell>
+                                    </>
+                                )
                                 }
 
                                 <TableCell
                                     component="th"
-                                    scope="row"
-                                >
-                                    {
-                                        isEdit ? (
-                                            <Button className="mr10" onClick={handleSave}>
-                                                <SaveAltIcon />
-                                            </Button>
-                                        ) : (
-                                            <Button className="mr10" onClick={handleConfirm}>
-                                                <DeleteIcon />
-                                            </Button>
-                                        )
+                                    scope="row">
+                                    {props.isEdit ? (
+                                        <Button className="mr10" onClick={props.handleSave}>
+                                            <SaveAltIcon />
+                                        </Button>
+                                    ) : (
+                                        <Button className="mr10" onClick={props.handleConfirm}>
+                                            <DeleteIcon />
+                                        </Button>
+                                    )
                                     }
                                 </TableCell>
+
+                                {/* Delete Confirmation Dialog */}
                                 {
-                                    showConfirm && (
+                                    props.showConfirm && (
                                         <div>
                                             <Dialog
-                                                open={showConfirm}
-                                                onClose={handleNo}
+                                                open={props.showConfirm}
+                                                onClose={props.handleNo}
                                                 aria-labelledby="alert-dialog-title"
                                                 aria-describedby="alert-dialog-description"
                                             >
@@ -154,14 +104,14 @@ const Table = () => {
                                                 </DialogContent>
                                                 <DialogActions>
                                                     <Button
-                                                        onClick={() => handleRemoveClick(i)}
+                                                        onClick={() => props.handleRemoveClick(i)}
                                                         color="primary"
                                                         autoFocus
                                                     >
                                                         Yes
                                                     </Button>
                                                     <Button
-                                                        onClick={handleNo}
+                                                        onClick={props.handleNo}
                                                         color="primary"
                                                         autoFocus
                                                     >

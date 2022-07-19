@@ -51,7 +51,6 @@ function App() {
               element={<PublicRoute restrictedToPublicOnly={false} />}
             >
               <Route exact path="/" element={<Home />} />
-              <Route path="/coupons" element={<CouponsHomePage />} />
               <Route path="/search/:query" element={<SeachPage />} />
               <Route path="/_auth/action" element={<Action />} />
             </Route>
@@ -100,6 +99,7 @@ function App() {
               <Route path="/order_placed" element={<PlacedInfo />} />
               <Route path="/checkout" element={<AddressForm />} />
               <Route path="/payment" element={<PaymentForm />} />
+              <Route path="/coupons" element={<CouponsHomePage />} />
             </Route>
           </Routes>
         </div>

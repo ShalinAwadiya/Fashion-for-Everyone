@@ -54,7 +54,7 @@ const Context = () => {
     removeCoupon,
   } = useContext(CartContext);
 
-  console.log(coupon, "this is coupon");
+
 
   let shipping = 30;
   let price = Math.max(totalAmount + shipping, 0);
@@ -78,7 +78,7 @@ const Context = () => {
       toast("Can't apply this coupon !");
       navigate("/cart");
     } else {
-      navigate("/checkout");
+      navigate("/checkout",{ state: { amount: totalAmount }});
     }
   };
 
