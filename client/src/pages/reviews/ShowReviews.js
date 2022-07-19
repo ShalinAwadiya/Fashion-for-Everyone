@@ -19,16 +19,7 @@ export default function ShowReviews(){
 
     const [productReviews, setProductReviews] = useState([]);
 
-    // {user_name:"shathish", review_message:"good product Some quick example text to build on the card title*/}\n" +
-    // "                                                            {/*    and make up the bulk of the card's content.", review_score: 5},
-    // {user_name:"Deep", review_message:"Average productSome quick example text to build on the card title*/}\n" +
-    // "                                                            {/*    and make up the bulk of the card's content.", review_score: 3},
-    // {user_name:"Minal", review_message:"Bad product Some quick example text to build on the card title*/}\n" +
-    // "                                                            {/*    and make up the bulk of the card's content.", review_score: 1},
-    // {user_name:"Deep", review_message:"Average product Some quick example text to build on the card title*/}\n" +
-    // "                                                            {/*    and make up the bulk of the card's content.", review_score: 3},
-    // {user_name:"Minal", review_message:"Bad product Some quick example text to build on the card title*/}\n" +
-    // "                                                            {/*    and make up the bulk of the card's content.", review_score: 2}
+    const user_id = localStorage.getItem('userId');
 
     React.useEffect(() => {
         console.log("prod id", id);
@@ -80,8 +71,17 @@ export default function ShowReviews(){
                                                         <CardBody>
                                                             <CardTitle>
                                                                 <b>{review.userName}</b>
-                                                                <EditReview product_name={productDetails.name} review_data={review}></EditReview>
-                                                                <DeleteReview review_data={review}></DeleteReview>
+                                                                <b></b>
+                                                                {
+                                                                    user_id === review.userId ?
+                                                                        <>
+                                                                            <EditReview product_name={productDetails.name} review_data={review}></EditReview>
+                                                                            <DeleteReview review_data={review}></DeleteReview>
+                                                                        </>
+                                                                        :
+                                                                        null
+                                                                }
+
                                                             </CardTitle>
                                                             <Box>
                                                                 {[...new Array(5)].map((arr, index) => {
