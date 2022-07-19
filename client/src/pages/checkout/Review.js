@@ -14,8 +14,6 @@ import AXIOS_CLIENT from "../../utils/apiClient";
 import { toast } from "react-toastify";
 
 
-const baseURL = "http://localhost:8080/checkout";
-
 const styles = theme => ({
   listItem: {
     padding: `${theme.spacing.unit}px 0`
@@ -34,10 +32,25 @@ function Review(props) {
   const { classes } = props;
   const location = useLocation();
   const navigate = useNavigate();
-
+  console.log(location.state.item)
+  // AXIOS_CLIENT.post('/order/post_order', {products : location.state.item, total_amount : location.state.totalAmount, order_date : Date.now()})
+  // .then((res) => {
+  //   if (res.status === 201) {
+  //     console.log('Subscriber saved successfully!!!')
+  //   }
+  // }).catch(err => {
+  //   if (err.response.status === 409) {
+  //     console.log('Error')
+  //   } else {
+  //     console.error(err);
+  //     toast.error("Something went wrong!");
+  //   }
+  // });
   const addShippingInfo =() => {
+
+    
     const user = {
-      "userId" : "sushil@gmail.com",
+      "userId" : "requ",
       "address": {
         "firstName": location.state.firstName,
         "lastName" : location.state.lastName,
@@ -48,10 +61,41 @@ function Review(props) {
         "country" : location.state.country
         }
       };
+
+      
       AXIOS_CLIENT.post('/checkout', user)
       .then((res) => {
         if (res.status === 201) {
-          console.log('Subscriber saved successfully!!!')
+          console.log('Shipping Address saved successfully!!!')
+        }
+      }).catch(err => {
+        if (err.response.status === 409) {
+          console.log('Error')
+        } else {
+          console.error(err);
+          toast.error("Something went wrong!");
+        }
+      });
+      // const res = async () => {
+        // console.log("Postingto OrderAPI")
+        // await AXIOS_CLIENT.post('/order/post_order', {products : location.state.item, total_amount : location.state.totalAmount, order_date : Date.now()}) 
+      // res()
+      AXIOS_CLIENT.post('/order/post_order', {products : location.state.item, total_amount : location.state.totalAmount, order_date : Date.now()}) 
+      .then((res) => {
+        if (res.status === 201) {
+          AXIOS_CLIENT.delete('/cart/remove_cart')
+          .then((res) => {
+            if (res.status === 201) {
+            }
+          }).catch(err => {
+            if (err.response.status === 409) {
+              console.log('Error')
+            } else {
+              console.error(err);
+              toast.error("Something went wrong!");
+            }
+          });
+          navigate('/orders')
         }
       }).catch(err => {
         if (err.response.status === 409) {
@@ -62,6 +106,7 @@ function Review(props) {
         }
       });
     }
+    
   
   return (
     <React.Fragment>
@@ -74,9 +119,7 @@ function Review(props) {
         <ListItem className={classes.listItem}>
           <hr />
           <ListItemText primary="Total" />
-          <Typography variant="subtitle1" className={classes.total}>
-            $34.06
-          </Typography>
+          <Typography>${location.state.totalAmount}</Typography>
         </ListItem>
         <hr />
       </List>
@@ -126,7 +169,6 @@ function Review(props) {
                 type="submit"
                 color="secondary"
                 variant="contained"
-                href="/order_placed"
                 fullWidth
                 >
                   Place Order

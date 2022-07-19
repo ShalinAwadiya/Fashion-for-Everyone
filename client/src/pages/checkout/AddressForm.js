@@ -6,7 +6,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useState } from "react";
 import Button from '@mui/material/Button';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 function AddressForm() {
   const [firstName, setFirstName] = useState('')
@@ -18,6 +18,8 @@ function AddressForm() {
   const [zip, setZip] = useState('')
   const [country, setCountry] = useState('')
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.state.totalAmount)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -133,7 +135,7 @@ function AddressForm() {
                 />
               </Grid>
                 <Button
-                  onClick = {() => navigate('/payment',{state:{firstName :firstName,lastName:lastName,address1 : address1,address2 : address2,city : city,state : state,zip : zip,country : country}})}
+                  onClick = {() => navigate('/payment',{state:{firstName :firstName,lastName:lastName,address1 : address1,address2 : address2,city : city,state : state,zip : zip,country : country, totalAmount:location.state.totalAmount, item : location.state.item}})}
                   type="submit"
                   color="secondary"
                   variant="contained"

@@ -26,7 +26,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AXIOS_CLIENT from "../../utils/apiClient";
 import NotificationMenu from './NotificationMenu';
 import { isUserLoggedIn, logout } from '../../utils/firebase';
-import { toast } from "react-toastify";
+import { toast,ToastContainer } from "react-toastify";
 
 
 const pages = [
@@ -79,7 +79,7 @@ const NavBar = () => {
   };
 
   const [textValue, setTextValue] = useState();
-
+  const [flag, setFlag] = useState(true);
   const [notificanCountValue, setNotificationCountValue] = useState(0);
   const [notificanDropDownValue, setNotificanDropDownValue] = useState(false);
 
@@ -116,6 +116,7 @@ const NavBar = () => {
       .then((res) => {
         if (res.status === 201) {
           console.log('Subscriber saved successfully!!!')
+          toast.success('Subscriber saved successfully!!!');
         }
       }).catch(err => {
         if (err.response.status === 409) {
@@ -146,6 +147,7 @@ const NavBar = () => {
           width: '100%'
         }}>
         <Container maxWidth="xl" >
+        <ToastContainer />
           <Toolbar disableGutters>
             <ShopIcon sx={{ display: { xs: 'none', md: 'flex', fontSize: 'large' }, mr: 1 }} />
             <Typography
@@ -265,44 +267,47 @@ const NavBar = () => {
             {/* Subscribe Us */}
 
             <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div className={classes.paper}>
-                  <h2>Subscribe to our NewsLetter!</h2>
-                  <p>
-                    <img src="Subscription.png" height="280" width="250" />
-                    <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
-                    <form onSubmit={handleSubmit}>
-                      <TextField
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={textValue}
-                        label={"Enter your Email ID"} />
-                      <br /> <br />
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        size="large"
-                        fullWidth
-                        onClick={addSubscriber}>
-                        Subscribe</Button>
-                    </form>
-                  </p>
-                </div>
-              </Fade>
-            </Modal>
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.paper}>
+                <h2>Subscribe to our NewsLetter!</h2>
+                <p>
+                  
+                  <img src="Subscription.png" height="280" width="250" />
+                  <p>You will never miss our podcasts,latest newsletters, etc.<br /> Our newsletteris once a week, every Wednesday.</p>
+                  <form onSubmit ={handleSubmit}>
+                  <TextField 
+                  variant="outlined" 
+                  size="small" 
+                  fullWidth 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  value={textValue} 
+                  label={"Enter your Email ID"} />
+                  <br /> <br />
+                  <Button 
+                  variant="contained" 
+                  size="large" 
+                  fullWidth 
+                  color={flag ? "primary" : "secondary"}
+                  onClick={addSubscriber}
+                  >
+                    Subscribe</Button>
+                  </form>
+                </p>
+              </div>
+            </Fade>
+          </Modal>
+
 
 
             {/* Profile */}
