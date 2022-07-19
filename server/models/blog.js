@@ -17,23 +17,27 @@ var BlogSchema = new Schema({
     },
     caption: {
         type: String,
-        required: [true, 'Missing required value - caption']
+        required: false
     },
     image: [
         {
             type: String,
-            required: [true, 'Missing required value - image']
+            required: false
         }
     ],
     products: [
         {
-            Type: {
-                type: String,
-                required: [true, 'Missing required value - product type']
+            id: {
+                type: Number,
+                required: false
             },
-            Link: {
+            ProductType: {
                 type: String,
-                required: [true, 'Missing required value - product link']
+                required: false
+            },
+            ProductLink: {
+                type: String,
+                required: false
             }
         }
     ]

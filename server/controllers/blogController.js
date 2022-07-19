@@ -15,10 +15,9 @@ async function postBlog(req, res, next) {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const blog = new BlogModel(req.body);
-        await blog.save(req.body);
+        BlogModel.create(req.body);
 
-        return res.status(201).send({ message: 'Blog Posted Successfully' })
+        return res.status(200).send({ message: 'Blog Posted Successfully' })
     } catch (err) {
         return res.status(400).json({
             error: err.name,
@@ -43,7 +42,31 @@ async function getBlogs(req, res, next) {
     }
 }
 
+/**
+ * This function deletes the blog from the system.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
+async function deleteBlogs(req, res, next) {
+    try {
+        const blogId = req.params.blogId;
+        const blog = await BlogModel.find({ blogId });
+
+        if (!blog) {
+            return res.status(204).send({ message: 'Blog does not exist' });
+        } else {
+            await BlogModel.deleteOne({ blogId })
+        }
+        return res.status(200).send({ message: 'Blog deleted successfully' })
+    } catch (err) {
+        return next(err);
+    }
+}
+
 module.exports = {
     postBlog,
-    getBlogs
+    getBlogs,
+    deleteBlogs
 }
