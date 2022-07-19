@@ -36,24 +36,26 @@ app.use(addUserRole);
 var usersRouter = require("./routes/users");
 var couponsRouter = require("./routes/coupons");
 var productsRouter = require("./routes/products");
-var reviewRouter = require("./routes/reviews")
+var reviewRouter = require("./routes/reviews");
 var cartRouter = require("./routes/carts");
 var complainRouter = require("./routes/complains");
 var subscriptionRouter = require("./routes/subscription");
 var shippingAddressRouter = require("./routes/shippingAddress");
 var blogRouter = require("./routes/blog");
 var orderRouter = require("./routes/orders");
+var wishlistRouter = require("./routes/wishlists");
 
 app.use("/users", checkAuth, usersRouter);
 app.use("/coupons", checkAuth, couponsRouter);
 app.use("/products", checkAuth, productsRouter);
-app.use('/reviews', checkAuth, reviewRouter);
+app.use("/reviews", checkAuth, reviewRouter);
 app.use("/cart", checkAuth, cartRouter);
 app.use("/complains", checkAuth, complainRouter);
 app.use("/", checkAuth, subscriptionRouter);
 app.use("/", checkAuth, shippingAddressRouter);
 app.use("/blogs", blogRouter);
-app.use("/order",checkAuth, orderRouter)
+app.use("/order", checkAuth, orderRouter);
+app.use("/wishlist", checkAuth, wishlistRouter);
 // -----------------------------------------------------------------------------
 
 module.exports = app;
