@@ -1,6 +1,7 @@
 const OrderModel = require("../models/order");
 var mongoose = require("mongoose");
 const { validationResult } = require("express-validator");
+const { locales } = require("validator/lib/isFloat");
 /**
  * This function applies to post the products into the cart and post the coupons from coupon page.
  * @param {*} req 
@@ -64,7 +65,7 @@ const { validationResult } = require("express-validator");
  async function updateOrder(req, res, next) {
     try {
       let user = req.user.user_id;
-      const order = await OrderModel.findOneAndUpdate({ userId: user, is_delivered:false});
+      const order = await OrderModel.findOne({ _id:mongoose.Types.ObjectId(req.body.order_id),userId:user});
       order.is_cancelled=true
       order.is_delivered=true
       await order.save()
