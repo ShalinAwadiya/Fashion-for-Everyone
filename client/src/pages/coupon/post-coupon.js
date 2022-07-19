@@ -61,6 +61,7 @@ const PostCoupon = () => {
 
     //Form Submit
     const handleSubmit = (e) => {
+        e.preventDefault();
         const data = new FormData(e.currentTarget);
         console.log('Data received is: ', data);
         console.log('Image in Base64 is: ', base64);
@@ -74,13 +75,13 @@ const PostCoupon = () => {
             image: base64
         }
 
-        AXIOS_CLIENT.post('/coupons/post-coupon', req)
+        AXIOS_CLIENT.post('coupons/post-coupon', req)
             .then((res) => {
-                console.log('User', res);
-                if (res.status === 200) {
+                console.log('Coupon response', res);
+                if (res.status === 201) {
                     setOpen(true);
                     console.log('Coupon posted successfully!!!')
-                    navigate("/post-coupons", { state: { success: true } });
+                    navigate("/coupons");
                 }
             }).catch(err => {
                 setError(true);
