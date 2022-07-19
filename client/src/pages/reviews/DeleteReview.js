@@ -4,6 +4,7 @@ import { Modal, Button, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DeleteIcon from "@mui/icons-material/Delete";
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 class DeleteReview extends React.Component{
 
@@ -11,7 +12,9 @@ class DeleteReview extends React.Component{
     {
         super(props);
         console.log(props);
-        this.state={productName: props.productName};
+        this.state= {
+            reviewData: props.review_data
+        };
     }
 
     toggle = () =>{
@@ -23,6 +26,13 @@ class DeleteReview extends React.Component{
     onSubmit = (event) => {
         event.preventDefault();
         console.log(this.state)
+
+        AXIOS_CLIENT.delete('/reviews/delete/' + this.state.reviewData._id).then(res=> {
+            if (res.status === 200) {
+                console.log('Product Deleted successfully!!!!')
+            }
+        })
+
         this.toggle();
         window.location.reload();
         console.log("task submited");

@@ -5,6 +5,7 @@ import { Rating } from 'react-simple-star-rating'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {FaRegEdit} from "react-icons/fa";
 import DeleteIcon from '@mui/icons-material/Delete';
+import AXIOS_CLIENT from "../../utils/apiClient";
 
 export default class EditReview extends React.Component{
 
@@ -14,10 +15,12 @@ export default class EditReview extends React.Component{
         console.log(props)
         this.state={
             product_name: props.product_name,
-            review_description: props.review_message,
-            rating: (props.rating/5) * 100,
+            review_data: props.review_data,
+            review_description: props.review_data.reviewMessage,
+            rating: (props.review_data.reviewScore/5) * 100,
             modal:false,
-            isFormInvalid: false
+            isFormInvalid: false,
+            server_response: ''
         };
     }
 
@@ -35,8 +38,29 @@ export default class EditReview extends React.Component{
             console.log(this.state)
         } else {
             this.state.isFormInvalid = false;
-            this.toggle();
-            window.location.reload();
+
+
+            const formData= {
+                user_id: this.state.review_data.userId,
+                product_id: this.state.review_data.productId,
+                reviewMessage: this.state.review_description,
+                reviewScore: this.state.rating/20
+            }
+            console.log('posting formdata', formData);
+
+            AXIOS_CLIENT.put('/reviews/update/'+ this.state.review_data._id, formData)
+                .then((res) => {
+                    console.log('review submitted response=',res.data)
+                    if(res.data.message){
+                        this.toggle();
+                        window.location.reload();
+                    }
+                }).catch((error) => {
+                if( error.response ){
+                    console.log(error.response.data.message);
+                    this.setState({server_response: error.response.data.message});
+                }
+            });
             console.log("task submited");
         }
     };
@@ -64,7 +88,7 @@ export default class EditReview extends React.Component{
             <span>
                 <FaRegEdit onClick={this.toggle} style={{marginLeft :'20px' }}></FaRegEdit>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                    <ModalHeader toggle={this.toggle}>Add Review for {this.state.product_name}</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Edit Review for {this.state.product_name}</ModalHeader>
                     <ModalBody>
                         <p>Review Score</p>
                         <Rating onClick={this.handleRating} ratingValue={this.state.rating} /* Available Props */></Rating>
@@ -81,6 +105,9 @@ export default class EditReview extends React.Component{
                             value={this.state.review_description}
                             onChange={this.myChangeHandler}
                         />
+                        <hr></hr>
+
+                         <p style={{ color: 'red' }}>{this.state.server_response}</p>
                         <hr></hr>
                     </ModalBody>
                     <ModalFooter>

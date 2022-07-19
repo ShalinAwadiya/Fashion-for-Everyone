@@ -87,7 +87,7 @@ function App() {
               <Route path="/products" element={<User_Products />}></Route>
               <Route path="/show_products" element={<ShowProducts />}></Route>
               <Route path="/product/:id" element={<ProductPage />} />
-              <Route path="/product/review" element={<ShowReviews />} />
+              <Route path="/product/review/:id" element={<ShowReviews />} />
               <Route path="/profile" element={<Profile />}></Route>
               <Route path="/fashion-blogs" element={<Fashion />} />
               <Route path="/fashion/createPost" element={<CreateBlog />} />

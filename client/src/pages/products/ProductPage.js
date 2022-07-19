@@ -18,7 +18,6 @@ export default function ProductPage() {
 
     React.useEffect(() => {
         console.log("inside product page id=", id);
-        // console.log("prod details", product_detail);
 
         AXIOS_CLIENT.get('/products/' + id).then(res=> {
                 console.log(res.data.product);
@@ -60,7 +59,7 @@ export default function ProductPage() {
                                     <article>
                                         <h3 class="title">{product.name}</h3>
                                         <div>
-                                            <Link to={"/product/review"}>
+                                            <Link to={{pathname:`/product/review/${product._id}`, state: {product} }} >
                                                 {[...new Array(5)].map((arr, index) => {
                                                     return index < 3 ? <StarIcon style={{ color: 'orange' }}/> : <StarBorderIcon style={{ color: 'orange' }}/>;
                                                 })}
@@ -116,7 +115,8 @@ export default function ProductPage() {
                                             {/*<Link to={"/cart"}>*/}
                                                 <a  class="btn btn-light" onClick={addProductToCard}>Buy Now</a>
                                             {/*</Link>*/}
-                                            <AddReview product_name={'Trouser'}></AddReview>
+                                            <p>Hi There {product.name}</p>
+                                            <AddReview product_id={id}></AddReview>
                                         </div>
 
                                     </article>
