@@ -17,8 +17,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AXIOS_CLIENT from "../../utils/apiClient";
@@ -27,24 +26,16 @@ import AXIOS_CLIENT from "../../utils/apiClient";
 function Orders() {
 
   const [orders, setOrders] = useState([]);
-
   const handleCancelOrder = async (item, index) => {
     let temp = orders;
-    if (temp[index] === item) {
-      temp[index].is_cancelled = true
-      temp[index].is_delivered = true
-
-      const res = async () => {
-        await AXIOS_CLIENT.post("/order/update_order");
-
-      }
-
-      await res();
+    temp[index].is_cancelled = true
+    temp[index].is_delivered = true
+    await AXIOS_CLIENT.post("/order/update_order",{order_id:temp[index]._id});
       setOrders([...temp])
       order_status(temp[index])
       toast.success("Order #" + item._id.substring(1, 6).toUpperCase() + " has been cancelled successfully!")
     }
-  }
+  
 
   const order_status = (order) => {
     if (order.is_delivered && !order.is_cancelled) {
