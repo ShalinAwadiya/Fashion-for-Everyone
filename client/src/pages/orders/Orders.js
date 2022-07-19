@@ -25,57 +25,56 @@ import AXIOS_CLIENT from "../../utils/apiClient";
 
 
 function Orders() {
-  
-  const [orders,setOrders]=useState([]);
 
-  const handleCancelOrder = (item,index) =>{
-    let temp=orders;
-    if(temp[index]===item){
-      temp[index].is_cancelled=true
-      temp[index].is_delivered=true
-      const res = async()=>{
+  const [orders, setOrders] = useState([]);
+
+  const handleCancelOrder = async (item, index) => {
+    let temp = orders;
+    if (temp[index] === item) {
+      temp[index].is_cancelled = true
+      temp[index].is_delivered = true
+
+      const res = async () => {
         await AXIOS_CLIENT.post("/order/update_order");
-      
+
+      }
+
+      await res();
+      setOrders([...temp])
+      order_status(temp[index])
+      toast.success("Order #" + item._id.substring(1, 6).toUpperCase() + " has been cancelled successfully!")
     }
-    
-    res()
-    setOrders([...temp])
-    order_status(temp[index])
-    toast.success("Order #"+item._id.substring(1,6).toUpperCase()+" has been cancelled successfully!")
-
-    
   }
-}
 
-  const order_status = (order)=>{
-    if(order.is_delivered && !order.is_cancelled){
+  const order_status = (order) => {
+    if (order.is_delivered && !order.is_cancelled) {
       return "DELIVERED"
     }
-    else if(order.is_cancelled & order.is_delivered){
+    else if (order.is_cancelled & order.is_delivered) {
       return "CANCELED"
     }
-   
-    else{
+
+    else {
       return "PENDING"
     }
 
-   
-   }
 
-  const order_date = (order)=>{
-   var date =  new Date(order.order_date)
-   const day = date.getDate() + "-"+date.getMonth()+"-"+date.getFullYear()
-   return day
+  }
+
+  const order_date = (order) => {
+    var date = new Date(order.order_date)
+    const day = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
+    return day
   }
 
 
-  useState(()=>{
+  useState(() => {
     AXIOS_CLIENT.get("/order").then((response) => {
       setOrders(response.data.order);
-  }).catch((err)=>{
-    setOrders([]);
-  }
-)
+    }).catch((err) => {
+      setOrders([]);
+    }
+    )
   })
 
 
@@ -87,7 +86,7 @@ function Orders() {
       <Divider sx={{ width: "20%" }} />
       <Grid container mt={2}>
         <Grid item xs={12}>
-          {orders.map((order,index) => (
+          {orders.map((order, index) => (
             <Card key={order._id} sx={{ mb: 2 }}>
               <CardContent sx={{ p: 0 }}>
                 <TableContainer
@@ -147,7 +146,7 @@ function Orders() {
                             fontSize: 13,
                           }}
                         >
-                          ORDER # {order._id.substring(1,6).toUpperCase()}
+                          ORDER # {order._id.substring(1, 6).toUpperCase()}
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -157,7 +156,7 @@ function Orders() {
                           sx={{ p: 1, pt: 0, color: grey[700], fontSize: 14 }}
                         >
                           {order_date(order)}
-                        
+
                           {/* {new Date(order.order_date).getDate()+"-"+new Date(order.order_date).getMonth()+"-"+new Date(order.order_date).getMonth()} */}
                         </TableCell>
                         <TableCell
@@ -184,10 +183,10 @@ function Orders() {
                 <Grid container>
                   <Grid item xs={9}>
                     {order.products.map((product) => (
-                      <Card key={product.id} sx={{ display: "flex",boxShadow:0}}>
+                      <Card key={product.id} sx={{ display: "flex", boxShadow: 0 }}>
                         <CardMedia
                           component="img"
-                          sx={{ width: 80, ml: 2, margin:1 }}
+                          sx={{ width: 80, ml: 2, margin: 1 }}
                           image={product.imageUrl}
                           alt="Dress Image"
                         />
@@ -197,17 +196,17 @@ function Orders() {
                               {product.name}
                             </Typography>
                             <Typography component="div" variant="caption">
-                              Quantity : {product.quantity}                               
-                            </Typography>                          
+                              Quantity : {product.quantity}
+                            </Typography>
                           </CardContent>
                         </Box>
                       </Card>
                     ))}
                   </Grid>
                   <Grid item xs={3}>
-                    {order.is_delivered===false?<Box textAlign="right">
-                      <Button variant="outlined" color="error" onClick={()=>handleCancelOrder(order,index)}>Cancel Order</Button>
-                    </Box>:""}
+                    {order.is_delivered === false ? <Box textAlign="right">
+                      <Button variant="outlined" color="error" onClick={() => handleCancelOrder(order, index)}>Cancel Order</Button>
+                    </Box> : ""}
                   </Grid>
                 </Grid>
               </CardContent>
@@ -215,7 +214,7 @@ function Orders() {
           ))}
         </Grid>
       </Grid>
-      <ToastContainer/>
+      <ToastContainer />
     </Container>
   );
 }

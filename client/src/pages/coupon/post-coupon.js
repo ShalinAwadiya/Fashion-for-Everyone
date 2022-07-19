@@ -60,7 +60,7 @@ const PostCoupon = () => {
     };
 
     //Form Submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         const data = new FormData(e.currentTarget);
         console.log('Data received is: ', data);
         console.log('Image in Base64 is: ', base64);
@@ -74,19 +74,13 @@ const PostCoupon = () => {
             image: base64
         }
 
-        AXIOS_CLIENT.post('/coupons/post-coupon', req)
-            .then((res) => {
-                console.log('User', res);
-                if (res.status === 200) {
-                    setOpen(true);
-                    console.log('Coupon posted successfully!!!')
-                    navigate("/post-coupons", { state: { success: true } });
-                }
-            }).catch(err => {
-                setError(true);
-                console.error(err);
-                Toast.error("Something went wrong!");
-            });
+        const res = await AXIOS_CLIENT.post('/coupons/post-coupon', req)
+        console.log('User', res);
+        if (res.status === 200) {
+            setOpen(true);
+            console.log('Coupon posted successfully!!!')
+            navigate("/post-coupons", { state: { success: true } });
+        }
     }
 
     return (

@@ -64,10 +64,12 @@ export default class ShowProducts extends Component {
                                     })}
                                     <span className="label-rating mr-3 "> {product.rating}/5</span>
                                 </CardBody>
+                                {this.state.user_role == 1 ?
                                 <CardFooter className="text-muted">
                                     <DeleteModal product_data={product}></DeleteModal>
                                     <EditModal product_data={product} />
                                 </CardFooter>
+                                : null}
                             </Card>
                         </Col>
                     )

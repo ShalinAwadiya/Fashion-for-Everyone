@@ -52,7 +52,7 @@ export default class Wishlist extends Component {
       <div className="App">
         <span style={{ textAlign: "center" }}>
           <h1>
-            Wishlist <AddModal></AddModal>
+            Wishlist
           </h1>
           <br></br>
         </span>
