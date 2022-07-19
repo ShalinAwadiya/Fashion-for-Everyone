@@ -18,6 +18,7 @@ var mongoUrl =
 mongoose
   .connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("connected to the database"));
+
 // -----------------------------------------------------------------------------
 
 var app = express();
@@ -39,6 +40,7 @@ var cartRouter = require("./routes/carts");
 var complainRouter = require("./routes/complains");
 var subscriptionRouter = require("./routes/subscription");
 var shippingAddressRouter = require("./routes/shippingAddress");
+var blogRouter = require("./routes/blog");
 var orderRouter = require("./routes/orders");
 
 app.use("/users", checkAuth, usersRouter);
@@ -48,6 +50,7 @@ app.use("/cart", checkAuth, cartRouter);
 app.use("/complains", checkAuth, complainRouter);
 app.use(["/"], subscriptionRouter);
 app.use(["/"], shippingAddressRouter);
+app.use("/blogs", blogRouter);
 app.use("/order",checkAuth, orderRouter)
 // -----------------------------------------------------------------------------
 

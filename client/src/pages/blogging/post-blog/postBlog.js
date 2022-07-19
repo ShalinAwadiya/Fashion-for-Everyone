@@ -26,59 +26,27 @@ const PostBlog = () => {
     return (
         <>
             <Container maxWidth="sm">
-                <Paper sx={{ p: 1.5, my: 1, alignContents: 'center', justifyItems: 'center', }}>
-                    <Stack direction="column" spacing={3}>
+                <Stack direction="column" spacing={3}>
+                    {/* Add product type and links */}
+                    <Table />
+                </Stack>
 
-                        {/* Row stack for profile picture and name */}
-                        <Stack direction="row" spacing={2}>
-                            <Avatar
-                                alt={user.name}
-                                src={user.profile}
-                                sx={{ width: 56, height: 56 }}
-                            />
-                            <Stack>
-                                <Typography variant="h6" component="h6" sx={{ lineHeight: 1.2 }}>
-                                    {user.name}
-                                </Typography>
-                            </Stack>
-                        </Stack>
-
-                        {/* Add product type and links */}
-                        <Table />
-
-                        {/* POST button */}
-                        <Box sx={{ m: 1, display: 'flex', justifyItems: "center" }}>
-                            <Button
-                                variant="contained"
-                                onClick={onPost}>
-                                POST
-                            </Button>
-                            {loading && (
-                                <CircularProgress
-                                    size={24}
-                                    sx={styling.progress}
-                                />
-                            )}
-                        </Box>
-                    </Stack>
-
-                    <Snackbar
-                        open={snackOpen}
-                        autoHideDuration={6000}
+                <Snackbar
+                    open={snackOpen}
+                    autoHideDuration={6000}
+                    onClose={closeSnackbar}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                >
+                    <Alert
                         onClose={closeSnackbar}
-                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                        severity="success"
+                        sx={{ width: '100%' }}
+                        variant="filled"
                     >
-                        <Alert
-                            onClose={closeSnackbar}
-                            severity="success"
-                            sx={{ width: '100%' }}
-                            variant="filled"
-                        >
-                            {/* {`Post ${state?.post ? 'updated' : 'created'} successfully`} */}
-                            Saved
-                        </Alert>
-                    </Snackbar>
-                </Paper>
+                        {/* {`Post ${state?.post ? 'updated' : 'created'} successfully`} */}
+                        Saved
+                    </Alert>
+                </Snackbar>
             </Container>
         </>
     )
